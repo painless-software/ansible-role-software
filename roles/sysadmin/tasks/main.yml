@@ -1,0 +1,11 @@
+---
+# Software and configuration for system administration
+
+- name: Install system packages everyone needs
+  package: name={{ item }} state=present
+  with_items:
+    - ssh
+  become: true
+
+- import_tasks: diskmanagement.yml
+- import_tasks: virtualization.yml

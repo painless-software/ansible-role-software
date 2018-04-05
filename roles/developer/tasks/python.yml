@@ -1,0 +1,16 @@
+---
+# Python tools and configuration
+
+- name: Install Python Package Installer (pip)
+  package: name={{ item }} state=present
+  with_items:
+    - python-pip
+    - python3-pip
+  become: true
+
+- name: Install some awesome Python tools in user space
+  pip: name={{ item }} state=present extra_args=--user
+  with_items:
+    - pipenv
+
+# - pyenv

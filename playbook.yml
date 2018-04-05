@@ -1,0 +1,21 @@
+---
+# Painless setup of your developer machine.
+# (Especially if you're in DevOps and automation)
+#
+# How use it?
+# 1. Ubuntu base setup (bonus: encrypt file system)
+# 2. Install ansible and git (apt-get install ansible git)
+# 3. Run this playbook (ansible-playbook .)
+
+- name: Set up a sweet developer machine.
+  hosts: localhost
+  roles:
+    - base
+    - sysadmin
+    - developer
+    - multimedia
+  vars:
+    HOSTNAME: '{{ ansible_hostname }}'
+    FQDN: '{{ ansible_fqdn }}'
+    DOMAIN: '{{ ansible_domain }}'
+    IP_ADDRESS: '{{ ansible_default_ipv4.address }}'

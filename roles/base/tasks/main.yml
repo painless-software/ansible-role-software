@@ -1,0 +1,6 @@
+---
+# The base system (of a modern Linux distribution)
+
+- import_tasks: desktop.yml
+- import_tasks: webbrowsers.yml
+- import_tasks: communication.yml

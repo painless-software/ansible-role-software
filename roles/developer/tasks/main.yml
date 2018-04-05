@@ -1,0 +1,8 @@
+---
+# Software for serious developers
+
+- import_tasks: automation.yml
+- import_tasks: docker.yml
+- import_tasks: editors.yml
+- import_tasks: python.yml
+- import_tasks: versioncontrol.yml

@@ -1,0 +1,20 @@
+---
+# Programmer's editors and IDEs
+
+- name: Install popular IDEs
+  package: name={{ item }} state=present
+  with_items:
+    #- atom
+    - vim
+  become: true
+
+- name: Install Visual Studio Code
+  apt: deb=https://go.microsoft.com/fwlink/?LinkID=760868 state=present
+  become: true
+
+- name: Install various JetBrains IDEs
+  command: snap install {{ item }} --classic
+  with_items:
+    - intellij-idea-community
+    - pycharm-community
+  become: true

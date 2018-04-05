@@ -1,0 +1,9 @@
+---
+# Software and configuration for working with Docker
+
+- name: Install system packages for working with Docker
+  package: name={{ item }} state=present
+  with_items:
+    - docker
+    - docker-compose
+  become: true

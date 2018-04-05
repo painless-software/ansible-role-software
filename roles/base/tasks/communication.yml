@@ -1,0 +1,13 @@
+---
+# Software for your communication needs
+
+- name: Install popular chat clients
+  command: snap install {{ item }} --classic
+  with_items:
+    #- franz
+    #- rambox
+    - rocketchat-desktop
+    - skype
+    - slack
+    #- viber
+  become: true

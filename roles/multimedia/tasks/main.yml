@@ -1,0 +1,12 @@
+---
+# Software for image manipulation, video editing, audio conversion, etc.
+
+- name: Install multimedia software and tools
+  package: name={{ item }} state=present
+  with_items:
+    - gimp
+    - imagemagick
+  become: true
+
+- name: Install YouTube downloader
+  pip: name=youtube-dl state=latest extra_args=--user

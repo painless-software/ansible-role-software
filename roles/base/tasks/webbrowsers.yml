@@ -1,0 +1,9 @@
+---
+# Software you need for consuming Web contents
+
+- name: Install popular Web browsers
+  package: name={{ item }} state=present
+  with_items:
+    - chromium-browser
+    - firefox
+  become: true

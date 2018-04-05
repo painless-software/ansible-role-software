@@ -1,0 +1,14 @@
+---
+# Software and configuration for using version control
+
+- name: Install system packages for version control
+  package: name={{ item }} state=present
+  with_items:
+    - git
+    - git-extras
+  become: true
+
+- name: Activate git-bash-prompt
+  command: echo 'Not implemented yet'
+
+# git-bash-prompt + git-extras, git_config name=... email=...

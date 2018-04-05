@@ -1,0 +1,12 @@
+---
+# Software and configuration for automation ninjas
+
+- name: Install system packages for automation
+  package: name={{ item }} state=present
+  with_items:
+    - ansible
+    - puppet
+  become: true
+
+- name: Install PDK (Puppet Development Kit)
+  command: echo 'Not implemented yet'

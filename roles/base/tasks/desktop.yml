@@ -1,0 +1,8 @@
+---
+# Software and configuration to tweak your desktop enviroment
+
+- name: Install desktop customization tools
+  package: name={{ item }} state=present
+  with_items:
+    - gnome-tweak-tool
+  become: true
