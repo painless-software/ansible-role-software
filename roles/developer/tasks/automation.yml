@@ -6,6 +6,7 @@
   with_items:
     - ansible
     - puppet
+    - vagrant
   become: true
 
 - name: Install PDK (Puppet Development Kit)

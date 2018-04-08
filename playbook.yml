@@ -5,7 +5,7 @@
 # How use it?
 # 1. Ubuntu base setup (bonus: encrypt file system)
 # 2. Install ansible and git (apt-get install ansible git)
-# 3. Run this playbook (ansible-playbook .)
+# 3. Run this playbook (ansible-playbook playbook.yml --ask-become-pass)
 
 - name: Set up a sweet developer machine.
   hosts: localhost

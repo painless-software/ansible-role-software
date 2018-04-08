@@ -4,7 +4,6 @@
 - name: Install popular virtualization software and tools
   package: name={{ item }} state=present
   with_items:
-    - vagrant
     - virtualbox
   become: true
 

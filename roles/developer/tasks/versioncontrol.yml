@@ -6,6 +6,8 @@
   with_items:
     - git
     - git-extras
+    - git-gui
+    - gitk
   become: true
 
 - name: Activate git-bash-prompt
