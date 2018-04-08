@@ -2,10 +2,10 @@
 # Programmer's editors and IDEs
 
 - name: Add APT source for Visual Studio Code
-  lineinfile:
-    dest: /etc/apt/sources.list.d/vscode.list
-    line: deb [arch=amd64] http://packages.microsoft.com/repos/vscode stable main
-    create: true
+  apt_repository:
+    repo: deb [arch=amd64] http://packages.microsoft.com/repos/vscode stable main
+    state: present
+    filename: vscode
   become: true
 
 - name: Install popular IDEs
