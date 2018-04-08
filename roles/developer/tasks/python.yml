@@ -1,11 +1,12 @@
 ---
-# Python tools and configuration
+# Python tools and configuration (favoring Python 3, as it should be)
 
-- name: Install Python Package Installer (pip)
-  package: name={{ item }} state=present
-  with_items:
-    - python-pip
-    - python3-pip
+- name: Remove Python 2 Package Installer (pip)
+  package: name=python-pip state=absent
+  become: true
+
+- name: Install Python 3 Package Installer (pip)
+  package: name=python3-pip state=present
   become: true
 
 - name: Install some awesome Python tools in user space

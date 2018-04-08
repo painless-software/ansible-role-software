@@ -1,10 +1,13 @@
 ---
 # Software and configuration for automation ninjas
 
+- name: Install Ansible as system-wide Python package
+  pip: name=ansible state=present
+  become: true
+
 - name: Install system packages for automation
   package: name={{ item }} state=present
   with_items:
-    - ansible
     - puppet
     - vagrant
   become: true

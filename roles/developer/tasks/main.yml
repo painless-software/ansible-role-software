@@ -1,8 +1,13 @@
 ---
-# Software for serious developers
+# Software and configurations for serious developers
 
-- import_tasks: automation.yml
-- import_tasks: docker.yml
-- import_tasks: editors.yml
+- name: Ensure "Development/repos" directory exists
+  file: path={{ ansible_env.HOME }}/Development/repos state=directory recurse=true
+  # ... and maybe set folder icons:
+  # https://askubuntu.com/questions/115845/how-can-i-change-the-folder-icon
+
 - import_tasks: python.yml
 - import_tasks: versioncontrol.yml
+- import_tasks: automation.yml
+- import_tasks: editors.yml
+- import_tasks: docker.yml
