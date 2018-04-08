@@ -1,15 +1,19 @@
 ---
 # Programmer's editors and IDEs
 
+- name: Add APT source for Visual Studio Code
+  lineinfile:
+    dest: /etc/apt/sources.list.d/vscode.list
+    line: deb [arch=amd64] http://packages.microsoft.com/repos/vscode stable main
+    create: true
+  become: true
+
 - name: Install popular IDEs
   package: name={{ item }} state=present
   with_items:
     #- atom
+    - code
     - vim
-  become: true
-
-- name: Install Visual Studio Code
-  apt: deb=https://go.microsoft.com/fwlink/?LinkID=760868 state=present
   become: true
 
 - name: Install various JetBrains IDEs
