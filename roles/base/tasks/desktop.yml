@@ -5,4 +5,68 @@
   package: name={{ item }} state=present
   with_items:
     - gnome-tweak-tool
+    - dconf-editor
+    - chrome-gnome-shell
   become: true
+  tags:
+    - gnome
+
+- name: Install prerequisites for system monitor extension
+  package: name={{ item }} state=present
+  with_items:
+    - gir1.2-gtop-2.0
+    - gir1.2-networkmanager-1.0
+    - gir1.2-clutter-1.0
+  become: true
+  tags:
+    - gnome
+
+- name: Install GNOME extension installer
+  get_url:
+    url: https://raw.githubusercontent.com/brunelli/gnome-shell-extension-installer/master/gnome-shell-extension-installer
+    dest: /usr/local/bin/gnome-shell-extension-installer
+    mode: 0755
+  become: true
+  tags:
+    - gnome
+
+- name: Install GNOME Shell extensions - Unity style (1/2)
+  command: gnome-shell-extension-installer "{{ item }}" --update --yes
+  with_items:
+    - 2  # https://extensions.gnome.org/extension/2/move-clock/
+    - 120  # https://extensions.gnome.org/extension/120/system-monitor/
+    - 723  # https://extensions.gnome.org/extension/723/pixel-saver/
+    - 744  # https://extensions.gnome.org/extension/744/hide-activities-button/
+    - 1065  # https://extensions.gnome.org/extension/1065/docker-status/
+    - 1108  # https://extensions.gnome.org/extension/1108/add-username-to-top-panel/
+    - 1143  # https://extensions.gnome.org/extension/1143/logout-button/
+  tags:
+    - gnome
+    - unity
+
+- name: Customize GNOME Shell - Unity style (2/2)
+  command: gsettings set {{ item }}
+  with_items:
+    - org.gnome.desktop.calendar show-weekdate 'true'
+    - org.gnome.desktop.interface clock-show-date 'false'
+    - org.gnome.desktop.interface show-battery-percentage 'true'
+    - org.gnome.desktop.peripherals.mouse natural-scroll 'true'
+    - org.gnome.desktop.peripherals.touchpad tap-to-click 'false'
+    - org.gnome.desktop.wm.preferences button-layout 'close,minimize,maximize:'
+    - org.gnome.nautilus.desktop trash-icon-visible 'false'
+    - org.gnome.shell enable-hot-corners 'true'
+    - org.gnome.shell.extensions.dash-to-dock dock-fixed 'false'
+    # Windows/Mint/Cinnamon style:
+    # - org.gnome.shell.extensions.dash-to-dock dash-max-icon-size '24'
+    # - org.gnome.shell.extensions.dash-to-dock dock-fixed 'true'
+    # - org.gnome.shell.extensions.dash-to-dock dock-position 'BOTTOM'
+    # - org.gnome.shell.extensions.dash-to-dock multi-monitor 'true'
+    # - org.gnome.shell.extensions.dash-to-dock show-apps-at-top 'true'
+  tags:
+    - gnome
+    - unity
+
+- name: Set GNOME dock application shortcuts
+  command: gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'chromium-browser.desktop', 'firefox.desktop', 'thunderbird.desktop', 'code.desktop', 'org.gnome.Terminal.desktop', 'rhythmbox.desktop']"
+  tags:
+    - gnome
