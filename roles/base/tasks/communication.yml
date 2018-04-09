@@ -11,3 +11,7 @@
     - slack
     #- viber
   become: true
+
+- name: Cryptography support (for mail clients)
+  package: name=enigmail state=present
+  become: true

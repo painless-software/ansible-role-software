@@ -1,0 +1,9 @@
+---
+# Utilities used on the command line
+
+- name: Install a few useful command line tools
+  package: name={{ item }} state=present
+  with_items:
+    - ncdu
+    - tree
+  become: true
