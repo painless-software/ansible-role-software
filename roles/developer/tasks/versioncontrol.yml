@@ -10,7 +10,22 @@
     - gitk
   become: true
 
-- name: Activate git-bash-prompt
-  command: echo 'Not implemented yet'
+- name: Install Git prompt for Bash
+  git:
+    repo: https://github.com/magicmonty/bash-git-prompt.git
+    dest: /opt/bash-git-prompt/
+    depth: 1
+  become: true
 
-# git-bash-prompt + git-extras, git_config name=... email=...
+- name: Activate Git prompt for Bash
+  lineinfile:
+    dest: /etc/bash_completion.d/bash-git-prompt
+    create: true
+    line: '{{ item }}'
+  with_items:
+    - '# Show an informative bash prompt when working with Git repositories'
+    - GIT_PROMPT_ONLY_IN_REPO=1
+    - . /opt/bash-git-prompt/gitprompt.sh
+  become: true
+
+# TODO: git_config name=... email=... (from host user details)
