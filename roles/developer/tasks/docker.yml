@@ -22,3 +22,7 @@
     - docker-ce
     - docker-compose
   become: true
+
+- name: Add user "{{ ansible_user_id }}" to docker group (requires log out/in again)
+  command: adduser {{ ansible_user_id }} docker
+  become: true
