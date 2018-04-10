@@ -1,6 +1,13 @@
 ---
 # Software for your communication needs
 
+- name: Cryptography, calendar and tasks support for Thunderbird
+  package: name={{ item }} state=present
+  with_items:
+    - enigmail
+    - xul-ext-lightning
+  become: true
+
 - name: Install popular chat clients (snaps)
   command: snap install {{ item }} --classic
   with_items:
@@ -39,8 +46,4 @@
 - name: Install Rambox multi-messenger
   apt: deb=https://github.com/saenzramiro/rambox/releases/download/0.5.16/Rambox_0.5.16-x64.deb
   when: rambox_installed.rc == 1
-  become: true
-
-- name: Cryptography support (for mail clients)
-  package: name=enigmail state=present
   become: true
