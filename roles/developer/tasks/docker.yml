@@ -35,3 +35,17 @@
   become: true
   tags:
     - kubernetes
+
+- name: Install OpenShift CLI
+  unarchive:
+    src: https://github.com/openshift/origin/releases/download/v3.9.0/openshift-origin-client-tools-v3.9.0-191fece-linux-64bit.tar.gz
+    remote_src: yes
+    extra_opts: ['--strip-components', '1', '--wildcards', '*/oc']
+    dest: /usr/local/bin/
+    # NOTE: This will make it difficult to upgrade to a newer version
+    # (target will have to be deleted prior to upgrade)
+    creates: /usr/local/bin/oc
+    mode: 0755
+  become: true
+  tags:
+    - kubernetes
