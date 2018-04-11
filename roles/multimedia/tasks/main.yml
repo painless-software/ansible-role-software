@@ -9,4 +9,8 @@
   become: true
 
 - name: Install YouTube downloader
-  pip: name=youtube-dl state=latest extra_args=--user
+  pip:
+    name: youtube-dl
+    state: latest
+    executable: pip3
+    extra_args: --user

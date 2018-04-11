@@ -10,7 +10,7 @@
   become: true
 
 - name: Install some awesome Python tools in user space
-  pip: name={{ item }} state=present extra_args=--user
+  pip: name={{ item }} executable=pip3 extra_args=--user state=present
   with_items:
     - pipenv
 

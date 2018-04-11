@@ -1,16 +1,27 @@
 ---
 # Software and configuration for automation ninjas
 
-- name: Install Ansible as system-wide Python package
-  pip: name=ansible state=present
+- name: Find out whether APT key and sources for PDK are installed
+  command: dpkg-query -W puppetlabs-release-pc1
+  register: puppet_pdk_installed
+  failed_when: puppet_pdk_installed.rc > 1
+  changed_when: puppet_pdk_installed.rc == 1
+
+- name: Install APT key and sources for PDK (Puppet 4)
+  apt:
+    deb: https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb
+    state: present
+  when: puppet_pdk_installed.rc == 1
   become: true
 
 - name: Install system packages for automation
-  package: name={{ item }} state=present
+  package: name={{ item }} state=present update_cache=yes
   with_items:
     - puppet
+    - pdk
     - vagrant
   become: true
 
-- name: Install PDK (Puppet Development Kit)
-  command: echo 'Not implemented yet'
+- name: Install Ansible as system-wide Python package
+  pip: name=ansible executable=pip3 state=present
+  become: true

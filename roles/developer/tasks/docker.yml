@@ -11,7 +11,7 @@
 
 - name: Add APT source for Docker CE
   apt_repository:
-    repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable'
+    repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} nightly'
     filename: docker-ce
     state: present
   become: true
