@@ -26,3 +26,12 @@
 - name: Add user "{{ ansible_user_id }}" to docker group (requires log out/in again)
   command: adduser {{ ansible_user_id }} docker
   become: true
+
+- name: Install Kompose (Compose->Kubernetes converter)
+  get_url:
+    url: https://github.com/kubernetes/kompose/releases/download/v1.11.0/kompose-linux-amd64
+    dest: /usr/local/bin/kompose
+    mode: 0755
+  become: true
+  tags:
+    - kubernetes
