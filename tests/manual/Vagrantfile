@@ -1,0 +1,27 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+#
+# Vagrantfile docs: https://docs.vagrantup.com
+# For more boxes see https://vagrantcloud.com/search
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "generic/ubuntu1710"
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.vm.provider :virtualbox do |vb|
+    vb.name = "Ubuntu-17.10-Desktop"
+    vb.gui = true
+  end
+
+  config.vm.provision "shell", inline: "sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y"
+  config.vm.provision "shell", inline: "sudo apt-get install -y virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11"
+  config.vm.provision "shell", inline: "sudo apt-get install -y ubuntu-desktop"
+  config.vm.provision "shell", inline: "sudo apt-get autoremove --purge -y && sudo apt-get clean"
+  config.vm.provision "shell", inline: "[ -f /usr/bin/python ] || sudo ln -sv /usr/bin/python3 /usr/bin/python"
+  config.vm.provision "shell", inline: "[ -f /usr/bin/pip ] || sudo ln -sv /usr/bin/pip3 /usr/bin/pip"
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.compatibility_mode = "2.0"
+    ansible.playbook = "../../playbook.yml"
+  end
+end
