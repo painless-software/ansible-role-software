@@ -36,6 +36,27 @@
   tags:
     - kubernetes
 
+- name: Install Kubernetes CLI
+  command: snap install kubectl --classic
+  become: true
+  tags:
+    - kubernetes
+
+- name: Activate Bash autocompletion for kubectl
+  lineinfile:
+    dest: '{{ ansible_env.HOME }}/.bash_aliases'
+    create: true
+    line: 'source <(kubectl completion bash)'
+  tags:
+    - kubernetes
+
+- name: Install Minikube
+  apt:
+    deb: https://github.com/kubernetes/minikube/releases/download/v0.26.0/minikube_0.26-0.deb
+  become: true
+  tags:
+    - kubernetes
+
 - name: Install OpenShift CLI
   unarchive:
     src: https://github.com/openshift/origin/releases/download/v3.9.0/openshift-origin-client-tools-v3.9.0-191fece-linux-64bit.tar.gz
