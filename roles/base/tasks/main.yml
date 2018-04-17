@@ -1,6 +1,10 @@
 ---
 # The base system (of a modern Linux distribution)
 
+- name: Upgrade entire system before starting
+  apt: update_cache=yes upgrade=yes
+  become: true
+
 - import_tasks: desktop.yml
 - import_tasks: webbrowsers.yml
 - import_tasks: communication.yml

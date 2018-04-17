@@ -1,0 +1,55 @@
+---
+# Software and configuration for data backup and restore
+
+- name: Install backup/restore software
+  package: name=burp state=present
+  become: true
+  tags:
+    - backup
+
+- name: Adapt backup configuration for {{ ansible_env.HOME }}
+  lineinfile:
+    dest: '/etc/burp/burp.conf'
+    mode: 0600
+    line: '{{ item.line }}'
+    state: '{{ item.state }}'
+  with_items:
+    - { state: absent, line: 'include = /home' }
+    - { state: absent, line: '#exclude = /home/graham/testdir/librsync-0.9.7/testsuite' }
+    - { state: absent, line: '#include = /home/graham/testdir/librsync-0.9.7/testsuite/deep' }
+    - { state: absent, line: '#include = /home/graham/xdir' }
+    - { state: absent, line: '#exclude = /home/graham/testdir/libr' }
+    - { state: absent, line: 'server = ::1' }
+    - { state: absent, line: 'password = abcdefgh' }
+    - { state: absent, line: 'cname = testclient' }
+    - { state: present, line: 'server = your.backup.server' }
+    - { state: present, line: 'cname = name-of-your-pc' }
+    - { state: present, line: 'password = A-Random-Generated-Passwort' }  # TODO: random generated
+    - { state: present, line: 'encryption_password = Dont-Lose-This-Password' }  # TODO: pseudo-random generated (DO NOT LOSE!)
+    - { state: present, line: 'include = {{ ansible_env.HOME }}' }
+    - { state: present, line: 'exclude = {{ ansible_env.HOME }}/.vagrant.d' }
+    - { state: present, line: 'exclude = {{ ansible_env.HOME }}/VirtualBox\ VMs' }
+    - { state: present, line: 'exclude = {{ ansible_env.HOME }}/Google-Drive' }
+  become: true
+  tags:
+    - backup
+
+- name: Add PPA for Google Drive FUSE filesystem
+  apt_repository:
+    repo: ppa:alessandro-strada/ppa
+    state: present
+    filename: google-drive-ocamlfuse
+  become: true
+  tags:
+    - google
+
+- name: Install Google Drive FUSE filesystem
+  package: name=google-drive-ocamlfuse state=present
+  become: true
+  tags:
+    - google
+
+- name: Create Google-Drive folder in {{ ansible_env.HOME }}
+  file: path='{{ ansible_env.HOME }}/Google-Drive' state=directory
+  tags:
+    - google
