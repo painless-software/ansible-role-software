@@ -4,14 +4,28 @@
 - name: Remove Python 2 Package Installer (pip)
   package: name=python-pip state=absent
   become: true
+  tags:
+    - python
 
 - name: Install Python 3 Package Installer (pip)
   package: name=python3-pip state=present
   become: true
+  tags:
+    - python
+
+- name: Activate Bash autocompletion for pip
+  lineinfile:
+    dest: '{{ ansible_env.HOME }}/.bash_aliases'
+    create: true
+    line: 'source <(pip completion --bash)'
+  tags:
+    - python
 
 - name: Install some awesome Python tools in user space
   pip: name={{ item }} executable=pip3 extra_args=--user state=present
   with_items:
     - pipenv
+  tags:
+    - python
 
 # - pyenv

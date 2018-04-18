@@ -6,6 +6,8 @@
   register: puppet_pdk_installed
   failed_when: puppet_pdk_installed.rc > 1
   changed_when: puppet_pdk_installed.rc == 1
+  tags:
+    - puppet
 
 - name: Install APT key and sources for PDK (Puppet 4)
   apt:
@@ -13,6 +15,8 @@
     state: present
   when: puppet_pdk_installed.rc == 1
   become: true
+  tags:
+    - puppet
 
 - name: Install system packages for automation
   package: name={{ item }} state=present update_cache=yes
@@ -21,7 +25,13 @@
     - pdk
     - vagrant
   become: true
+  tags:
+    - puppet
 
-- name: Install Ansible as system-wide Python package
-  pip: name=ansible executable=pip3 state=present
-  become: true
+- name: Install Ansible packages in Python user space
+  pip: name={{ item }} executable=pip3 extra_args=--user state=present
+  with_items:
+    - ansible
+    - ansible-tower-cli
+  tags:
+    - ansible

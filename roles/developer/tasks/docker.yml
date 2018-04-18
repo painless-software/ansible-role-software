@@ -8,6 +8,8 @@
     keyring: /etc/apt/trusted.gpg.d/docker-ce.gpg
     state: present
   become: true
+  tags:
+    - docker
 
 - name: Add APT source for Docker CE
   apt_repository:
@@ -15,6 +17,8 @@
     filename: docker-ce
     state: present
   become: true
+  tags:
+    - docker
 
 - name: Install system packages for working with Docker
   package: name={{ item }} state=present
@@ -22,10 +26,14 @@
     - docker-ce
     - docker-compose
   become: true
+  tags:
+    - docker
 
 - name: Add user "{{ ansible_user_id }}" to docker group (requires log out/in again)
   command: adduser {{ ansible_user_id }} docker
   become: true
+  tags:
+    - docker
 
 - name: Install Kompose (Compose->Kubernetes converter)
   get_url:
