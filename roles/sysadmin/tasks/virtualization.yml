@@ -6,9 +6,23 @@
   with_items:
     - virtualbox
   become: true
+  tags:
+    - virtualization
 
 - name: Download VMware Player installer
-  command: echo 'Not implemented yet'
+  get_url:
+    url: '{{ vmware_baseurl }}/{{ vmware_package }}'
+    dest: '{{ vmware_installer }}'
+    mode: 0755
+  become: true
+  tags:
+    - virtualization
 
 - name: Install VMware Player
-  command: echo 'Not implemented yet'
+  command: '{{ vmware_install_cmd }}'
+  # NOTE: This will make it difficult to upgrade to a newer version
+  # (VMware-Player will need to be uninstalled prior to upgrade)
+  creates: /usr/bin/vmplayer
+  become: true
+  tags:
+    - virtualization

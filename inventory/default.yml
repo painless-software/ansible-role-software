@@ -1,0 +1,8 @@
+all:
+  vars:
+    vmware_version: '14.0.0-6661328'
+    vmware_package: "VMware-Player-{{ vmware_version }}.x86_64.bundle"
+    vmware_baseurl: 'https://download3.vmware.com/software/player/file'
+    vmware_installer: "/tmp/{{ vmware_package }}"
+    vmware_install_cmd: "{{ vmware_installer }} --console --eulas-agreed --required"
+    vmware_uninstall_cmd: "{{ vmware_installer} --uninstall-product=vmware-player --required"

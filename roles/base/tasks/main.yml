@@ -1,8 +1,8 @@
 ---
 # The base system (of a modern Linux distribution)
 
-- name: Upgrade entire system before starting
-  apt: update_cache=yes upgrade=yes
+- name: Update APT cache before starting
+  apt: update_cache=yes upgrade=no
   become: true
 
 - import_tasks: desktop.yml
