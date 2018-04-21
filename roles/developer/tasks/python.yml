@@ -28,4 +28,20 @@
   tags:
     - python
 
-# - pyenv
+- name: Clone pyenv (Python Version Management)
+  git:
+    repo: https://github.com/pyenv/pyenv.git
+    dest: '{{ ansible_env.HOME }}/.pyenv'
+    depth: 1
+  tags:
+    - python
+
+- name: Activate pyenv for Bash
+  lineinfile:
+    dest: '{{ ansible_env.HOME }}/.bash_aliases'
+    create: true
+    line: '{{ item }}'
+  with_items:
+    - 'export PYENV_ROOT={{ ansible_env.HOME }}/.pyenv'
+    - 'export PATH="$PYENV_ROOT/bin:$PATH"'
+    - 'source <(pyenv init -)'

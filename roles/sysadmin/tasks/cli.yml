@@ -4,6 +4,7 @@
 - name: Install a few useful command line tools
   package: name={{ item }} state=present
   with_items:
+    - dos2unix
     - ncdu
     - ssh
     - tree
