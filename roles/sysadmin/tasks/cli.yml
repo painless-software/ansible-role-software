@@ -10,3 +10,13 @@
     - tmux
     - tree
   become: true
+  tags:
+    - cli
+
+- name: Ensure sane default settings for tmux
+  lineinfile:
+    dest: '{{ ansible_env.HOME }}/.tmux.conf'
+    create: true
+    line: 'set -g mouse on'
+  tags:
+    - cli
