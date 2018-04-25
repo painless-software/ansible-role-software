@@ -8,6 +8,8 @@
     keyring: /etc/apt/trusted.gpg.d/microsoft.gpg
     state: present
   become: true
+  tags:
+    - vscode
 
 - name: Add APT source for Visual Studio Code
   apt_repository:
@@ -15,6 +17,8 @@
     state: present
     filename: vscode
   become: true
+  tags:
+    - vscode
 
 - name: Install popular IDEs
   package: name={{ item }} state=present
@@ -23,6 +27,24 @@
     - code
     - vim
   become: true
+  tags:
+    - vi
+    - vscode
+
+- name: Install popular extensions for Visual Studio Code
+  command: code --install-extension "{{ item }}"
+  with_items:
+    - PeterJausovec.vscode-docker
+    - bbenoist.vagrant
+    - dlech.ev3dev-browser
+    - jpogran.puppet-vscode
+    - ms-python.python
+    - ms-vscode.sublime-keybindings
+    - saahilclaypool.scratchpadmd
+    - tht13.rst-vscode
+    - vscoss.vscode-ansible
+  tags:
+    - vscode
 
 - name: Install various JetBrains IDEs
   command: snap install {{ item }} --classic
@@ -30,3 +52,5 @@
     - intellij-idea-community
     - pycharm-community
   become: true
+  tags:
+    - jetbrains

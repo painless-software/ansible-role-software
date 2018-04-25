@@ -20,6 +20,7 @@
   become: true
   tags:
     - gnome
+    - unity
 
 - name: Install GNOME extension installer
   get_url:
@@ -29,6 +30,7 @@
   become: true
   tags:
     - gnome
+    - unity
 
 - name: Install GNOME Shell extensions - Unity style (1/2)
   command: gnome-shell-extension-installer "{{ item }}" --update --yes
