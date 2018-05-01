@@ -13,6 +13,13 @@ Usage
 $ ansible-playbook playbook.yml -K
 ```
 
+or, to use custom settings and/or personal secrets:
+
+```bash
+# NOTE: multiple -i options override default inventory values
+$ ansible-playbook playbook.yml -K -i inventory -i path/to/your/private/inventory
+```
+
 Prerequisites
 -------------
 
