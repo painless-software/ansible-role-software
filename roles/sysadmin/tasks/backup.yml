@@ -22,14 +22,25 @@
     - { state: absent, line: 'server = ::1' }
     - { state: absent, line: 'password = abcdefgh' }
     - { state: absent, line: 'cname = testclient' }
-    - { state: present, line: 'server = your.backup.server' }
-    - { state: present, line: 'cname = name-of-your-pc' }
-    - { state: present, line: 'password = A-Random-Generated-Passwort' }  # TODO: random generated
-    - { state: present, line: 'encryption_password = Dont-Lose-This-Password' }  # TODO: pseudo-random generated (DO NOT LOSE!)
+    - { state: present, line: 'server = {{ burp_server }}' }
+    - { state: present, line: 'cname = {{ burp_cname }}' }
+    - { state: present, line: 'password = {{ burp_password }}' }  # TODO: random generated
+    - { state: present, line: 'encryption_password = {{ burp_encryption_password }}' }  # TODO: pseudo-random generated (DO NOT LOSE!)
     - { state: present, line: 'include = {{ ansible_env.HOME }}' }
     - { state: present, line: 'exclude = {{ ansible_env.HOME }}/.vagrant.d' }
     - { state: present, line: 'exclude = {{ ansible_env.HOME }}/VirtualBox\ VMs' }
     - { state: present, line: 'exclude = {{ ansible_env.HOME }}/Google-Drive' }
+  become: true
+  tags:
+    - backup
+
+- name: Configure cron job for daily backup
+  cron:
+    name: 'Daily backup'
+    hour: 11
+    minute: 47
+    job: '/usr/sbin/burp -a b'
+    state: present
   become: true
   tags:
     - backup
