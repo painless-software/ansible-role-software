@@ -9,6 +9,8 @@
     - git-gui
     - gitk
   become: true
+  tags:
+    - git
 
 - name: Install Git prompt for Bash
   git:
@@ -16,6 +18,9 @@
     dest: /opt/bash-git-prompt/
     depth: 1
   become: true
+  tags:
+    - bash
+    - git
 
 - name: Activate Git prompt for Bash
   lineinfile:
@@ -27,5 +32,60 @@
     - GIT_PROMPT_ONLY_IN_REPO=1
     - . /opt/bash-git-prompt/gitprompt.sh
   become: true
+  tags:
+    - bash
+    - git
 
 # TODO: git_config name=... email=... (from host user details)
+
+- name: Install Bash-it prompt for Bash
+  git:
+    repo: https://github.com/Bash-it/bash-it.git
+    dest: /opt/bash-it/
+    depth: 1
+  become: true
+  tags:
+    - bash
+    - git
+
+- name: Activate Bash-it
+  lineinfile:
+    dest: '{{ ansible_env.HOME }}/.bash_aliases'
+    create: true
+    line: '{{ item }}'
+  with_items:
+    - '# -- Bash-it ------'
+    - "export BASH_IT='/opt/bash-it'"
+    - "# export BASH_IT_THEME='bobby'"
+    - "# export BASH_IT_REMOTE='bash-it'"
+    - "# export GIT_HOSTING='git@git.domain.com'"
+    - "# unset MAILCHECK"
+    - "# export IRC_CLIENT='irssi'"
+    - "# export TODO='t'"
+    - "# export SCM_CHECK=true"
+    - "# export SHORT_HOSTNAME=$(hostname -s)"
+    - "# export SHORT_USER=${USER:0:8}"
+    - "# export SHORT_TERM_LINE=true"
+    - "# export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt"
+    - "# export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1"
+    - "# export BASH_IT_RELOAD_LEGACY=1"
+    - 'source "$BASH_IT"/bash_it.sh'
+  tags:
+    - bash
+    - git
+
+- name: Allow Bash-it features to be enabled
+  file: path=/opt/bash-it/enabled state=directory mode=0777
+  become: true
+  tags:
+    - bash
+    - git
+
+- name: Enable Git short aliases via Bash-it
+  file:
+    src: /opt/bash-it/aliases/available/git.aliases.bash
+    dest: /opt/bash-it/enabled/150---git.aliases.bash
+    state: link
+  tags:
+    - bash
+    - git
