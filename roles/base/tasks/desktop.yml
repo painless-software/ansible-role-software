@@ -72,6 +72,6 @@
     - unity
 
 - name: Set GNOME dock application shortcuts
-  command: gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'chromium-browser.desktop', 'firefox.desktop', 'thunderbird.desktop', 'code.desktop', 'org.gnome.Terminal.desktop', 'rhythmbox.desktop']"
+  command: gsettings set org.gnome.shell favorite-apps "{{ desktop_dock_apps }}"
   tags:
     - gnome

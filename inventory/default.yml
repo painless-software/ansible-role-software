@@ -1,5 +1,14 @@
 all:
   vars:
+    desktop_dock_apps:
+      - 'org.gnome.Nautilus.desktop'
+      - 'chromium-browser.desktop'
+      - 'firefox.desktop'
+      - 'thunderbird.desktop'
+      - 'code.desktop'
+      - 'org.gnome.Terminal.desktop'
+      - 'rhythmbox.desktop'
+
     vmware_version: '14.0.0-6661328'
     vmware_package: "VMware-Player-{{ vmware_version }}.x86_64.bundle"
     vmware_baseurl: 'https://download3.vmware.com/software/player/file'
