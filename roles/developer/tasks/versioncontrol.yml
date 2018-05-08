@@ -83,9 +83,12 @@
 
 - name: Enable Git short aliases via Bash-it
   file:
-    src: /opt/bash-it/aliases/available/git.aliases.bash
-    dest: /opt/bash-it/enabled/150---git.aliases.bash
+    src: '/opt/bash-it/{{ item.folder }}/available/{{ item.name }}.{{ item.kind }}.bash'
+    dest: '/opt/bash-it/enabled/{{ item.prio }}---{{ item.name }}.{{ item.kind }}.bash'
     state: link
+  with_items:
+    - { folder: 'aliases', kind: 'aliases', name: 'git', prio: '150' }
+    - { folder: 'plugins', kind: 'plugin', name: 'alias-completion', prio: '365' }
   tags:
     - bash
     - git
