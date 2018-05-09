@@ -10,4 +10,5 @@
 - import_tasks: versioncontrol.yml
 - import_tasks: automation.yml
 - import_tasks: editors.yml
+- import_tasks: apis.yml
 - import_tasks: docker.yml

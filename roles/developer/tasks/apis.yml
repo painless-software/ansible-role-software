@@ -1,0 +1,26 @@
+---
+# API browsers and debugging tools
+
+- name: Add APT keys for Insomnia REST client
+  apt_key:
+    url: https://insomnia.rest/keys/debian-public.key.asc
+    keyring: /etc/apt/trusted.gpg.d/insomnia.gpg
+    state: present
+  become: true
+  tags:
+    - restapi
+
+- name: Add APT source for Insomnia REST client
+  apt_repository:
+    repo: deb https://dl.bintray.com/getinsomnia/Insomnia /
+    state: present
+    filename: insomnia
+  become: true
+  tags:
+    - restapi
+
+- name: Install Insomnia REST client
+  package: name=insomnia state=present
+  become: true
+  tags:
+    - restapi

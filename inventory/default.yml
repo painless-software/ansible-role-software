@@ -17,7 +17,6 @@ all:
       - PeterJausovec.vscode-docker
       - bbenoist.vagrant
       - dlech.ev3dev-browser
-      - humao.rest-client
       - jpogran.puppet-vscode
       - k--kato.intellij-idea-keybindings
       - ms-python.python
