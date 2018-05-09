@@ -33,24 +33,13 @@
 
 - name: Install popular extensions for Visual Studio Code
   command: code --install-extension "{{ item }}"
-  with_items:
-    - PeterJausovec.vscode-docker
-    - bbenoist.vagrant
-    - dlech.ev3dev-browser
-    - jpogran.puppet-vscode
-    - ms-python.python
-    - ms-vscode.sublime-keybindings
-    - saahilclaypool.scratchpadmd
-    - tht13.rst-vscode
-    - vscoss.vscode-ansible
+  with_items: '{{ editors_vscode_plugins }}'
   tags:
     - vscode
 
 - name: Install various JetBrains IDEs
   command: snap install {{ item }} --classic
-  with_items:
-    - intellij-idea-community
-    - pycharm-community
+  with_items: '{{ editors_jetbrains_ides }}'
   become: true
   tags:
     - jetbrains

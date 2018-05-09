@@ -9,6 +9,21 @@ all:
       - 'org.gnome.Terminal.desktop'
       - 'rhythmbox.desktop'
 
+    editors_jetbrains_ides:
+      - intellij-idea-community
+      - pycharm-community
+
+    editors_vscode_plugins:
+      - PeterJausovec.vscode-docker
+      - bbenoist.vagrant
+      - dlech.ev3dev-browser
+      - humao.rest-client
+      - jpogran.puppet-vscode
+      - k--kato.intellij-idea-keybindings
+      - ms-python.python
+      - saahilclaypool.scratchpadmd
+      - tht13.rst-vscode
+
     vmware_version: '14.0.0-6661328'
     vmware_package: "VMware-Player-{{ vmware_version }}.x86_64.bundle"
     vmware_baseurl: 'https://download3.vmware.com/software/player/file'
