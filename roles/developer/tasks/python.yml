@@ -49,6 +49,7 @@
     - bash
     - python
 
+# See: https://github.com/pyenv/pyenv/wiki/Common-build-problems
 - name: Ensure dependencies for installing other Pythons (pyenv)
   package: name={{ item }} state=present
   with_items:
