@@ -33,7 +33,7 @@
   changed_when: franz_installed.rc == 1
 
 - name: Install Franz multi-messenger
-  apt: deb=https://github.com/meetfranz/franz/releases/download/v5.0.0-beta.17/franz_5.0.0-beta.17_amd64.deb
+  apt: deb=https://github.com/meetfranz/franz/releases/download/v5.0.0-beta.18/franz_5.0.0-beta.18_amd64.deb
   when: franz_installed.rc == 1
   become: true
 
