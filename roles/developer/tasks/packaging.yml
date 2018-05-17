@@ -1,0 +1,10 @@
+---
+# Tools for distribution dependent packaging
+
+- name: Prerequisites for building Debian packages
+  package: name={{ item }} state=present
+  with_items:
+    - debhelper
+  become: true
+  tags:
+    - debian

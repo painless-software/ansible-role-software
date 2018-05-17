@@ -12,3 +12,4 @@
 - import_tasks: editors.yml
 - import_tasks: apis.yml
 - import_tasks: docker.yml
+- import_tasks: packaging.yml
