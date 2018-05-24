@@ -1,6 +1,14 @@
 ---
 # Ruby tools and configuration
 
+- name: Skip Ruby Gem doc generation by default
+  lineinfile:
+    dest: '{{ ansible_env.HOME }}/.gemrc'
+    create: true
+    line: 'gem: --no-document'
+  tags:
+    - ruby
+
 - name: Ensure user-installed Ruby Gems executables are found
   # TODO: implement this properly (separate lines are super-fragile!)
   lineinfile:
@@ -14,5 +22,5 @@
     - '  export PATH="$PATH:${RUBY_USER_DIR}/bin"'
     - '} # ---'
   tags:
-    - bash
     - ruby
+    - bash
