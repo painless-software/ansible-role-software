@@ -1,0 +1,18 @@
+---
+# Ruby tools and configuration
+
+- name: Ensure user-installed Ruby Gems executables are found
+  # TODO: implement this properly (separate lines are super-fragile!)
+  lineinfile:
+    dest: '{{ ansible_env.HOME }}/.bash_aliases'
+    create: true
+    line: '{{ item }}'
+  with_items:
+    - '# Ensure Ruby Gems installed via `--user-install` are found'
+    - 'which gem > /dev/null && {'
+    - "  RUBY_USER_DIR=$(gem environment | grep 'USER INSTALLATION' | sed 's/^.* DIRECTORY: //')"
+    - '  export PATH="$PATH:${RUBY_USER_DIR}/bin"'
+    - '} # ---'
+  tags:
+    - bash
+    - ruby
