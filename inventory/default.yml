@@ -43,12 +43,13 @@ all:
       - pycharm-community
 
     editors_vscode_plugins:
-      - PeterJausovec.vscode-docker
+      - AravindKumar.gherkin-indent
       - bbenoist.vagrant
       - dlech.ev3dev-browser
       - jpogran.puppet-vscode
       - k--kato.intellij-idea-keybindings
       - ms-python.python
+      - PeterJausovec.vscode-docker
       - saahilclaypool.scratchpadmd
       - tht13.rst-vscode
 
