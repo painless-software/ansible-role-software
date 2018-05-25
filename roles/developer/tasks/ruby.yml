@@ -25,7 +25,8 @@
     - ruby
     - bash
 
-- name: Install Bundler
-  gem: name=bundler user_install=yes state=present
+- name: Install Ruby development dependencies
+  package: name=bundler state=present
+  become: true
   tags:
     - ruby
