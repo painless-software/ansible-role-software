@@ -24,3 +24,8 @@
   tags:
     - ruby
     - bash
+
+- name: Install Bundler
+  gem: name=bundler user_install=yes state=present
+  tags:
+    - ruby
