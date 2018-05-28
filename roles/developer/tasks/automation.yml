@@ -23,7 +23,6 @@
   with_items:
     - puppet
     - pdk
-    - vagrant
   become: true
   tags:
     - puppet
