@@ -10,3 +10,14 @@
   tags:
     - office
     - vpn
+
+- name: Provide some useful aliases
+  lineinfile:
+    dest: '{{ ansible_env.HOME }}/.bash_aliases'
+    create: true
+    line: '{{ item }}'
+  with_items:
+    - "alias ip='ip --color'"
+    - "alias ipb='ip --brief --color'"
+  tags:
+    - cli
