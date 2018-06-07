@@ -1,0 +1,50 @@
+---
+# Software and configuration for tablets and 2-in-1 convertibles
+
+- name: Ensure prerequisites for Write handwriting app
+  package: name={{ item }} state=present
+  with_items:
+    - libqt5widgets5
+    - libqt5network5
+    - libqt5svg5
+  become: true
+  tags:
+    - touch
+
+- name: Install Write handwriting app
+  unarchive:
+    src: http://www.styluslabs.com/download/write-tgz
+    remote_src: yes
+    dest: /opt
+    creates: /opt/Write/Write
+    owner: root
+    group: root
+  become: true
+  tags:
+    - touch
+
+- name: Create symlink for Write handwriting app
+  file:
+    src: /opt/Write/Write
+    dest: /usr/local/bin/Write
+    state: link
+  become: true
+  tags:
+    - touch
+
+- name: Create desktop shortcut for Write handwriting
+  blockinfile:
+    dest: /usr/share/applications/Write.desktop
+    create: yes
+    block: |
+      [Desktop Entry]
+      Version=1.0
+      Type=Application
+      Terminal=false
+      Exec=/usr/local/bin/Write
+      Name=Write
+      Comment=Write handwriting
+      Icon=
+  become: true
+  tags:
+    - touch

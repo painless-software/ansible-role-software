@@ -1,5 +1,5 @@
 ---
-# Software and configuration to tweak your desktop enviroment
+# Software and configuration to tweak your desktop environment
 
 - name: Install desktop customization tools
   package: name={{ item }} state=present
