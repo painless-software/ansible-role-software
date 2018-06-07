@@ -1,6 +1,12 @@
 ---
 # Software and configuration for tablets and 2-in-1 convertibles
 
+- name: Install Xournal handwriting app
+  package: name=xournal state=present
+  become: true
+  tags:
+    - touch
+
 - name: Ensure prerequisites for Write handwriting app
   package: name={{ item }} state=present
   with_items:
