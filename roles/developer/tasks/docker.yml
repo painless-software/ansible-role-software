@@ -40,7 +40,9 @@
 
 - name: Install Kompose (Compose->Kubernetes converter)
   get_url:
-    url: https://github.com/kubernetes/kompose/releases/download/v1.11.0/kompose-linux-amd64
+    url: https://github.com/kubernetes/kompose/releases/download/v1.15.0/kompose-linux-amd64
+    # NOTE: This will make it difficult to upgrade to a newer version
+    # (target will have to be deleted prior to upgrade)
     dest: /usr/local/bin/kompose
     mode: 0755
   become: true
@@ -63,7 +65,7 @@
 
 - name: Install Minikube
   apt:
-    deb: https://github.com/kubernetes/minikube/releases/download/v0.26.0/minikube_0.26-0.deb
+    deb: https://github.com/kubernetes/minikube/releases/download/v0.28.0/minikube_0.28-0.deb
   become: true
   tags:
     - kubernetes
