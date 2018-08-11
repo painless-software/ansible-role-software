@@ -9,3 +9,4 @@
 - import_tasks: webbrowsers.yml
 - import_tasks: communication.yml
 - import_tasks: tablet.yml
+- import_tasks: printers.yml
