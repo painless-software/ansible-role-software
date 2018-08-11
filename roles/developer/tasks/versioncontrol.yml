@@ -13,10 +13,12 @@
     - git
 
 - name: Install Git configuration files
-  copy: dest={{ item.dest }} src={{ item.src }} force=no
+  copy: src={{ item.src }} dest={{ item.dest }} force=no
   with_items:
-    - { dest: '/etc/gitconfig', src: 'files/developer/versioncontrol/system-gitconfig' }
-    - { dest: '/etc/skel/.config', src: 'files/developer/versioncontrol/userconfig/' }
+    - src: files/developer/versioncontrol/system-gitconfig
+      dest: /etc/gitconfig
+    - src: files/developer/versioncontrol/userconfig/
+      dest: /etc/skel/.config
   become: true
   tags:
     - git

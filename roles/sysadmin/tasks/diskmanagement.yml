@@ -1,10 +1,27 @@
 ---
 # Software and configuration for managing disks and volumes
 
-- name: Install Etcher (SD card and USB drive burner)
-  unarchive:
-    remote_src: yes
-    src: https://github.com/resin-io/etcher/releases/download/v1.3.1/etcher-1.3.1-linux-x86_64.zip
-    dest: /opt/
-    creates: /opt/etcher-1.3.1-x86_64.AppImage
+- name: Add APT keys for Etcher
+  apt_key:
+    id: 379CE192D401AB61
+    keyserver: keyserver.ubuntu.com
+    keyring: /etc/apt/trusted.gpg.d/ubuntu.gpg
+    state: present
   become: true
+  tags:
+    - etcher
+
+- name: Add APT source for Etcher
+  apt_repository:
+    repo: deb https://dl.bintray.com/resin-io/debian stable etcher
+    filename: etcher
+    state: present
+  become: true
+  tags:
+    - etcher
+
+- name: Install Etcher (SD card and USB drive burner)
+  package: name=etcher-electron state=present
+  become: true
+  tags:
+    - etcher

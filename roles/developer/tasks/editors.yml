@@ -14,8 +14,8 @@
 - name: Add APT source for Visual Studio Code
   apt_repository:
     repo: deb [arch=amd64] http://packages.microsoft.com/repos/vscode stable main
-    state: present
     filename: vscode
+    state: present
   become: true
   tags:
     - vscode
