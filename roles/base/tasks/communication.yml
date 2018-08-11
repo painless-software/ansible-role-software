@@ -22,7 +22,7 @@
   changed_when: rocketchat_installed.rc == 1
 
 - name: Install Rocket.Chat+ client
-  apt: deb=https://github.com/RocketChat/Rocket.Chat.Electron/releases/download/2.10.5/rocketchat_2.10.5_amd64.deb
+  apt: deb=https://github.com/RocketChat/Rocket.Chat.Electron/releases/download/2.12.0/rocketchat_2.12.0_amd64.deb
   when: rocketchat_installed.rc == 1
   become: true
 
@@ -44,6 +44,6 @@
   changed_when: rambox_installed.rc == 1
 
 - name: Install Rambox multi-messenger
-  apt: deb=https://github.com/saenzramiro/rambox/releases/download/0.5.16/Rambox_0.5.16-x64.deb
+  apt: deb=https://github.com/saenzramiro/rambox/releases/download/0.5.17/Rambox_0.5.17-x64.deb
   when: rambox_installed.rc == 1
   become: true
