@@ -33,7 +33,7 @@
     - docker
 
 - name: Add user "{{ ansible_user_id }}" to docker group (requires log out/in again)
-  command: adduser {{ ansible_user_id }} docker
+  user: name={{ ansible_user_id }} groups=docker append=yes
   become: true
   tags:
     - docker
