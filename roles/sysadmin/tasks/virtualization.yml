@@ -10,22 +10,25 @@
     - vagrant
   become: true
   tags:
-    - virtualization
+    - libvirt
+    - virtualbox
+    - vagrant
 
-- name: Download VMware Player installer
-  get_url:
-    url: '{{ vmware_baseurl }}/{{ vmware_package }}'
-    dest: '{{ vmware_installer }}'
-    mode: 0755
+- name: Find out whether VMware Player is installed
+  stat: path=/usr/bin/vmplayer
+  register: vmware_installed
+  tags:
+    - vmware
+
+- block:
+    - name: Download VMware Player installer
+      get_url:
+        url: '{{ vmware_baseurl }}/{{ vmware_package }}'
+        dest: '{{ vmware_installer }}'
+        mode: 0755
+    - name: Install VMware Player
+      command: '{{ vmware_install_cmd }}'
+  when: not vmware_installed.stat.exists or force_upgrade == 'yes'
   become: true
   tags:
-    - virtualization
-
-- name: Install VMware Player
-  command: '{{ vmware_install_cmd }}'
-  # NOTE: This will make it difficult to upgrade to a newer version
-  # (VMware-Player will need to be uninstalled prior to upgrade)
-  creates: /usr/bin/vmplayer
-  become: true
-  tags:
-    - virtualization
+    - vmware
