@@ -82,7 +82,7 @@
     extra_opts: ['--strip-components', '1', '--wildcards', '*/oc']
     dest: /usr/local/bin/
     mode: 0755
-    when: not oc_installed.stat.exists or force_upgrade == 'yes'
+  when: not oc_installed.stat.exists or force_upgrade == 'yes'
   become: true
   tags:
     - kubernetes
