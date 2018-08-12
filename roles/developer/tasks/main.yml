@@ -6,9 +6,9 @@
   # ... and maybe set folder icons:
   # https://askubuntu.com/questions/115845/how-can-i-change-the-folder-icon
 
+- import_tasks: versioncontrol.yml
 - import_tasks: python.yml
 - import_tasks: ruby.yml
-- import_tasks: versioncontrol.yml
 - import_tasks: automation.yml
 - import_tasks: editors.yml
 - import_tasks: apis.yml
