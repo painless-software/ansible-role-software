@@ -1,5 +1,8 @@
 all:
   vars:
+    force_upgrade:
+      - no
+
     desktop_dock_apps:
       - 'org.gnome.Nautilus.desktop'
       - 'chromium-browser.desktop'

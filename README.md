@@ -20,6 +20,14 @@ or, to use custom settings and/or personal secrets:
 $ ansible-playbook playbook.yml -K -i inventory -i path/to/your/private/inventory
 ```
 
+Packages that must be downloaded manually cannot be upgraded automatically
+without sacrificing speed. To force upgrading use `force_upgrade=yes`, e.g.
+
+```bash
+# HINT: for a list of available tags use --list-tags
+$ ansible-playbook playbook.yml -K -e force_upgrade=yes -t rocketchat,franz,rambox
+```
+
 Prerequisites
 -------------
 
