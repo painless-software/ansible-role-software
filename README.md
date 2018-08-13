@@ -38,6 +38,8 @@ to run this playbook. Using Python 3 is recommended on modern systems, e.g.
 ```bash
 $ sudo apt-get install python3-pip
 $ pip3 install --user ansible
+# ... and if your shell can't find the ansible-playbook executable:
+$ export PATH="$HOME/.local/bin:$PATH"
 ```
 
 How Does It Work?
