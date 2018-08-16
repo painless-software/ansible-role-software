@@ -62,9 +62,18 @@
   tags:
     - kubernetes
 
+- name: Find out whether Minikube is installed
+  command: dpkg-query -W minikube
+  register: minikube_installed
+  failed_when: minikube_installed.rc > 1
+  changed_when: minikube_installed.rc == 1
+  tags:
+    - kubernetes
+
 - name: Install Minikube
   apt:
     deb: https://github.com/kubernetes/minikube/releases/download/v0.28.2/minikube_0.28-2.deb
+  when: minikube_installed.rc == 1 or force_upgrade == 'yes'
   become: true
   tags:
     - kubernetes
@@ -72,6 +81,7 @@
 - name: Find out whether OpenShift CLI is installed
   stat: path=/usr/local/bin/oc
   register: oc_installed
+  changed_when: not oc_installed.stat.exists
   tags:
     - kubernetes
 

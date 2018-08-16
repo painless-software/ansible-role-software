@@ -17,6 +17,7 @@
 - name: Find out whether VMware Player is installed
   stat: path=/usr/bin/vmplayer
   register: vmware_installed
+  changed_when: not vmware_installed.stat.exists
   tags:
     - vmware
 
