@@ -7,7 +7,7 @@ all:
       - 'org.gnome.Nautilus.desktop'
       - 'chromium-browser.desktop'
       - 'firefox.desktop'
-      - 'thunderbird.desktop'
+      - 'org.gnome.Geary.desktop'
       - 'code.desktop'
       - 'org.gnome.Terminal.desktop'
       - 'rhythmbox.desktop'
@@ -18,6 +18,7 @@ all:
       - 708  # https://extensions.gnome.org/extension/708/panel-osd/
       - 723  # https://extensions.gnome.org/extension/723/pixel-saver/
       - 744  # https://extensions.gnome.org/extension/744/hide-activities-button/
+      - 779  # https://extensions.gnome.org/extension/779/clipboard-indicator/
       - 800  # https://extensions.gnome.org/extension/800/remove-dropdown-arrows/
       - 873  # https://extensions.gnome.org/extension/873/overview-all-windows/
       - 1065  # https://extensions.gnome.org/extension/1065/docker-status/

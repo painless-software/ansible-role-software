@@ -8,6 +8,10 @@
     - xul-ext-lightning
   become: true
 
+- name: Lightweight email client for GNOME
+  package: name=geary state=present
+  become: true
+
 - name: Install popular chat clients (snaps)
   command: snap install {{ item }} --classic
   with_items:
