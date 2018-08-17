@@ -23,6 +23,7 @@ all:
       - 1065  # https://extensions.gnome.org/extension/1065/docker-status/
       - 1108  # https://extensions.gnome.org/extension/1108/add-username-to-top-panel/
       - 1143  # https://extensions.gnome.org/extension/1143/logout-button/
+      - 1464  # https://extensions.gnome.org/extension/1464/vmnethider/
 
     desktop_gnome_settings:
       - org.gnome.desktop.calendar show-weekdate 'true'
