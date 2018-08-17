@@ -66,19 +66,19 @@
 - name: Add PPA for Google Drive FUSE filesystem
   apt_repository:
     repo: ppa:alessandro-strada/ppa
-    state: present
     filename: google-drive-ocamlfuse
+    state: absent
   become: true
   tags:
     - google
 
 - name: Install Google Drive FUSE filesystem
-  package: name=google-drive-ocamlfuse state=present
+  package: name=google-drive-ocamlfuse state=absent
   become: true
   tags:
     - google
 
 - name: Create Google-Drive folder in {{ ansible_env.HOME }}
-  file: path='{{ ansible_env.HOME }}/Google-Drive' state=directory
+  file: path='{{ ansible_env.HOME }}/Google-Drive' state=absent
   tags:
     - google
