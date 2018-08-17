@@ -16,8 +16,8 @@
 
 - name: Find out whether VMware Player is installed
   stat: path=/usr/bin/vmplayer
-  register: vmware_installed
-  changed_when: not vmware_installed.stat.exists
+  register: vmware_player
+  changed_when: not vmware_player.stat.exists
   tags:
     - vmware
 
@@ -29,7 +29,7 @@
         mode: 0755
     - name: Install VMware Player
       command: '{{ vmware_install_cmd }}'
-  when: not vmware_installed.stat.exists or force_upgrade == 'yes'
+  when: not vmware_player.stat.exists or force_upgrade == 'yes'
   become: true
   tags:
     - vmware
