@@ -1,0 +1,8 @@
+---
+# Java development tools and configuration
+
+- name: Install Java Development Kit (JDK)
+  package: name=default-jdk-headless state=present
+  become: true
+  tags:
+    - java

@@ -1,0 +1,8 @@
+---
+# JavaScript development tools and configuration
+
+- name: Install Node.js
+  package: name=nodejs state=present
+  become: true
+  tags:
+    - nodejs
