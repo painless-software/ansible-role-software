@@ -7,6 +7,8 @@
     - gimp
     - imagemagick
   become: true
+  tags:
+    - multimedia
 
 - name: Install YouTube downloader
   pip:
@@ -14,3 +16,13 @@
     state: latest
     executable: pip3
     extra_args: --user
+  tags:
+    - multimedia
+
+- name: Install proprietary music players
+  command: snap install {{ item }}
+  with_items:
+    - spotify
+  become: true
+  tags:
+    - multimedia
