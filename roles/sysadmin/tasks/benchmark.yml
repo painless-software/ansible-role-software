@@ -1,0 +1,11 @@
+---
+# Software for hardware info and benchmarking
+
+- name: Install hardware info and benchmarking tools
+  package: name={{ item }} state=present
+  with_items:
+    - hardinfo
+    - lshw
+  become: true
+  tags:
+    - benchmark
