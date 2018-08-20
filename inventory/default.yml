@@ -21,10 +21,10 @@ all:
       - 779  # https://extensions.gnome.org/extension/779/clipboard-indicator/
       - 800  # https://extensions.gnome.org/extension/800/remove-dropdown-arrows/
       - 873  # https://extensions.gnome.org/extension/873/overview-all-windows/
+      - 1015  # https://extensions.gnome.org/extension/1015/gravatar/
       - 1065  # https://extensions.gnome.org/extension/1065/docker-status/
       - 1108  # https://extensions.gnome.org/extension/1108/add-username-to-top-panel/
       - 1143  # https://extensions.gnome.org/extension/1143/logout-button/
-      - 1464  # https://extensions.gnome.org/extension/1464/vmnethider/
 
     desktop_gnome_settings:
       - org.gnome.desktop.calendar show-weekdate 'true'
