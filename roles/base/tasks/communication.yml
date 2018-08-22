@@ -12,10 +12,7 @@
 
 - block:
   - name: Add PPA for Geary email client
-    apt_repository:
-      repo: deb http://ppa.launchpad.net/geary-team/releases/ubuntu {{ ansible_lsb.codename }} main
-      filename: geary-team-ubuntu-releases-{{ ansible_lsb.codename }}
-      state: present
+    apt_repository: repo=ppa:geary-team/releases state=present
   - name: Lightweight email client for GNOME
     package: name=geary state=present
   become: true
