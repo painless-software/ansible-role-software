@@ -96,3 +96,11 @@
   become: true
   tags:
     - kubernetes
+
+- name: Activate Bash autocompletion for OpenShift CLI
+  lineinfile:
+    dest: '{{ ansible_env.HOME }}/.bash_aliases'
+    create: true
+    line: 'source <(oc completion bash)'
+  tags:
+    - kubernetes
