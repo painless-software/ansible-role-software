@@ -4,6 +4,7 @@
 - name: Install multimedia software and tools
   package: name={{ item }} state=present
   with_items:
+    - ffmpeg
     - gimp
     - imagemagick
   become: true
@@ -16,6 +17,18 @@
     state: latest
     executable: pip3
     extra_args: --user
+  tags:
+    - multimedia
+
+- name: Set YouTube downloader defaults for music extraction
+  lineinfile:
+    dest: '{{ ansible_env.HOME }}/.config/youtube-dl/config'
+    create: true
+    line: '{{ item }}'
+  with_items:
+    - '--extract-audio'
+    - '--audio-format mp3'
+    - '--add-metadata'
   tags:
     - multimedia
 
