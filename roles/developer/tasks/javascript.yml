@@ -2,7 +2,18 @@
 # JavaScript development tools and configuration
 
 - name: Install Node.js
-  package: name=nodejs state=present
+  package: name={{ item }} state=present
+  with_items:
+    - nodejs
+    - npm
   become: true
+  tags:
+    - nodejs
+
+- name: Activate Bash autocompletion for npm
+  lineinfile:
+    dest: '{{ ansible_env.HOME }}/.bash_aliases'
+    create: true
+    line: 'source <(npm completion)'
   tags:
     - nodejs
