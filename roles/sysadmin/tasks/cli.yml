@@ -9,6 +9,7 @@
     - ssh
     - tmux
     - tree
+    - vim
     - whois
   become: true
   tags:

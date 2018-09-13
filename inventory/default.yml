@@ -47,6 +47,10 @@ all:
       - intellij-idea-community
       - pycharm-community
 
+    editors_popular_ides:
+      - atom
+      - vscode
+
     editors_vscode_plugins:
       - AravindKumar.gherkin-indent
       - bbenoist.vagrant
