@@ -28,7 +28,7 @@
         Terminal=false
         Exec=python pythonturtle.py
         Path=/opt/PythonTurtle/src/
-        Name=PythonTurtle
+        Name=Python Turtle
         Comment=Learning environment for Python
         Icon=/opt/PythonTurtle/src/resources/turtle.png
   become: true
