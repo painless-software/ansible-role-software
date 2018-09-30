@@ -1,42 +1,34 @@
 ---
 # Software and configuration for working with Docker
 
-- name: Add APT keys for Docker CE
-  apt_key:
-    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
-    keyserver: p80.pool.sks-keyservers.net
-    keyring: /etc/apt/trusted.gpg.d/docker-ce.gpg
-    state: present
-  become: true
-  tags:
-    - docker
+- block:
+  - name: Add APT keys for Docker CE
+    apt_key:
+      id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+      keyserver: p80.pool.sks-keyservers.net
+      keyring: /etc/apt/trusted.gpg.d/docker-ce.gpg
+      state: present
 
-- name: Add APT source for Docker CE
-  apt_repository:
-    repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} {{ item }}'
-    filename: docker-ce
-    state: present
-  with_items:
-    - stable
-    - edge
-  become: true
-  tags:
-    - docker
+  - name: Add APT source for Docker CE
+    apt_repository:
+      repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} {{ item }}'
+      filename: docker-ce
+      state: present
+    with_items:
+      - stable
+      - edge
 
-- name: Install system packages for working with Docker
-  package: name={{ item }} state=present
-  with_items:
-    - docker-ce
-    - docker-compose
-  become: true
-  tags:
-    - docker
+  - name: Install system packages for working with Docker
+    package: name={{ item }} state=present
+    with_items:
+      - docker-ce
+      - docker-compose
 
-- name: Add user "{{ ansible_user_id }}" to docker group (requires log out/in again)
-  user: name={{ ansible_user_id }} groups=docker append=yes
+  - name: Add user "{{ ansible_user_id }}" to docker group (requires log out/in again)
+    user: name={{ ansible_user_id }} groups=docker append=yes
+
   become: true
-  tags:
-    - docker
+  tags: [docker]
 
 - name: Install Kompose (Compose->Kubernetes converter)
   get_url:
@@ -45,62 +37,56 @@
     mode: 0755
     force: "{{ force_upgrade == 'yes' }}"
   become: true
-  tags:
-    - kubernetes
+  tags: [kubernetes]
 
-- name: Install Kubernetes CLI
-  command: snap install kubectl --classic
-  become: true
-  tags:
-    - kubernetes
+- block:
+  - name: Install Kubernetes CLI
+    command: snap install kubectl --classic
+    become: true
 
-- name: Activate Bash autocompletion for kubectl
-  lineinfile:
-    dest: '{{ ansible_env.HOME }}/.bash_aliases'
-    create: true
-    line: 'source <(kubectl completion bash)'
-  tags:
-    - kubernetes
+  - name: Activate Bash autocompletion for kubectl
+    lineinfile:
+      dest: '{{ ansible_env.HOME }}/.bash_aliases'
+      create: true
+      line: 'source <(kubectl completion bash)'
 
-- name: Find out whether Minikube is installed
-  command: dpkg-query -W minikube
-  register: minikube_installed
-  failed_when: minikube_installed.rc > 1
-  changed_when: minikube_installed.rc == 1
-  tags:
-    - kubernetes
+  tags: [kubernetes]
 
-- name: Install Minikube
-  apt:
-    deb: https://github.com/kubernetes/minikube/releases/download/v0.28.2/minikube_0.28-2.deb
-  when: minikube_installed.rc == 1 or force_upgrade == 'yes'
-  become: true
-  tags:
-    - kubernetes
+- block:
+  - name: Find out whether Minikube is installed
+    command: dpkg-query -W minikube
+    register: minikube_installed
+    failed_when: minikube_installed.rc > 1
+    changed_when: minikube_installed.rc == 1
 
-- name: Find out whether OpenShift CLI is installed
-  stat: path=/usr/local/bin/oc
-  register: oc_installed
-  changed_when: not oc_installed.stat.exists
-  tags:
-    - kubernetes
+  - name: Install Minikube
+    apt:
+      deb: https://github.com/kubernetes/minikube/releases/download/v0.28.2/minikube_0.28-2.deb
+    when: minikube_installed.rc == 1 or force_upgrade == 'yes'
+    become: true
 
-- name: Install OpenShift CLI
-  unarchive:
-    src: https://github.com/openshift/origin/releases/download/v3.10.0/openshift-origin-client-tools-v3.10.0-dd10d17-linux-64bit.tar.gz
-    remote_src: yes
-    extra_opts: ['--strip-components', '1', '--wildcards', '*/oc']
-    dest: /usr/local/bin/
-    mode: 0755
-  when: not oc_installed.stat.exists or force_upgrade == 'yes'
-  become: true
-  tags:
-    - kubernetes
+  tags: [kubernetes]
 
-- name: Activate Bash autocompletion for OpenShift CLI
-  lineinfile:
-    dest: '{{ ansible_env.HOME }}/.bash_aliases'
-    create: true
-    line: 'source <(oc completion bash)'
-  tags:
-    - kubernetes
+- block:
+  - name: Find out whether OpenShift CLI is installed
+    stat: path=/usr/local/bin/oc
+    register: oc_installed
+    changed_when: not oc_installed.stat.exists
+
+  - name: Install OpenShift CLI
+    unarchive:
+      src: https://github.com/openshift/origin/releases/download/v3.10.0/openshift-origin-client-tools-v3.10.0-dd10d17-linux-64bit.tar.gz
+      remote_src: yes
+      extra_opts: ['--strip-components', '1', '--wildcards', '*/oc']
+      dest: /usr/local/bin/
+      mode: 0755
+    when: not oc_installed.stat.exists or force_upgrade == 'yes'
+    become: true
+
+  - name: Activate Bash autocompletion for OpenShift CLI
+    lineinfile:
+      dest: '{{ ansible_env.HOME }}/.bash_aliases'
+      create: true
+      line: 'source <(oc completion bash)'
+
+  tags: [kubernetes]
