@@ -1,0 +1,36 @@
+---
+# Learning resources for Python
+
+- name: Tkinter Tk GUI Python 3 binding (for Python's turtle module)
+  package: name=python3-tk state=present
+  become: true
+  tags:
+    - python-edu
+
+- block:
+  - name: Install dependencies for PythonTurtle
+    package: name=python-wxgtk3.0 state=present
+
+  - name: Clone PythonTurtle source code
+    git:
+      repo: https://github.com/cool-RR/PythonTurtle.git
+      dest: /opt/PythonTurtle
+      depth: 1
+
+  - name: Create desktop shortcut for PythonTurtle
+    blockinfile:
+      dest: /usr/share/applications/PythonTurtle.desktop
+      create: yes
+      block: |
+        [Desktop Entry]
+        Version=1.0
+        Type=Application
+        Terminal=false
+        Exec=python pythonturtle.py
+        Path=/opt/PythonTurtle/src/
+        Name=Python Turtle
+        Comment=Learning environment for Python
+        Icon=/opt/PythonTurtle/src/resources/turtle.png
+  become: true
+  tags:
+    - python-edu
