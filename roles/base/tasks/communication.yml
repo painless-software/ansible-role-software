@@ -38,7 +38,7 @@
     - rocketchat
 
 - name: Install Rocket.Chat+ client
-  apt: deb=https://github.com/RocketChat/Rocket.Chat.Electron/releases/download/2.13.3/rocketchat_2.13.3_amd64.deb
+  apt: deb=https://github.com/RocketChat/Rocket.Chat.Electron/releases/download/2.14.0/rocketchat_2.14.0_amd64.deb
   when: rocketchat_installed.rc == 1 or force_upgrade == 'yes'
   become: true
   tags:
