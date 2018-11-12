@@ -73,3 +73,18 @@
   become: true
   tags:
     - rambox
+
+- name: Find out whether Zoom conferencing client is installed
+  command: dpkg-query -W zoom
+  register: zoom_installed
+  failed_when: zoom_installed.rc > 1
+  changed_when: zoom_installed.rc == 1
+  tags:
+    - zoom
+
+- name: Install Zoom conferencing client
+  apt: deb=https://zoom.us/client/latest/zoom_amd64.deb
+  when: zoom_installed.rc == 1 or force_upgrade == 'yes'
+  become: true
+  tags:
+    - zoom
