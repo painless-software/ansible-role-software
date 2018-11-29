@@ -61,7 +61,7 @@
 
   - name: Install Minikube
     apt:
-      deb: https://github.com/kubernetes/minikube/releases/download/v0.28.2/minikube_0.28-2.deb
+      deb: https://github.com/kubernetes/minikube/releases/download/v0.30.0/minikube_0.30-0.deb
     when: minikube_installed.rc == 1 or force_upgrade == 'yes'
     become: true
 
