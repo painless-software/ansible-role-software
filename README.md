@@ -1,16 +1,59 @@
-ansible-software
-================
+software
+========
 
-Painless software provisioning for your developer machine.
+> Painless software provisioning for your developer machine.
+
+Ansible role for installing and configuring software on desktop computers,
+such as developer notebooks in your office.
 
 Inspired by the magnificent [puppet-software](
 https://github.com/edestecd/puppet-software) Puppet module.
 
+Requirements
+------------
+
+Supported operating systems and GNU/Linux distributions:
+
+- Ubuntu 18.04 LTS Bionic
+
+Others may work but have not been verified by test installations.
+
+Role Variables
+--------------
+
+Secrets that should be overridden by anyone installing the affected software
+(see `vars/secrets.yml`).
+
+Dependencies
+------------
+
+None.
+
+Example Playbook
+----------------
+
+```yaml
+- hosts: developers
+  roles:
+    - { role: painless-software.software }
+  inventory:
+    - company/inventory/defaults
+    - company/inventory/secrets
+```
+
 Usage
 -----
 
+Ideally, you use this role with automated provisioning (e.g. using an ENC like
+[The Foreman](https://www.theforeman.org/)), which sets up your target OS,
+installs Ansible, and then launches a playbook similar to the example above.
+
+Alternatively, you can run this Ansible role from the terminal in a manual
+fashion, e.g.
+
 ```bash
-$ ansible-playbook playbook.yml -K
+# install all software on your local machine
+$ ansible localhost -m painless-software.software -K
 ```
 
 or, to use custom settings and/or personal secrets:
@@ -40,6 +83,7 @@ $ sudo apt-get install python3-pip
 $ pip3 install --user ansible
 # ... and if your shell can't find the ansible-playbook executable:
 $ export PATH="$HOME/.local/bin:$PATH"
+$ ansible-galaxy install painless-software.software
 ```
 
 How Does It Work?
@@ -61,3 +105,15 @@ More Reading
 - [Ansible User Guide](https://docs.ansible.com/ansible/latest/user_guide/index.html)
 - [Ansible with multiple inventory files](
   http://allandenot.com/devops/2015/01/16/ansible-with-multiple-inventory-files.html)
+- [Running Ad Hoc Commands](
+  https://ansible-tips-and-tricks.readthedocs.io/en/latest/ansible/commands/)
+
+License
+-------
+
+GPL 3.0
+
+Author Information
+------------------
+
+Provided by [Painless Software](https://painless.software/).
