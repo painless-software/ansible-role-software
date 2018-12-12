@@ -62,7 +62,7 @@ all:
       - saahilclaypool.scratchpadmd
       - tht13.rst-vscode
 
-    vmware_version: '14.1.3-9474260'
+    vmware_version: '15.0.2-10952284'
     vmware_package: "VMware-Player-{{ vmware_version }}.x86_64.bundle"
     vmware_baseurl: 'https://download3.vmware.com/software/player/file'
     vmware_installer: "/tmp/{{ vmware_package }}"
