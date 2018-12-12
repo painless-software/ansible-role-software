@@ -43,6 +43,18 @@ all:
       # - org.gnome.shell.extensions.dash-to-dock multi-monitor 'true'
       # - org.gnome.shell.extensions.dash-to-dock show-apps-at-top 'true'
 
+    rocketchat_version: '2.14.6'
+    rocketchat_baseurl: 'https://github.com/RocketChat/Rocket.Chat.Electron/releases/download'
+    rocketchat_package: '{{ rocketchat_version }}/rocketchat_{{ rocketchat_version }}_amd64.deb'
+
+    franz_version: '5.0.0-beta.20'
+    franz_baseurl: 'https://github.com/meetfranz/franz/releases/download'
+    franz_package: 'v{{ franz_version }}/franz_{{ franz_version }}_amd64.deb'
+
+    rambox_version: '0.6.3'
+    rambox_baseurl: 'https://github.com/ramboxapp/community-edition/releases/download'
+    rambox_package: '{{ rambox_version }}/Rambox-{{ rambox_version }}-linux-amd64.deb'
+
     editors_jetbrains_ides:
       - intellij-idea-community
       - pycharm-community
