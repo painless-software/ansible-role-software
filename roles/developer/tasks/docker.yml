@@ -32,7 +32,7 @@
 
 - name: Install Kompose (Compose->Kubernetes converter)
   get_url:
-    url: https://github.com/kubernetes/kompose/releases/download/v1.16.0/kompose-linux-amd64
+    url: '{{ kompose_baseurl }}/{{ kompose_binary }}'
     dest: /usr/local/bin/kompose
     mode: 0755
     force: "{{ force_upgrade == 'yes' }}"
@@ -60,8 +60,7 @@
     changed_when: minikube_installed.rc == 1
 
   - name: Install Minikube
-    apt:
-      deb: https://github.com/kubernetes/minikube/releases/download/v0.30.0/minikube_0.30-0.deb
+    apt: deb={{ minikube_baseurl }}/{{ minikube_package }}
     when: minikube_installed.rc == 1 or force_upgrade == 'yes'
     become: true
 
@@ -75,7 +74,7 @@
 
   - name: Install OpenShift CLI
     unarchive:
-      src: https://github.com/openshift/origin/releases/download/v3.10.0/openshift-origin-client-tools-v3.10.0-dd10d17-linux-64bit.tar.gz
+      src: '{{ openshift_cli_baseurl }}/{{ openshift_cli_package }}'
       remote_src: yes
       extra_opts: ['--strip-components', '1', '--wildcards', '*/oc']
       dest: /usr/local/bin/
@@ -88,5 +87,29 @@
       dest: '{{ ansible_env.HOME }}/.bash_aliases'
       create: true
       line: 'source <(oc completion bash)'
+
+  tags: [kubernetes]
+
+- block:
+  - name: Find out whether Minishift is installed
+    stat: path=/usr/local/bin/minishift
+    register: minishift_installed
+    changed_when: not minishift_installed.stat.exists
+
+  - name: Install Minishift
+    unarchive:
+      src: '{{ minishift_baseurl }}/{{ minishift_package }}'
+      remote_src: yes
+      extra_opts: ['--strip-components', '1', '--wildcards', '*/minishift']
+      dest: /usr/local/bin/
+      mode: 0755
+    when: not minishift_installed.stat.exists or force_upgrade == 'yes'
+    become: true
+
+  - name: Activate Bash autocompletion for Minihift
+    lineinfile:
+      dest: '{{ ansible_env.HOME }}/.bash_aliases'
+      create: true
+      line: 'source <(minishift completion bash)'
 
   tags: [kubernetes]
