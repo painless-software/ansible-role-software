@@ -35,10 +35,7 @@ Example Playbook
 ```yaml
 - hosts: developers
   roles:
-    - { role: painless-software.software }
-  inventory:
-    - company/inventory/defaults
-    - company/inventory/secrets
+    - software
 ```
 
 Usage
@@ -53,7 +50,7 @@ fashion, e.g.
 
 ```bash
 # install all software on your local machine
-$ ansible localhost -m painless-software.software -K
+$ ansible localhost -m painless.software -K
 ```
 
 or, to use custom settings and/or personal secrets:
