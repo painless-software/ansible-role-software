@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: software
   author: Peter Bittner
   description: Painless software provisioning for your developer machine.
   company: Painless Software
