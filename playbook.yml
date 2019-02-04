@@ -9,7 +9,7 @@
 
 - name: Set up a sweet developer machine.
   hosts: localhost
-  roles:
+  tasks:
     - base
     - sysadmin
     - developer

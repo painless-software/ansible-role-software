@@ -35,7 +35,7 @@ Example Playbook
 ```yaml
 - hosts: developers
   roles:
-    - software
+    - painless.software
 ```
 
 Usage
