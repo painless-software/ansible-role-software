@@ -4,6 +4,5 @@
 - import_tasks: cli.yml
 - import_tasks: network.yml
 - import_tasks: backup.yml
-- import_tasks: diskmanagement.yml
 - import_tasks: virtualization.yml
 - import_tasks: benchmark.yml
