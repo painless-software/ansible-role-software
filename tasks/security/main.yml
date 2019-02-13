@@ -1,0 +1,10 @@
+---
+# Software and configuration to make your use of computers safer
+
+- name: Install offline password manager
+  package:
+    name: keepassxc
+    state: present
+  become: true
+  tags:
+    - keepass

@@ -2,6 +2,7 @@
 # All tasks provided by this role
 
 - import_tasks: base/main.yml
+- import_tasks: security/main.yml
 - import_tasks: sysadmin/main.yml
 - import_tasks: developer/main.yml
 - import_tasks: multimedia/main.yml
