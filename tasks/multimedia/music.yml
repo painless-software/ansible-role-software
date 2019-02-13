@@ -1,0 +1,24 @@
+---
+# Software for music consumption
+
+- name: Install proprietary music players
+  command: snap install {{ item }}
+  with_items:
+    - spotify
+  become: true
+  tags:
+    - multimedia
+
+- name: Install LMMS music composing studio
+  package: name=lmms state=present
+  become: true
+  tags:
+    - multimedia
+
+- name: Install Audacity audio editor
+  command: snap install {{ item }}
+  with_items:
+    - audacity
+  become: true
+  tags:
+    - multimedia

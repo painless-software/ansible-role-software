@@ -1,0 +1,19 @@
+---
+# Software for image manipulation, video editing, audio conversion, etc.
+
+- name: Install image and video conversion tools
+  package:
+    name:
+      - imagemagick
+    state: present
+  become: true
+  tags:
+    - multimedia
+
+- name: Install image manipulation programs
+  command: snap install {{ item }}
+  with_items:
+    - gimp
+  become: true
+  tags:
+    - multimedia

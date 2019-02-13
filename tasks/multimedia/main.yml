@@ -1,41 +1,6 @@
 ---
 # Software for image manipulation, video editing, audio conversion, etc.
 
-- name: Install multimedia software and tools
-  package: name={{ item }} state=present
-  with_items:
-    - ffmpeg
-    - gimp
-    - imagemagick
-  become: true
-  tags:
-    - multimedia
-
-- name: Install YouTube downloader
-  pip:
-    name: youtube-dl
-    state: latest
-    executable: pip3
-    extra_args: --user
-  tags:
-    - multimedia
-
-- name: Set YouTube downloader defaults for music extraction
-  lineinfile:
-    dest: '{{ ansible_env.HOME }}/.config/youtube-dl/config'
-    create: true
-    line: '{{ item }}'
-  with_items:
-    - '--extract-audio'
-    - '--audio-format mp3'
-    - '--add-metadata'
-  tags:
-    - multimedia
-
-- name: Install proprietary music players
-  command: snap install {{ item }}
-  with_items:
-    - spotify
-  become: true
-  tags:
-    - multimedia
+- import_tasks: image/main.yml
+- import_tasks: music/main.yml
+- import_tasks: video/main.yml
