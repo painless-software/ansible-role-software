@@ -43,28 +43,28 @@ desktop_gnome_settings:
 
 franz_version: '5.0.0-beta.24'
 franz_baseurl: 'https://github.com/meetfranz/franz/releases/download'
-franz_package: 'v{{ franz_version }}/franz_{{ franz_version }}_amd64.deb'
+franz_package: "v{{ franz_version }}/franz_{{ franz_version }}_amd64.deb"
 
 rambox_version: '0.6.3'
 rambox_baseurl: 'https://github.com/ramboxapp/community-edition/releases/download'
-rambox_package: '{{ rambox_version }}/Rambox-{{ rambox_version }}-linux-amd64.deb'
+rambox_package: "{{ rambox_version }}/Rambox-{{ rambox_version }}-linux-amd64.deb"
 
 kompose_version: '1.17.0'
 kompose_baseurl: 'https://github.com/kubernetes/kompose/releases/download'
-kompose_binary: 'v{{ kompose_version }}/kompose_{{ kompose_version }}_amd64.deb'
+kompose_binary: "v{{ kompose_version }}/kompose_{{ kompose_version }}_amd64.deb"
 
 minikube_version: '0.33.1'
 minikube_baseurl: 'https://github.com/kubernetes/minikube/releases/download'
-minikube_package: 'v{{ minikube_version }}/minikube_{{ minikube_version | replace('.', '-') | replace('-', '.', 1) }}.deb'
+minikube_package: "v{{ minikube_version }}/minikube_{{ minikube_version | replace('.', '-') | replace('-', '.', 1) }}.deb"
 
 openshift_cli_version: 'v3.11.0'
 openshift_cli_commit: '0cbc58b'
 openshift_cli_baseurl: 'https://github.com/openshift/origin/releases/download'
-openshift_cli_package: '{{ openshift_cli_version }}/openshift-origin-client-tools-{{ openshift_cli_version }}-{{ openshift_cli_commit }}-linux-64bit.tar.gz'
+openshift_cli_package: "{{ openshift_cli_version }}/openshift-origin-client-tools-{{ openshift_cli_version }}-{{ openshift_cli_commit }}-linux-64bit.tar.gz"
 
 minishift_version: '1.31.0'
 minishift_baseurl: 'https://github.com/minishift/minishift/releases/download'
-minishift_package: 'v{{ minishift_version }}/minishift-{{ minishift_version }}-linux-amd64.tgz'
+minishift_package: "v{{ minishift_version }}/minishift-{{ minishift_version }}-linux-amd64.tgz"
 
 editors_jetbrains_ides:
   - intellij-idea-community

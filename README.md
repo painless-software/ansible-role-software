@@ -49,15 +49,16 @@ Alternatively, you can run this Ansible role from the terminal in a manual
 fashion, e.g.
 
 ```bash
-# install all software on your local machine
-$ ansible localhost -m painless.software -K
+# install all software on your local machine (Ansible 2.7+)
+$ ansible localhost -m include_role -a role=painless.software
 ```
 
-or, to use custom settings and/or personal secrets:
+The more obvious way is to write a simple playbook (see above), specify only
+the software you want to install, include your custom settings and/or
+personal secrets, and run your playbook as usual:
 
 ```bash
-# NOTE: multiple -i options override default inventory values
-$ ansible-playbook playbook.yml -K -i inventory -i path/to/your/private/inventory
+$ ansible-playbook playbook.yml -K
 ```
 
 Packages that must be downloaded manually cannot be upgraded automatically

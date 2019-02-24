@@ -1,6 +1,6 @@
 ---
 # Software for image manipulation, video editing, audio conversion, etc.
 
-- import_tasks: image/main.yml
-- import_tasks: music/main.yml
-- import_tasks: video/main.yml
+- import_tasks: image.yml
+- import_tasks: music.yml
+- import_tasks: video.yml
