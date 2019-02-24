@@ -1,5 +1,9 @@
-software
-========
+Ansible Role: Software
+======================
+
+[![Build Status](
+https://img.shields.io/travis/painless-software/ansible-role-software/master.svg
+)](https://travis-ci.org/painless-software/ansible-role-software)
 
 > Painless software provisioning for your developer machine.
 
@@ -15,6 +19,7 @@ Requirements
 Supported operating systems and GNU/Linux distributions:
 
 - Ubuntu 18.04 LTS Bionic
+- Ubuntu 18.10 Cosmic
 
 Others may work but have not been verified by test installations.
 

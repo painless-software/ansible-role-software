@@ -1,0 +1,6 @@
+language: python
+
+script: true
+
+notifications:
+    webhooks: https://galaxy.ansible.com/api/v1/notifications/
