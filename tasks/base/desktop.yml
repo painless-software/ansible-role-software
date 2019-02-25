@@ -2,46 +2,48 @@
 # Software and configuration to tweak your desktop environment
 
 - name: Install desktop customization tools
-  package: name={{ item }} state=present
-  with_items:
-    - gnome-tweak-tool
-    - dconf-editor
-    - chrome-gnome-shell
+  package:
+    name:
+      - gnome-tweak-tool
+      - dconf-editor
+      - chrome-gnome-shell
+    state: present
   become: true
   tags:
     - gnome
 
-- name: Install prerequisites for system monitor extension
-  package: name={{ item }} state=present
-  with_items:
-    - gir1.2-gtop-2.0
-    - gir1.2-networkmanager-1.0
-    - gir1.2-clutter-1.0
+- block:
+  - name: Install dependencies for extension installer
+    package: name=curl state=present
+
+  - name: Install GNOME Shell extension installer
+    get_url:
+      url: https://raw.githubusercontent.com/brunelli/gnome-shell-extension-installer/master/gnome-shell-extension-installer
+      dest: /usr/local/bin/gnome-shell-extension-installer
+      mode: 0755
+
+  - name: Install prerequisites for system monitor extension
+    package:
+      name:
+        - gir1.2-gtop-2.0
+        - gir1.2-networkmanager-1.0
+        - gir1.2-clutter-1.0
+      state: present
+
   become: true
   tags:
     - gnome
     - unity
 
-- name: Install GNOME extension installer
-  get_url:
-    url: https://raw.githubusercontent.com/brunelli/gnome-shell-extension-installer/master/gnome-shell-extension-installer
-    dest: /usr/local/bin/gnome-shell-extension-installer
-    mode: 0755
-  become: true
-  tags:
-    - gnome
-    - unity
+- block:
+  - name: Install GNOME Shell extensions - Unity style (1/2)
+    command: gnome-shell-extension-installer "{{ item }}" --update --yes
+    with_items: "{{ desktop_gnomeshell_extensions }}"
 
-- name: Install GNOME Shell extensions - Unity style (1/2)
-  command: gnome-shell-extension-installer "{{ item }}" --update --yes
-  with_items: "{{ desktop_gnomeshell_extensions }}"
-  tags:
-    - gnome
-    - unity
+  - name: Customize GNOME Shell - Unity style (2/2)
+    command: gsettings set {{ item }}
+    with_items: "{{ desktop_gnome_settings }}"
 
-- name: Customize GNOME Shell - Unity style (2/2)
-  command: gsettings set {{ item }}
-  with_items: "{{ desktop_gnome_settings }}"
   tags:
     - gnome
     - unity
