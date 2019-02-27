@@ -79,14 +79,11 @@ Prerequisites
 
 Obviously, you need [Ansible](
 http://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
-to run this playbook. Using Python 3 is recommended on modern systems, e.g.
+to install this role and run your playbook, e.g.
 
 ```bash
-$ sudo apt-get install python3-pip
-$ pip3 install --user ansible
-# ... and if your shell can't find the ansible-playbook executable:
-$ export PATH="$HOME/.local/bin:$PATH"
-$ ansible-galaxy install painless-software.software
+$ sudo apt-get install ansible
+$ ansible-galaxy install painless.software
 ```
 
 How Does It Work?
