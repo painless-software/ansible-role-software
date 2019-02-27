@@ -1,36 +1,38 @@
 ---
 # Software and configuration for automation ninjas
 
-- name: Find out whether APT key and sources for PDK are installed
-  command: dpkg-query -W puppetlabs-release-pc1
-  register: puppet_pdk_installed
-  failed_when: puppet_pdk_installed.rc > 1
-  changed_when: puppet_pdk_installed.rc == 1
+- block:
+  name: Puppet development tool chain
+
+  - name: Find out whether APT key and sources for PDK are installed
+    command: dpkg-query -W puppetlabs-release-pc1
+    register: puppet_pdk_installed
+    failed_when: puppet_pdk_installed.rc > 1
+    changed_when: puppet_pdk_installed.rc == 1
+
+  - name: Install APT key and sources for PDK (Puppet 4)
+    apt:
+      deb: https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb
+      state: present
+    when: puppet_pdk_installed.rc == 1
+
+  - name: Install Puppet developer packages
+    package:
+      name:
+        - puppet
+        - pdk
+      state: present
+      update_cache: yes
+
+  become: true
   tags:
     - puppet
 
-- name: Install APT key and sources for PDK (Puppet 4)
-  apt:
-    deb: https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb
+- name: Install Ansible developer packages
+  package:
+    name:
+      - ansible
+      - ansible-tower-cli
     state: present
-  when: puppet_pdk_installed.rc == 1
-  become: true
-  tags:
-    - puppet
-
-- name: Install system packages for automation
-  package: name={{ item }} state=present update_cache=yes
-  with_items:
-    - puppet
-    - pdk
-  become: true
-  tags:
-    - puppet
-
-- name: Install Ansible packages in Python user space
-  pip: name={{ item }} executable=pip3 extra_args=--user state=present
-  with_items:
-    - ansible
-    - ansible-tower-cli
   tags:
     - ansible

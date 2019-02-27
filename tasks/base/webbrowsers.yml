@@ -16,3 +16,5 @@
       - firefox
 
   become: true
+  tags:
+    - webbrowsers
