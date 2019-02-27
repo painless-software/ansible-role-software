@@ -1,5 +1,5 @@
 ---
-force_upgrade: no
+force_upgrade: false
 
 desktop_dock_apps_defaults:
   - 'org.gnome.Nautilus.desktop'

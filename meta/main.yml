@@ -1,3 +1,4 @@
+---
 galaxy_info:
   role_name: software
   author: Peter Bittner
@@ -8,12 +9,12 @@ galaxy_info:
   min_ansible_version: 1.2
 
   platforms:
-  - name: Ubuntu
-    versions:
-    - 18.04
+    - name: Ubuntu
+      versions:
+        - 18.04
 
   galaxy_tags:
-  - desktop
-  - software
+    - desktop
+    - software
 
 dependencies: []

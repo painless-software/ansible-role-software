@@ -1,26 +1,30 @@
 ---
 # Driver software and configuration for printers
 
-- block:
-  - name: Find out whether suldr-keyring is installed
-    command: dpkg-query -W suldr-keyring
-    register: suldrkeyring_installed
-    failed_when: suldrkeyring_installed.rc > 1
-    changed_when: suldrkeyring_installed.rc == 1
+- name: Samsung MFP printer + scanner
+  block:
 
-  - name: Install APT keyring for SULD
-    apt: deb=http://www.bchemnet.com/suldr/pool/debian/extra/su/suldr-keyring_2_all.deb
-    when: suldrkeyring_installed.rc == 1
+    - name: Find out whether suldr-keyring is installed
+      command: dpkg-query -W suldr-keyring
+      register: suldrkeyring_installed
+      failed_when: suldrkeyring_installed.rc > 1
+      changed_when: suldrkeyring_installed.rc == 1
 
-  - name: Add APT source for SULD
-    apt_repository:
-      repo: deb http://www.bchemnet.com/suldr/ debian extra
-      filename: samsung-unified-driver
-      update_cache: yes
-      state: present
+    - name: Install APT keyring for SULD
+      apt: deb=http://www.bchemnet.com/suldr/pool/debian/extra/su/suldr-keyring_2_all.deb
+      when: suldrkeyring_installed.rc == 1
 
-  - name: Install Samsung Unified Linux Driver (SULD)
-    package: name=suld-driver2-1.00.39 state=present
+    - name: Add APT source for SULD
+      apt_repository:
+        repo: deb http://www.bchemnet.com/suldr/ debian extra
+        filename: samsung-unified-driver
+        update_cache: true
+        state: present
+
+    - name: Install Samsung Unified Linux Driver (SULD)
+      package:
+        name: suld-driver2-1.00.39
+        state: present
 
   become: true
   tags: [samsung-printer]

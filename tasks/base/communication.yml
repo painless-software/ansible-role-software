@@ -11,11 +11,14 @@
   tags:
     - email
 
-- block:
-  - name: Add PPA for Geary email client
-    apt_repository: repo=ppa:geary-team/releases state=present
-  - name: Lightweight email client for GNOME
-    package: name=geary state=present
+- name: Geary GNOME email client
+  block:
+
+    - name: Add PPA for Geary email client
+      apt_repository: repo=ppa:geary-team/releases state=present
+    - name: Lightweight email client for GNOME
+      package: name=geary state=present
+
   become: true
   tags:
     - email
@@ -32,47 +35,53 @@
     - skype
     - slack
 
-- block:
-  - name: Find out whether Franz multi-messenger is installed
-    command: dpkg-query -W franz
-    register: franz_installed
-    failed_when: franz_installed.rc > 1
-    changed_when: franz_installed.rc == 1
+- name: Franz multi-messenger
+  block:
 
-  - name: Install Franz multi-messenger
-    apt: deb={{ franz_baseurl }}/{{ franz_package }}
-    when: franz_installed.rc == 1 or force_upgrade == 'yes'
-    become: true
+    - name: Find out whether Franz multi-messenger is installed
+      command: dpkg-query -W franz
+      register: franz_installed
+      failed_when: franz_installed.rc > 1
+      changed_when: franz_installed.rc == 1
+
+    - name: Install Franz multi-messenger
+      apt: deb={{ franz_baseurl }}/{{ franz_package }}
+      when: franz_installed.rc == 1 or force_upgrade == 'yes'
+      become: true
 
   tags:
     - franz
 
-- block:
-  - name: Find out whether Rambox multi-messenger is installed
-    command: dpkg-query -W rambox
-    register: rambox_installed
-    failed_when: rambox_installed.rc > 1
-    changed_when: rambox_installed.rc == 1
+- name: Rambox multi-messenger
+  block:
 
-  - name: Install Rambox multi-messenger
-    apt: deb={{ rambox_baseurl }}/{{ rambox_package }}
-    when: rambox_installed.rc == 1 or force_upgrade == 'yes'
-    become: true
+    - name: Find out whether Rambox multi-messenger is installed
+      command: dpkg-query -W rambox
+      register: rambox_installed
+      failed_when: rambox_installed.rc > 1
+      changed_when: rambox_installed.rc == 1
+
+    - name: Install Rambox multi-messenger
+      apt: deb={{ rambox_baseurl }}/{{ rambox_package }}
+      when: rambox_installed.rc == 1 or force_upgrade == 'yes'
+      become: true
 
   tags:
     - rambox
 
-- block:
-  - name: Find out whether Zoom conferencing client is installed
-    command: dpkg-query -W zoom
-    register: zoom_installed
-    failed_when: zoom_installed.rc > 1
-    changed_when: zoom_installed.rc == 1
+- name: Zoom conferencing
+  block:
 
-  - name: Install Zoom conferencing client
-    apt: deb=https://zoom.us/client/latest/zoom_amd64.deb
-    when: zoom_installed.rc == 1 or force_upgrade == 'yes'
-    become: true
+    - name: Find out whether Zoom conferencing client is installed
+      command: dpkg-query -W zoom
+      register: zoom_installed
+      failed_when: zoom_installed.rc > 1
+      changed_when: zoom_installed.rc == 1
+
+    - name: Install Zoom conferencing client
+      apt: deb=https://zoom.us/client/latest/zoom_amd64.deb
+      when: zoom_installed.rc == 1 or force_upgrade == 'yes'
+      become: true
 
   tags:
     - zoom

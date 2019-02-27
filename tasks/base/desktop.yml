@@ -12,37 +12,41 @@
   tags:
     - gnome
 
-- block:
-  - name: Install dependencies for extension installer
-    package: name=curl state=present
+- name: GNOME Shell extension installer
+  block:
 
-  - name: Install GNOME Shell extension installer
-    get_url:
-      url: https://raw.githubusercontent.com/brunelli/gnome-shell-extension-installer/master/gnome-shell-extension-installer
-      dest: /usr/local/bin/gnome-shell-extension-installer
-      mode: 0755
+    - name: Install dependencies for extension installer
+      package: name=curl state=present
 
-  - name: Install prerequisites for system monitor extension
-    package:
-      name:
-        - gir1.2-gtop-2.0
-        - gir1.2-networkmanager-1.0
-        - gir1.2-clutter-1.0
-      state: present
+    - name: Install GNOME Shell extension installer
+      get_url:
+        url: https://raw.githubusercontent.com/brunelli/gnome-shell-extension-installer/master/gnome-shell-extension-installer
+        dest: /usr/local/bin/gnome-shell-extension-installer
+        mode: 0755
+
+    - name: Install prerequisites for system monitor extension
+      package:
+        name:
+          - gir1.2-gtop-2.0
+          - gir1.2-networkmanager-1.0
+          - gir1.2-clutter-1.0
+        state: present
 
   become: true
   tags:
     - gnome
     - unity
 
-- block:
-  - name: Install GNOME Shell extensions - Unity style (1/2)
-    command: gnome-shell-extension-installer "{{ item }}" --update --yes
-    with_items: "{{ desktop_gnomeshell_extensions }}"
+- name: GNOME extensions
+  block:
 
-  - name: Customize GNOME Shell - Unity style (2/2)
-    command: gsettings set {{ item }}
-    with_items: "{{ desktop_gnome_settings }}"
+    - name: Install GNOME Shell extensions - Unity style (1/2)
+      command: gnome-shell-extension-installer "{{ item }}" --update --yes
+      with_items: "{{ desktop_gnomeshell_extensions }}"
+
+    - name: Customize GNOME Shell - Unity style (2/2)
+      command: gsettings set {{ item }}
+      with_items: "{{ desktop_gnome_settings }}"
 
   tags:
     - gnome

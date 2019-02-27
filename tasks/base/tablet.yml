@@ -18,7 +18,7 @@
   - name: Install Write handwriting app
     unarchive:
       src: http://www.styluslabs.com/download/write-tgz
-      remote_src: yes
+      remote_src: true
       dest: /opt
       creates: /opt/Write/Write
       owner: root
@@ -33,7 +33,7 @@
   - name: Create desktop shortcut for Write handwriting
     blockinfile:
       dest: /usr/share/applications/Write.desktop
-      create: yes
+      create: true
       block: |
         [Desktop Entry]
         Version=1.0

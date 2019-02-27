@@ -1,32 +1,34 @@
 ---
 # Software and configuration for working with Docker
 
-- block:
-  - name: Add APT keys for Docker CE
-    apt_key:
-      id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
-      keyserver: p80.pool.sks-keyservers.net
-      keyring: /etc/apt/trusted.gpg.d/docker-ce.gpg
-      state: present
+- name: Docker (Community Edition)
+  block:
 
-  - name: Add APT source for Docker CE
-    apt_repository:
-      repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} {{ item }}'
-      filename: docker-ce
-      state: present
-    with_items:
-      - stable
-      - edge
+    - name: Add APT keys for Docker CE
+      apt_key:
+        id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+        keyserver: p80.pool.sks-keyservers.net
+        keyring: /etc/apt/trusted.gpg.d/docker-ce.gpg
+        state: present
 
-  - name: Install system packages for working with Docker
-    package:
-      name:
-        - docker-ce
-        - docker-compose
-      state: present
+    - name: Add APT source for Docker CE
+      apt_repository:
+        repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} {{ item }}'
+        filename: docker-ce
+        state: present
+      with_items:
+        - stable
+        - edge
 
-  - name: Add user "{{ ansible_user_id }}" to docker group (requires log out/in again)
-    user: name={{ ansible_user_id }} groups=docker append=yes
+    - name: Install system packages for working with Docker
+      package:
+        name:
+          - docker-ce
+          - docker-compose
+        state: present
+
+    - name: Add user "{{ ansible_user_id }}" to docker group (requires log out/in again)
+      user: name={{ ansible_user_id }} groups=docker append=yes
 
   become: true
   tags: [docker]
@@ -40,77 +42,85 @@
   become: true
   tags: [kubernetes]
 
-- block:
-  - name: Install Kubernetes CLI
-    command: snap install kubectl --classic
-    become: true
+- name: Kubernetes CLI
+  block:
 
-  - name: Activate Bash autocompletion for kubectl
-    lineinfile:
-      dest: '{{ ansible_env.HOME }}/.bash_aliases'
-      create: true
-      line: 'source <(kubectl completion bash)'
+    - name: Install Kubernetes CLI
+      command: snap install kubectl --classic
+      become: true
 
-  tags: [kubernetes]
-
-- block:
-  - name: Find out whether Minikube is installed
-    command: dpkg-query -W minikube
-    register: minikube_installed
-    failed_when: minikube_installed.rc > 1
-    changed_when: minikube_installed.rc == 1
-
-  - name: Install Minikube
-    apt: deb={{ minikube_baseurl }}/{{ minikube_package }}
-    when: minikube_installed.rc == 1 or force_upgrade == 'yes'
-    become: true
+    - name: Activate Bash autocompletion for kubectl
+      lineinfile:
+        dest: '{{ ansible_env.HOME }}/.bash_aliases'
+        create: true
+        line: 'source <(kubectl completion bash)'
 
   tags: [kubernetes]
 
-- block:
-  - name: Find out whether OpenShift CLI is installed
-    stat: path=/usr/local/bin/oc
-    register: oc_installed
-    changed_when: not oc_installed.stat.exists
+- name: Minikube
+  block:
 
-  - name: Install OpenShift CLI
-    unarchive:
-      src: '{{ openshift_cli_baseurl }}/{{ openshift_cli_package }}'
-      remote_src: yes
-      extra_opts: ['--strip-components', '1', '--wildcards', '*/oc']
-      dest: /usr/local/bin/
-      mode: 0755
-    when: not oc_installed.stat.exists or force_upgrade == 'yes'
-    become: true
+    - name: Find out whether Minikube is installed
+      command: dpkg-query -W minikube
+      register: minikube_installed
+      failed_when: minikube_installed.rc > 1
+      changed_when: minikube_installed.rc == 1
 
-  - name: Activate Bash autocompletion for OpenShift CLI
-    lineinfile:
-      dest: '{{ ansible_env.HOME }}/.bash_aliases'
-      create: true
-      line: 'source <(oc completion bash)'
+    - name: Install Minikube
+      apt: deb={{ minikube_baseurl }}/{{ minikube_package }}
+      when: minikube_installed.rc == 1 or force_upgrade == 'yes'
+      become: true
 
   tags: [kubernetes]
 
-- block:
-  - name: Find out whether Minishift is installed
-    stat: path=/usr/local/bin/minishift
-    register: minishift_installed
-    changed_when: not minishift_installed.stat.exists
+- name: OpenShift CLI
+  block:
 
-  - name: Install Minishift
-    unarchive:
-      src: '{{ minishift_baseurl }}/{{ minishift_package }}'
-      remote_src: yes
-      extra_opts: ['--strip-components', '1', '--wildcards', '*/minishift']
-      dest: /usr/local/bin/
-      mode: 0755
-    when: not minishift_installed.stat.exists or force_upgrade == 'yes'
-    become: true
+    - name: Find out whether OpenShift CLI is installed
+      stat: path=/usr/local/bin/oc
+      register: oc_installed
+      changed_when: not oc_installed.stat.exists
 
-  - name: Activate Bash autocompletion for Minihift
-    lineinfile:
-      dest: '{{ ansible_env.HOME }}/.bash_aliases'
-      create: true
-      line: 'source <(minishift completion bash)'
+    - name: Install OpenShift CLI
+      unarchive:
+        src: '{{ openshift_cli_baseurl }}/{{ openshift_cli_package }}'
+        remote_src: true
+        extra_opts: ['--strip-components', '1', '--wildcards', '*/oc']
+        dest: /usr/local/bin/
+        mode: 0755
+      when: not oc_installed.stat.exists or force_upgrade == 'yes'
+      become: true
+
+    - name: Activate Bash autocompletion for OpenShift CLI
+      lineinfile:
+        dest: '{{ ansible_env.HOME }}/.bash_aliases'
+        create: true
+        line: 'source <(oc completion bash)'
+
+  tags: [kubernetes]
+
+- name: Minishift
+  block:
+
+    - name: Find out whether Minishift is installed
+      stat: path=/usr/local/bin/minishift
+      register: minishift_installed
+      changed_when: not minishift_installed.stat.exists
+
+    - name: Install Minishift
+      unarchive:
+        src: '{{ minishift_baseurl }}/{{ minishift_package }}'
+        remote_src: true
+        extra_opts: ['--strip-components', '1', '--wildcards', '*/minishift']
+        dest: /usr/local/bin/
+        mode: 0755
+      when: not minishift_installed.stat.exists or force_upgrade == 'yes'
+      become: true
+
+    - name: Activate Bash autocompletion for Minihift
+      lineinfile:
+        dest: '{{ ansible_env.HOME }}/.bash_aliases'
+        create: true
+        line: 'source <(minishift completion bash)'
 
   tags: [kubernetes]

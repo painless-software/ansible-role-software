@@ -22,7 +22,7 @@
         - puppet
         - pdk
       state: present
-      update_cache: yes
+      update_cache: true
 
   become: true
   tags:
