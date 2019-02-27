@@ -2,17 +2,18 @@
 # Utilities used on the command line
 
 - name: Install a few useful command line tools
-  package: name={{ item }} state=present
-  with_items:
-    - dos2unix
-    - httpie
-    - lolcat
-    - ncdu
-    - ssh
-    - tmux
-    - tree
-    - vim
-    - whois
+  package:
+    name:
+      - dos2unix
+      - httpie
+      - lolcat
+      - ncdu
+      - ssh
+      - tmux
+      - tree
+      - vim
+      - whois
+    state: present
   become: true
   tags:
     - cli

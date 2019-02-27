@@ -2,10 +2,11 @@
 # Software and configuration for network layer
 
 - name: Install OpenVPN integration for Network Manager
-  package: name={{ item }} state=present
-  with_items:
-    - network-manager-openvpn
-    - network-manager-openvpn-gnome
+  package:
+    name:
+      - network-manager-openvpn
+      - network-manager-openvpn-gnome
+    state: present
   become: true
   tags:
     - office

@@ -2,12 +2,12 @@
 # Software and configuration for virtualization
 
 - name: Install popular virtualization software and tools
-  package: name={{ item }} state=present
-  with_items:
+  package:
     - libvirt-bin
     - virt-manager
     - virtualbox
     - vagrant
+  state: present
   become: true
   tags:
     - libvirt
