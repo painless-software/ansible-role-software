@@ -3,11 +3,12 @@
 
 - name: Install popular virtualization software and tools
   package:
-    - libvirt-bin
-    - virt-manager
-    - virtualbox
-    - vagrant
-  state: present
+    name:
+      - libvirt-bin
+      - virt-manager
+      - virtualbox
+      - vagrant
+    state: present
   become: true
   tags:
     - libvirt

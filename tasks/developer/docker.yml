@@ -19,10 +19,11 @@
       - edge
 
   - name: Install system packages for working with Docker
-    package: name={{ item }} state=present
-    with_items:
-      - docker-ce
-      - docker-compose
+    package:
+      name:
+        - docker-ce
+        - docker-compose
+      state: present
 
   - name: Add user "{{ ansible_user_id }}" to docker group (requires log out/in again)
     user: name={{ ansible_user_id }} groups=docker append=yes

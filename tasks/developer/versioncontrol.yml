@@ -2,12 +2,13 @@
 # Software and configuration for using version control
 
 - name: Install system packages for version control
-  package: name={{ item }} state=present
-  with_items:
-    - git
-    - git-extras
-    - git-gui
-    - gitk
+  package:
+    name:
+      - git
+      - git-extras
+      - git-gui
+      - gitk
+    state: present
   become: true
   tags:
     - git

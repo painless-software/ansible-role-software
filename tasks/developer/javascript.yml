@@ -2,10 +2,11 @@
 # JavaScript development tools and configuration
 
 - name: Install Node.js
-  package: name={{ item }} state=present
-  with_items:
-    - nodejs
-    - npm
+  package:
+    name:
+      - nodejs
+      - npm
+    state: present
   become: true
   tags:
     - nodejs

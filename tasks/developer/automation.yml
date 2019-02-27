@@ -1,8 +1,8 @@
 ---
 # Software and configuration for automation ninjas
 
-- block:
-  name: Puppet development tool chain
+- name: Puppet development tool chain
+  block:
 
   - name: Find out whether APT key and sources for PDK are installed
     command: dpkg-query -W puppetlabs-release-pc1
