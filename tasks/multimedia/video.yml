@@ -9,15 +9,17 @@
   become: true
   tags:
     - multimedia
+    - video
 
 - name: Install YouTube downloader
   pip:
     name: youtube-dl
     state: latest
-    executable: pip3
-    extra_args: --user
+  become: true
   tags:
     - multimedia
+    - music-listening
+    - video
 
 - name: Set YouTube downloader defaults for music extraction
   lineinfile:
@@ -30,3 +32,4 @@
     - '--add-metadata'
   tags:
     - multimedia
+    - music-listening

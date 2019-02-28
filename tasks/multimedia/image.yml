@@ -8,6 +8,7 @@
     state: present
   become: true
   tags:
+    - image-editing
     - multimedia
 
 - name: Install image manipulation programs
@@ -16,4 +17,5 @@
     - gimp
   become: true
   tags:
+    - image-editing
     - multimedia

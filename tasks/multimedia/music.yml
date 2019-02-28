@@ -8,12 +8,16 @@
   become: true
   tags:
     - multimedia
+    - music-listening
 
 - name: Install LMMS music composing studio
-  package: name=lmms state=present
+  package:
+    name: lmms
+    state: present
   become: true
   tags:
     - multimedia
+    - music-composing
 
 - name: Install Audacity audio editor
   command: snap install {{ item }}
@@ -22,3 +26,4 @@
   become: true
   tags:
     - multimedia
+    - music-editing
