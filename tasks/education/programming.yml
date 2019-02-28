@@ -2,7 +2,9 @@
 # Learning resources for Python
 
 - name: Tkinter Tk GUI Python 3 binding (for Python's turtle module)
-  package: name=python3-tk state=present
+  package:
+    name: python3-tk
+    state: present
   become: true
   tags:
     - python-edu
@@ -11,7 +13,9 @@
   block:
 
     - name: Install dependencies for PythonTurtle
-      package: name=python-wxgtk3.0 state=present
+      package:
+        name: python-wxgtk3.0
+        state: present
 
     - name: Clone PythonTurtle source code
       git:

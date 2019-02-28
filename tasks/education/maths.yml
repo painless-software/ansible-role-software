@@ -1,7 +1,9 @@
 ---
 # Software for mathematics
 
-- block:
+- name: GeoGebra
+  block:
+
   - name: Find out whether GeoGebra is installed
     command: dpkg-query -W geogebra-classic
     register: geogebra_installed
@@ -14,4 +16,5 @@
     when: geogebra_installed.rc == 1 or force_upgrade == 'yes'
     become: true
 
-  tags: [geogebra]
+  tags:
+    - geogebra
