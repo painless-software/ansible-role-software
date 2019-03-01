@@ -37,22 +37,24 @@
     - gnome
     - unity
 
-- name: GNOME extensions
+- name: Userdefaults scripts
   block:
 
-    - name: Install GNOME Shell extensions - Unity style (1/2)
-      command: gnome-shell-extension-installer "{{ item }}" --update --yes
-      with_items: "{{ desktop_gnomeshell_extensions }}"
+    - name: Copy userdefaults scripts
+      copy: src={{ item.src }} dest={{ item.dest }} force=no
+      with_items:
+        - src: files/base/desktop/userdefaults.sh
+          dest: "/opt/{{ userdefaults_organization }}/userdefaults.sh"
+        - src: files/base/desktop/userdefaults.d/
+          dest: "/opt/{{ userdefaults_organization }}/userdefaults.d"
 
-    - name: Customize GNOME Shell - Unity style (2/2)
-      command: gsettings set {{ item }}
-      with_items: "{{ desktop_gnome_settings }}"
+    - name: Install userdefaults script
+      file:
+        src: "/opt/{{ userdefaults_organization }}/userdefaults.sh"
+        dest: "/usr/local/bin/{{ userdefaults_organization }}-userdefaults"
+        state: link
 
+  become: true
   tags:
     - gnome
     - unity
-
-- name: Set GNOME dock application shortcuts
-  command: gsettings set org.gnome.shell favorite-apps "{{ desktop_dock_apps }}"
-  tags:
-    - gnome
