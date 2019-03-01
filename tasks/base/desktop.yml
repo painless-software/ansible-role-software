@@ -40,6 +40,11 @@
 - name: Userdefaults scripts
   block:
 
+    - name: Ensure target directory for userdefaults
+      file:
+        path: "/opt/{{ userdefaults_organization }}"
+        state: directory
+
     - name: Copy userdefaults scripts
       copy: src={{ item.src }} dest={{ item.dest }} force=no
       with_items:
