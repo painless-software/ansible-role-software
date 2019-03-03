@@ -12,25 +12,31 @@
   tags:
     - gnome
 
-- name: GNOME Shell extension installer
+- name: GNOME Shell extensions
   block:
 
-    - name: Install dependencies for extension installer
-      package: name=curl state=present
+    # see https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet/issues/474
+    - name: Ensure system monitor is not installed via snap
+      command: snap remove gnome-system-monitor
 
-    - name: Install GNOME Shell extension installer
-      get_url:
-        url: https://raw.githubusercontent.com/brunelli/gnome-shell-extension-installer/master/gnome-shell-extension-installer
-        dest: /usr/local/bin/gnome-shell-extension-installer
-        mode: 0755
-
-    - name: Install prerequisites for system monitor extension
+    - name: Ensure prerequisites for system monitor extension
       package:
         name:
+          - gir1.2-clutter-1.0
           - gir1.2-gtop-2.0
           - gir1.2-networkmanager-1.0
-          - gir1.2-clutter-1.0
+          - gnome-system-monitor
         state: present
+
+    - name: Install GNOME Shell extension manage CLI
+      get_url:
+        url: https://raw.githubusercontent.com/NicolasBernaerts/ubuntu-scripts/master/ubuntugnome/gnomeshell-extension-manage
+        dest: /usr/local/bin/gnome-shell-extension-manage
+        mode: 0755
+
+    - name: Install useful GNOME Shell extensions system-wide
+      command: "gnome-shell-extension-manage --install --system --extension-id {{ item }} --version latest"
+      with_items: "{{ desktop_gnomeshell_extensions }}"
 
   become: true
   tags:
