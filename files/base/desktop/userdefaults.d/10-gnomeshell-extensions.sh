@@ -41,8 +41,3 @@ echo 'Ensure desired GNOME Shell extensions are enabled ...'
 for extension in ${ENABLE_EXTENSIONS}; do
     gnome-shell-extension-tool --enable-extension "$extension"
 done
-
-echo 'Restart GNOME Shell to activate changes ...'
-dbus-send --session --type=method_call \
-          --dest=org.gnome.Shell /org/gnome/Shell \
-          org.gnome.Shell.Eval string:"global.reexec_self();"
