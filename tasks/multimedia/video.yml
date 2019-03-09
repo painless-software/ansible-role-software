@@ -1,6 +1,16 @@
 ---
 # Software for image manipulation, video editing, audio conversion, etc.
 
+- name: Install OpenShot video editor
+  package:
+    name:
+      - openshot
+    state: present
+  become: true
+  tags:
+    - multimedia
+    - video-editing
+
 - name: Install video conversion tools
   package:
     name:
