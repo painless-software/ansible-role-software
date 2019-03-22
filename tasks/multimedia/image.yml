@@ -12,9 +12,11 @@
     - multimedia
 
 - name: Install image manipulation programs
-  command: snap install {{ item }}
-  with_items:
-    - gimp
+  package:
+    name:
+      - gimp
+      - inkscape
+    state: present
   become: true
   tags:
     - image-editing
