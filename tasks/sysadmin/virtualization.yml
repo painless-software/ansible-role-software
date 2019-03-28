@@ -1,18 +1,24 @@
 ---
 # Software and configuration for virtualization
 
-- name: Install popular virtualization software and tools
+- name: Install libvirt and virt-manager
   package:
     name:
       - libvirt-bin
       - virt-manager
-      - virtualbox
     state: present
   become: true
   tags:
     - libvirt
-    - virtualbox
 
+- name: Install VirtualBox
+  package:
+    name:
+      - virtualbox
+    state: present
+  become: true
+  tags:
+    - virtualbox
 
 - name: Vagrant (instead of outdated package from system)
   block:
