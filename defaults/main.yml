@@ -67,6 +67,10 @@ editors_jetbrains_ides: "{{ editors_jetbrains_ides_defaults }}"
 editors_popular_ides: "{{ editors_popular_ides_defaults }}"
 editors_vscode_plugins: "{{ editors_vscode_plugins_defaults }}"
 
+vagrant_version: '2.2.4'
+vagrant_baseurl: 'https://releases.hashicorp.com/vagrant'
+vagrant_package: "{{ vagrant_version }}/vagrant_{{ vagrant_version }}_x86_64.deb"
+
 vmware_version: '15.0.2-10952284'
 vmware_package: "VMware-Player-{{ vmware_version }}.x86_64.bundle"
 vmware_baseurl: 'https://download3.vmware.com/software/player/file'

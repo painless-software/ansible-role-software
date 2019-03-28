@@ -7,12 +7,28 @@
       - libvirt-bin
       - virt-manager
       - virtualbox
-      - vagrant
     state: present
   become: true
   tags:
     - libvirt
     - virtualbox
+
+
+- name: Vagrant (instead of outdated package from system)
+  block:
+
+    - name: Find out whether Vagrant is installed
+      command: dpkg-query -W vagrant
+      register: vagrant_installed
+      failed_when: vagrant_installed.rc > 1
+      changed_when: vagrant_installed.rc == 1
+
+    - name: Install Vagrant from website
+      apt: deb={{ vagrant_baseurl }}/{{ vagrant_package }}
+      when: vagrant_installed.rc == 1 or force_upgrade == 'yes'
+      become: true
+
+  tags:
     - vagrant
 
 - name: Find out whether VMware Player is installed
