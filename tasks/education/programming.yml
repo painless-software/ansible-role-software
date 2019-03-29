@@ -14,7 +14,7 @@
 
     - name: Install dependencies for PythonTurtle
       package:
-        name: python-wxgtk3.0
+        name: python3-wxgtk4.0
         state: present
 
     - name: Clone PythonTurtle source code
@@ -32,11 +32,11 @@
           Version=1.0
           Type=Application
           Terminal=false
-          Exec=python pythonturtle.py
-          Path=/opt/PythonTurtle/src/
+          Exec=python3 -m pythonturtle
+          Path=/opt/PythonTurtle/
           Name=Python Turtle
           Comment=Learning environment for Python
-          Icon=/opt/PythonTurtle/src/resources/turtle.png
+          Icon=/opt/PythonTurtle/pythonturtle/resources/turtle.png
 
   become: true
   tags:
