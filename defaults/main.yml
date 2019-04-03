@@ -23,10 +23,6 @@ franz_version: '5.0.1'
 franz_baseurl: 'https://github.com/meetfranz/franz/releases/download'
 franz_package: "v{{ franz_version }}/franz_{{ franz_version }}_amd64.deb"
 
-rambox_version: '0.6.4'
-rambox_baseurl: 'https://github.com/ramboxapp/community-edition/releases/download'
-rambox_package: "{{ rambox_version }}/Rambox-{{ rambox_version }}-linux-amd64.deb"
-
 kompose_version: '1.18.0'
 kompose_baseurl: 'https://github.com/kubernetes/kompose/releases/download'
 kompose_binary: "v{{ kompose_version }}/kompose_{{ kompose_version }}_amd64.deb"
