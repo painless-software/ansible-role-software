@@ -33,13 +33,20 @@
   become: true
   tags: [docker]
 
-- name: Install Kompose (Compose->Kubernetes converter)
-  get_url:
-    url: '{{ kompose_baseurl }}/{{ kompose_binary }}'
-    dest: /usr/local/bin/kompose
-    mode: 0755
-    force: "{{ force_upgrade == 'yes' }}"
-  become: true
+- name: Kompose (Compose->Kubernetes converter)
+  block:
+
+    - name: Find out whether Kompose is installed
+      command: dpkg-query -W kompose
+      register: kompose_installed
+      failed_when: kompose_installed.rc > 1
+      changed_when: kompose_installed.rc == 1
+
+    - name: Install Kompose (Compose->Kubernetes converter)
+      apt: deb={{ kompose_baseurl }}/{{ kompose_package }}
+      when: kompose_installed.rc == 1 or force_upgrade == 'yes'
+      become: true
+
   tags: [kubernetes]
 
 - name: Kubernetes CLI

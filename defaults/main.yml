@@ -25,7 +25,7 @@ franz_package: "v{{ franz_version }}/franz_{{ franz_version }}_amd64.deb"
 
 kompose_version: '1.18.0'
 kompose_baseurl: 'https://github.com/kubernetes/kompose/releases/download'
-kompose_binary: "v{{ kompose_version }}/kompose_{{ kompose_version }}_amd64.deb"
+kompose_package: "v{{ kompose_version }}/kompose_{{ kompose_version }}_amd64.deb"
 
 minikube_version: '1.0.0'
 minikube_baseurl: 'https://github.com/kubernetes/minikube/releases/download'
