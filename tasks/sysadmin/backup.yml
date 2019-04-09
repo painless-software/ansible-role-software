@@ -1,64 +1,55 @@
 ---
 # Software and configuration for data backup and restore
 
-- name: Install backup/restore software
-  package: name=burp state=present
-  become: true
-  tags:
-    - backup
+- name: Burp Backup
+  block:
 
-- name: Adapt backup configuration for {{ ansible_env.HOME }} (1/3 - remove)
-  lineinfile:
-    dest: '/etc/burp/burp.conf'
-    mode: 0600
-    regexp: '{{ item }}'
-    state: absent
-  with_items:
-    - '^include = /home$'
-    - '^#exclude = /home/graham/.*$'
-    - '^#include = /home/graham/.*$'
-  become: true
-  tags:
-    - backup
+    - name: Install backup/restore software
+      package: name=burp state=present
 
-- name: Adapt backup configuration for {{ ansible_env.HOME }} (2/3 - replace)
-  lineinfile:
-    dest: '/etc/burp/burp.conf'
-    mode: 0600
-    regexp: '{{ item.regexp }}'
-    line: '{{ item.line }}'
-    state: present
-  with_items:
-    - { regexp: '^server = .*$', line: 'server = {{ burp_server }}' }
-    - { regexp: '^cname = .*$', line: 'cname = {{ burp_cname }}' }
-    - { regexp: '^password = .*$', line: 'password = {{ burp_password }}' }  # TODO: random generated
-    - { regexp: '^encryption_password = .*$', line: 'encryption_password = {{ burp_encryption_password }}' }  # TODO: pseudo-random generated (DO NOT LOSE!)
-  become: true
-  tags:
-    - backup
+    - name: Adapt backup configuration for {{ ansible_env.HOME }} (1/3 - remove)
+      lineinfile:
+        dest: '/etc/burp/burp.conf'
+        mode: 0600
+        regexp: '{{ item }}'
+        state: absent
+      with_items:
+        - '^include = /home$'
+        - '^#exclude = /home/graham/.*$'
+        - '^#include = /home/graham/.*$'
 
-- name: Adapt backup configuration for {{ ansible_env.HOME }} (3/3 - ensure)
-  lineinfile:
-    dest: '/etc/burp/burp.conf'
-    mode: 0600
-    line: '{{ item }}'
-    state: present
-  with_items:
-    - 'include = {{ ansible_env.HOME }}'
-    - 'exclude = {{ ansible_env.HOME }}/.vagrant.d'
-    - 'exclude = {{ ansible_env.HOME }}/VirtualBox\ VMs'
-    - 'exclude = {{ ansible_env.HOME }}/Google-Drive'
-  become: true
-  tags:
-    - backup
+    - name: Adapt backup configuration for {{ ansible_env.HOME }} (2/3 - replace)
+      lineinfile:
+        dest: '/etc/burp/burp.conf'
+        mode: 0600
+        regexp: '{{ item.regexp }}'
+        line: '{{ item.line }}'
+        state: present
+      with_items:
+        - { regexp: '^server = .*$', line: 'server = {{ burp_server }}' }
+        - { regexp: '^cname = .*$', line: 'cname = {{ burp_cname }}' }
+        - { regexp: '^password = .*$', line: 'password = {{ burp_password }}' }  # TODO: random generated
+        - { regexp: '^encryption_password = .*$', line: 'encryption_password = {{ burp_encryption_password }}' }  # TODO: pseudo-random generated (DO NOT LOSE!)
 
-- name: Configure cron job for daily backup
-  cron:
-    name: 'Daily backup'
-    hour: 11
-    minute: 47
-    job: '/usr/sbin/burp -a b'
-    state: present
+    - name: Adapt backup configuration for {{ ansible_env.HOME }} (3/3 - ensure)
+      lineinfile:
+        dest: '/etc/burp/burp.conf'
+        mode: 0600
+        line: '{{ item }}'
+        state: present
+      with_items:
+        - 'include = {{ ansible_env.HOME }}'
+        - 'exclude = {{ ansible_env.HOME }}/.vagrant.d'
+        - 'exclude = {{ ansible_env.HOME }}/VirtualBox\ VMs'
+
+    - name: Configure cron job for daily backup
+      cron:
+        name: 'Daily backup'
+        hour: 11
+        minute: 47
+        job: '/usr/sbin/burp -a b'
+        state: present
+
   become: true
   tags:
     - backup
