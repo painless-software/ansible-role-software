@@ -42,13 +42,14 @@ __pycache__/
 *$py.class
 
 # Editor and IDE files and folders
-.idea
+.idea/
 *.stTheme.cache
 *.sublime-project
 *.sublime-workspace
 *.tmlanguage.cache
 *.tmPreferences.cache
 GitHub.sublime-settings
+.vscode/
 
 # Environments
 .env
