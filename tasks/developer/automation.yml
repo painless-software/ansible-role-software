@@ -5,14 +5,14 @@
   block:
 
   - name: Find out whether APT key and sources for PDK are installed
-    command: dpkg-query -W puppetlabs-release-pc1
+    command: dpkg-query -W puppet-release
     register: puppet_pdk_installed
     failed_when: puppet_pdk_installed.rc > 1
     changed_when: puppet_pdk_installed.rc == 1
 
   - name: Install APT key and sources for PDK (Puppet 4)
     apt:
-      deb: https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb
+      deb: https://apt.puppetlabs.com/puppet-release-bionic.deb
       state: present
     when: puppet_pdk_installed.rc == 1
 
