@@ -10,7 +10,7 @@
     failed_when: puppet_pdk_installed.rc > 1
     changed_when: puppet_pdk_installed.rc == 1
 
-  - name: Install APT key and sources for PDK (Puppet 4)
+  - name: Install APT key and sources for PDK (Puppet 5)
     apt:
       deb: https://apt.puppetlabs.com/puppet-release-bionic.deb
       state: present
