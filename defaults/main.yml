@@ -46,7 +46,7 @@ editors_jetbrains_ides_defaults:
 
 editors_popular_ides_defaults:
   - atom
-  - vscode
+  - code
 
 editors_vscode_plugins_defaults:
   - AravindKumar.gherkin-indent
