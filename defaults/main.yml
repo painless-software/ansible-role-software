@@ -65,6 +65,16 @@ editors_jetbrains_ides: "{{ editors_jetbrains_ides_defaults }}"
 editors_popular_ides: "{{ editors_popular_ides_defaults }}"
 editors_vscode_plugins: "{{ editors_vscode_plugins_defaults }}"
 
+epson_printer_hostname: epson-wf-7710
+epson_printer_model: WF-7710
+
+imagescan_distro_type: "{% if ansible_distribution_version in ['18.04'] %}lts1{% else %}latest1{% endif %}"
+imagescan_version: '3.55.0'
+imagescan_archive: "imagescan-bundle-{{ ansible_distribution|lower }}-{{ ansible_distribution_version }}-{{ imagescan_version }}.x64.deb"
+imagescan_deb_tail: "1epson4{{ ansible_distribution|lower }}{{ ansible_distribution_version }}_amd64.deb"
+imagescan_download_path: "{{ ansible_distribution|lower }}/{{ imagescan_distro_type }}/deb/x64/{{ imagescan_archive }}.tar.gz"
+imagescan_download_base: 'https://download2.ebz.epson.net/imagescanv3'
+
 vagrant_version: '2.2.4'
 vagrant_baseurl: 'https://releases.hashicorp.com/vagrant'
 vagrant_package: "{{ vagrant_version }}/vagrant_{{ vagrant_version }}_x86_64.deb"

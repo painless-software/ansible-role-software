@@ -1,5 +1,48 @@
 ---
-# Driver software and configuration for printers
+# Driver software and configuration for printers, scanners, MFPs
+
+- name: EPSON Image Scan v3, http://support.epson.net/linux/en/imagescanv3.php
+  block:
+
+    - name: Find out whether Image Scan v3 already installed
+      command: dpkg-query -W imagescan
+      register: imagescan_installed
+      failed_when: imagescan_installed.rc > 1
+      changed_when: imagescan_installed.rc == 1
+
+    - name: Download and extract Image Scan package
+      unarchive:
+        remote_src: yes
+        src: "{{ imagescan_download_base }}/{{ imagescan_download_path }}"
+        dest: /tmp/
+      when: imagescan_installed.rc == 1 or force_upgrade == 'yes'
+
+    - name: Ensure prerequisites for Image Scan v3
+      package:
+        name: graphicsmagick
+        state: present
+
+    - name: Install EPSON Image Scan v3
+      apt:
+        deb:
+          - "/tmp/{{ imagescan_archive }}/core/imagescan_{{ imagescan_version }}-{{ imagescan_deb_tail }}"
+          - "/tmp/{{ imagescan_archive }}/plugins/imagescan-plugin-gt-s650_1.0.1-{{ imagescan_deb_tail }}"
+          - "/tmp/{{ imagescan_archive }}/plugins/imagescan-plugin-networkscan_1.1.2-{{ imagescan_deb_tail }}"
+          - "/tmp/{{ imagescan_archive }}/plugins/imagescan-plugin-ocr-engine_1.0.1-{{ imagescan_deb_tail }}"
+        state: present
+      when: imagescan_installed.rc == 1 or force_upgrade == 'yes'
+
+    - name: Configure EPSON scanner via Image Scan v3
+      lineinfile:
+        path: /etc/imagescan/imagescan.conf
+        line: "{{ item }}"
+      with_items:
+        - "myscanner.udi    = esci:networkscan://{{ epson_printer_hostname }}:1865"
+        - 'myscanner.vendor = Epson'
+        - "myscanner.model  = {{ epson_printer_model }}"
+
+  become: true
+  tags: [epson-scanner]
 
 - name: Samsung MFP printer + scanner
   block:
