@@ -23,7 +23,7 @@
         state: present
 
     - name: Install EPSON Image Scan v3
-      apt: dep={{ item }} state=present
+      apt: deb={{ item }} state=present
       with_items:
         - "/tmp/{{ imagescan_archive }}/core/imagescan_{{ imagescan_version }}-{{ imagescan_deb_tail }}"
         - "/tmp/{{ imagescan_archive }}/plugins/imagescan-plugin-gt-s650_1.0.1-{{ imagescan_deb_tail }}"
