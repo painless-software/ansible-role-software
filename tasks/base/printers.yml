@@ -23,13 +23,12 @@
         state: present
 
     - name: Install EPSON Image Scan v3
-      apt:
-        deb:
-          - "/tmp/{{ imagescan_archive }}/core/imagescan_{{ imagescan_version }}-{{ imagescan_deb_tail }}"
-          - "/tmp/{{ imagescan_archive }}/plugins/imagescan-plugin-gt-s650_1.0.1-{{ imagescan_deb_tail }}"
-          - "/tmp/{{ imagescan_archive }}/plugins/imagescan-plugin-networkscan_1.1.2-{{ imagescan_deb_tail }}"
-          - "/tmp/{{ imagescan_archive }}/plugins/imagescan-plugin-ocr-engine_1.0.1-{{ imagescan_deb_tail }}"
-        state: present
+      apt: dep={{ item }} state=present
+      with_items:
+        - "/tmp/{{ imagescan_archive }}/core/imagescan_{{ imagescan_version }}-{{ imagescan_deb_tail }}"
+        - "/tmp/{{ imagescan_archive }}/plugins/imagescan-plugin-gt-s650_1.0.1-{{ imagescan_deb_tail }}"
+        - "/tmp/{{ imagescan_archive }}/plugins/imagescan-plugin-networkscan_1.1.2-{{ imagescan_deb_tail }}"
+        - "/tmp/{{ imagescan_archive }}/plugins/imagescan-plugin-ocr-engine_1.0.1-{{ imagescan_deb_tail }}"
       when: imagescan_installed.rc == 1 or force_upgrade == 'yes'
 
     - name: Configure EPSON scanner via Image Scan v3
