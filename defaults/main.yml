@@ -19,7 +19,7 @@ desktop_gnomeshell_extensions_defaults:
 
 desktop_gnomeshell_extensions: "{{ desktop_gnomeshell_extensions_defaults }}"
 
-franz_version: '5.0.1'
+franz_version: '5.1.0'
 franz_baseurl: 'https://github.com/meetfranz/franz/releases/download'
 franz_package: "v{{ franz_version }}/franz_{{ franz_version }}_amd64.deb"
 
@@ -27,7 +27,7 @@ kompose_version: '1.18.0'
 kompose_baseurl: 'https://github.com/kubernetes/kompose/releases/download'
 kompose_package: "v{{ kompose_version }}/kompose_{{ kompose_version }}_amd64.deb"
 
-minikube_version: '1.0.0'
+minikube_version: '1.1.0'
 minikube_baseurl: 'https://github.com/kubernetes/minikube/releases/download'
 minikube_package: "v{{ minikube_version }}/minikube_{{ minikube_version }}.deb"
 
@@ -36,7 +36,7 @@ openshift_cli_commit: '0cbc58b'
 openshift_cli_baseurl: 'https://github.com/openshift/origin/releases/download'
 openshift_cli_package: "{{ openshift_cli_version }}/openshift-origin-client-tools-{{ openshift_cli_version }}-{{ openshift_cli_commit }}-linux-64bit.tar.gz"
 
-minishift_version: '1.33.0'
+minishift_version: '1.34.0'
 minishift_baseurl: 'https://github.com/minishift/minishift/releases/download'
 minishift_package: "v{{ minishift_version }}/minishift-{{ minishift_version }}-linux-amd64.tgz"
 
@@ -79,7 +79,7 @@ vagrant_version: '2.2.4'
 vagrant_baseurl: 'https://releases.hashicorp.com/vagrant'
 vagrant_package: "{{ vagrant_version }}/vagrant_{{ vagrant_version }}_x86_64.deb"
 
-vmware_version: '15.0.4-12990004'
+vmware_version: '15.1.0-13591040'
 vmware_package: "VMware-Player-{{ vmware_version }}.x86_64.bundle"
 vmware_baseurl: 'https://download3.vmware.com/software/player/file'
 vmware_installer: "/tmp/{{ vmware_package }}"
