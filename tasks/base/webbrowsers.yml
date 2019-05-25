@@ -3,17 +3,17 @@
 
 - block:
   - name: Popular Web browsers (avoid duplicate installs)
+    command: snap uninstall {{ item }}
+    with_items:
+      - chromium
+      - firefox
+
+  - name: Install popular Web browsers (snaps)
     package:
       name:
         - chromium-browser
         - firefox
-      state: absent
-
-  - name: Install popular Web browsers (snaps)
-    command: snap install {{ item }}
-    with_items:
-      - chromium
-      - firefox
+      state: present
 
   become: true
   tags:
