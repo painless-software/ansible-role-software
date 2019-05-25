@@ -23,6 +23,11 @@ franz_version: '5.1.0'
 franz_baseurl: 'https://github.com/meetfranz/franz/releases/download'
 franz_package: "v{{ franz_version }}/franz_{{ franz_version }}_amd64.deb"
 
+vscodium_version: '1.34.0'
+vscodium_commit: '1558029460'
+vscodium_baseurl: 'https://github.com/VSCodium/vscodium/releases/download'
+vscodium_package: "{{ vscodium_version }}/vscodium_{{ vscodium_version }}-{{ vscodium_commit }}_amd64.deb"
+
 kompose_version: '1.18.0'
 kompose_baseurl: 'https://github.com/kubernetes/kompose/releases/download'
 kompose_package: "v{{ kompose_version }}/kompose_{{ kompose_version }}_amd64.deb"
@@ -43,10 +48,6 @@ minishift_package: "v{{ minishift_version }}/minishift-{{ minishift_version }}-l
 editors_jetbrains_ides_defaults:
   - intellij-idea-community
   - pycharm-community
-
-editors_popular_ides_defaults:
-  - atom
-  - code
 
 editors_vscode_plugins_defaults:
   - AravindKumar.gherkin-indent
