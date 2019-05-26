@@ -24,6 +24,7 @@
 - name: Install YouTube downloader
   pip:
     name: youtube-dl
+    executable: pip3
     state: latest
   become: true
   tags:

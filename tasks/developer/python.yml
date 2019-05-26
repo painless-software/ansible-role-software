@@ -17,7 +17,7 @@
   lineinfile:
     dest: '{{ ansible_env.HOME }}/.bash_aliases'
     create: true
-    line: 'source <(pip completion --bash)'
+    line: 'source <(pip3 completion --bash)'
   tags:
     - python
 

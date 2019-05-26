@@ -38,7 +38,7 @@ Example Playbook
 ----------------
 
 ```yaml
-- hosts: developers
+- hosts: localhost
   roles:
     - painless.software
 ```
@@ -84,6 +84,13 @@ to install this role and run your playbook, e.g.
 ```bash
 $ sudo apt-get install ansible
 $ ansible-galaxy install painless.software
+```
+
+If some software fails to install, complaining `pip` is not installed, either
+include the `python` tag in your Ansible run or run:
+
+```bash
+$ sudo apt-get install python3-pip
 ```
 
 How Does It Work?
