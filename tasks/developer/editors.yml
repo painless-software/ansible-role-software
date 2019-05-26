@@ -9,16 +9,24 @@
 
 - name: VSCodium (freed version of Visual Studio Code)
   block:
+    - block:
+        - name: Add signing key of VSCodium package maintainer
+          apt_key:
+            url: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
+            state: present
 
-    - name: Find out whether VSCodium is installed
-      command: dpkg-query -W vscodium
-      register: vscodium_installed
-      failed_when: vscodium_installed.rc > 1
-      changed_when: vscodium_installed.rc == 1
+        - name: Add APT source for VSCodium deb package
+          apt_repository:
+            repo: deb https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/repos/debs/ vscodium main
+            filename: vscodium
+            update_cache: true
+            state: present
 
-    - name: Install VSCodium IDE
-      apt: deb={{ vscodium_baseurl }}/{{ vscodium_package }}
-      when: vscodium_installed.rc == 1 or force_upgrade == 'yes'
+        - name: Install VSCodium IDE
+          package:
+            name: vscodium
+            state: present
+
       become: true
 
     - name: Install popular extensions for VSCodium (Visual Studio Code)
