@@ -11,15 +11,16 @@
     - multimedia
     - video-editing
 
-- name: Install video conversion tools
+- name: Install video conversion tools and codecs
   package:
     name:
       - ffmpeg
+      - ubuntu-restricted-extras
     state: present
   become: true
   tags:
     - multimedia
-    - video
+    - video-watching
 
 - name: Install YouTube downloader
   pip:
@@ -30,7 +31,7 @@
   tags:
     - multimedia
     - music-listening
-    - video
+    - video-watching
 
 - name: Set YouTube downloader defaults for music extraction
   lineinfile:
