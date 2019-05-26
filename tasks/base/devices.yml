@@ -4,28 +4,16 @@
 - name: DisplayLink USB adapter (USB 2.0 -> HDMI/VGA/RJ45/USB 2.0)
   block:
 
-    - name: Find out whether displaylink-debian is installed (`DisplayLink info`)
-      command: which DisplayLink
-      register: displaylink_installed
-      failed_when: displaylink_installed.rc > 1
-      changed_when: displaylink_installed.rc == 1
+    - name: Ensure pre-requisites for DisplayLink adapter
+      package:
+        name: dkms
+        state: present
 
-    - block:
-        - name: Ensure pre-requisites for DisplayLink adapter
-          package:
-            name: dkms
-            state: present
-
-        - name: Download displaylink-debian install script
-          get_url:
-            url: https://raw.githubusercontent.com/AdnanHodzic/displaylink-debian/master/displaylink-debian.sh
-            dest: /tmp/
-            mode: 0755
-
-        - name: Run displaylink-debian install script
-          command: /tmp/displaylink-debian.sh
-
-      when: not displaylink_installed.stat.exists or force_upgrade == 'yes'
+    - name: Download DisplayLink script -- Run /opt/displaylink-debian.sh manually!
+      get_url:
+        url: https://raw.githubusercontent.com/AdnanHodzic/displaylink-debian/master/displaylink-debian.sh
+        dest: /opt/
+        mode: 0755
 
   become: true
   tags:
