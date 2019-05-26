@@ -10,3 +10,4 @@
 - import_tasks: communication.yml
 - import_tasks: tablet.yml
 - import_tasks: printers.yml
+- import_tasks: devices.yml
