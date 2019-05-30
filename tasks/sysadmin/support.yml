@@ -1,0 +1,20 @@
+
+---
+# Software for providing support (remote desktop access)
+
+- name: TeamViewer
+  block:
+
+    - name: Find out whether TeamViewer is installed
+      command: dpkg-query -W teamviewer
+      register: teamviewer_installed
+      failed_when: teamviewer_installed.rc > 1
+      changed_when: teamviewer_installed.rc == 1
+
+    - name: Install TeamViewer from website
+      apt: deb=https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
+      when: teamviewer_installed.rc == 1 or force_upgrade == 'yes'
+      become: true
+
+  tags:
+    - teamviewer
