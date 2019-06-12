@@ -24,13 +24,13 @@
 
         - name: Install VSCodium IDE
           package:
-            name: vscodium
+            name: codium
             state: present
 
       become: true
 
     - name: Install popular extensions for VSCodium (Visual Studio Code)
-      command: vscodium --install-extension "{{ item }}" --force
+      command: codium --install-extension "{{ item }}" --force
       with_items: '{{ editors_vscode_plugins }}'
 
   tags:
