@@ -19,15 +19,15 @@ desktop_gnomeshell_extensions_defaults:
 
 desktop_gnomeshell_extensions: "{{ desktop_gnomeshell_extensions_defaults }}"
 
-franz_version: '5.1.0'
-franz_baseurl: 'https://github.com/meetfranz/franz/releases/download'
-franz_package: "v{{ franz_version }}/franz_{{ franz_version }}_amd64.deb"
+franz_version: '5.2.0-beta.3'
+franz_baseurl: 'https://github.com/kytwb/ferdi/releases/download'
+franz_package: 'Ferdi-{{ franz_version }}/ferdi_{{ franz_version }}_amd64.deb'
 
 kompose_version: '1.18.0'
 kompose_baseurl: 'https://github.com/kubernetes/kompose/releases/download'
 kompose_package: "v{{ kompose_version }}/kompose_{{ kompose_version }}_amd64.deb"
 
-minikube_version: '1.1.0'
+minikube_version: '1.2.0'
 minikube_baseurl: 'https://github.com/kubernetes/minikube/releases/download'
 minikube_package: "v{{ minikube_version }}/minikube_{{ minikube_version }}.deb"
 
