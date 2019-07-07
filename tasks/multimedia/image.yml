@@ -2,6 +2,11 @@
 # Software for image manipulation, video editing, audio conversion, etc.
 
 - block:
+  - name: Enable PPA for newer GIMP
+    apt_repository:
+      repo: ppa:otto-kesselgulasch/gimp
+      state: present
+
   - name: Install image and video conversion tools
     package:
       name:
