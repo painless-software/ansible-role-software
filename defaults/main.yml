@@ -54,7 +54,7 @@ editors_vscode_plugins_defaults:
   - ms-python.python
   - MS-vsliveshare.vsliveshare
   - MS-vsliveshare.vsliveshare-audio
-  - PeterJausovec.vscode-docker
+  - ms-azuretools.vscode-docker
   - saahilclaypool.scratchpadmd
   - tht13.rst-vscode
 
