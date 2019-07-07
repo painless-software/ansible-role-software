@@ -51,10 +51,10 @@ editors_vscode_plugins_defaults:
   - dlech.ev3dev-browser
   - jpogran.puppet-vscode
   - k--kato.intellij-idea-keybindings
+  - ms-azuretools.vscode-docker
   - ms-python.python
   - MS-vsliveshare.vsliveshare
   - MS-vsliveshare.vsliveshare-audio
-  - ms-azuretools.vscode-docker
   - saahilclaypool.scratchpadmd
   - tht13.rst-vscode
 
