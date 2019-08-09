@@ -49,6 +49,7 @@ editors_vscode_plugins_defaults:
   - bajdzis.vscode-database
   - bbenoist.vagrant
   - dlech.ev3dev-browser
+  - joaompinto.asciidoctor-vscode
   - jpogran.puppet-vscode
   - k--kato.intellij-idea-keybindings
   - ms-azuretools.vscode-docker
