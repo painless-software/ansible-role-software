@@ -19,15 +19,15 @@ desktop_gnomeshell_extensions_defaults:
 
 desktop_gnomeshell_extensions: "{{ desktop_gnomeshell_extensions_defaults }}"
 
-franz_version: '5.2.0-beta.3'
+franz_version: '5.3.0'
 franz_baseurl: 'https://github.com/kytwb/ferdi/releases/download'
-franz_package: 'Ferdi-{{ franz_version }}/ferdi_{{ franz_version }}_amd64.deb'
+franz_package: 'v{{ franz_version }}/ferdi_{{ franz_version }}_amd64.deb'
 
 kompose_version: '1.18.0'
 kompose_baseurl: 'https://github.com/kubernetes/kompose/releases/download'
 kompose_package: "v{{ kompose_version }}/kompose_{{ kompose_version }}_amd64.deb"
 
-minikube_version: '1.2.0'
+minikube_version: '1.3.1'
 minikube_baseurl: 'https://github.com/kubernetes/minikube/releases/download'
 minikube_package: "v{{ minikube_version }}/minikube_{{ minikube_version }}.deb"
 
@@ -36,7 +36,7 @@ openshift_cli_commit: '0cbc58b'
 openshift_cli_baseurl: 'https://github.com/openshift/origin/releases/download'
 openshift_cli_package: "{{ openshift_cli_version }}/openshift-origin-client-tools-{{ openshift_cli_version }}-{{ openshift_cli_commit }}-linux-64bit.tar.gz"
 
-minishift_version: '1.34.0'
+minishift_version: '1.34.1'
 minishift_baseurl: 'https://github.com/minishift/minishift/releases/download'
 minishift_package: "v{{ minishift_version }}/minishift-{{ minishift_version }}-linux-amd64.tgz"
 
