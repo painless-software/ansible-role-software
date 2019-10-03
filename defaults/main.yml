@@ -19,7 +19,7 @@ desktop_gnomeshell_extensions_defaults:
 
 desktop_gnomeshell_extensions: "{{ desktop_gnomeshell_extensions_defaults }}"
 
-franz_version: '5.3.3'
+franz_version: '5.3.4-beta.6'
 franz_baseurl: 'https://github.com/kytwb/ferdi/releases/download'
 franz_package: 'v{{ franz_version }}/ferdi_{{ franz_version }}_amd64.deb'
 

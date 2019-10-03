@@ -16,7 +16,7 @@
   - name: Install image manipulation programs
     package:
       name:
-        - gimp
+        - gimp-gmic
         - inkscape
       state: present
 

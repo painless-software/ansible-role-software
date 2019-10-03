@@ -6,8 +6,8 @@ dock_apps="[
     'chromium-browser.desktop',
     'firefox.desktop',
     'org.gnome.Geary.desktop',
-    'code.desktop',
     'org.gnome.Terminal.desktop',
+    'codium.desktop',
     'rhythmbox.desktop'
 ]"
 
