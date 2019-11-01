@@ -40,6 +40,10 @@ minishift_version: '1.34.1'
 minishift_baseurl: 'https://github.com/minishift/minishift/releases/download'
 minishift_package: "v{{ minishift_version }}/minishift-{{ minishift_version }}-linux-amd64.tgz"
 
+k9s_version: '0.9.3'
+k9s_baseurl: 'https://github.com/derailed/k9s/releases/download/'
+k9s_package: "{{ k9s_version }}/k9s_{{ k9s_version }}_Linux_x86_64.tar.gz"
+
 editors_jetbrains_ides_defaults:
   - intellij-idea-community
   - pycharm-community

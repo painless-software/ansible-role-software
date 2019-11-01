@@ -131,3 +131,23 @@
         line: 'source <(minishift completion bash)'
 
   tags: [kubernetes]
+
+- name: K9s - curses-based K8s CLI
+  block:
+
+    - name: Find out whether K9s is installed
+      stat: path=/usr/local/bin/k9s
+      register: k9s_installed
+      changed_when: not k9s_installed.stat.exists
+
+    - name:
+      unarchive:
+        src: '{{ k9s_baseurl }}/{{ k9s_package }}'
+        remote_src: true
+        extra_opts: ['k9s']
+        dest: /usr/local/bin/
+        mode: 0755
+      when: not k9s_installed.stat.exists or force_upgrade == 'yes'
+      become: true
+
+  tags: [kubernetes]
