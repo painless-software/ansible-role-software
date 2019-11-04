@@ -17,18 +17,16 @@
   lineinfile:
     dest: '{{ ansible_env.HOME }}/.bash_aliases'
     create: true
-    line: 'source <(python3 -m pip completion --bash)'
+    line: 'source <(pip3 completion --bash)'
   tags:
     - python
 
-- name: Install some awesome Python tools in user space
+- name: Install Pipenv (Pip + Virtualenv)
   pip:
-    name: '{{ item }}'
-    executable: python3 -m pip
-    extra_args: --user
+    name: pipenv
+    executable: pip3
     state: present
-  with_items:
-    - pipenv
+  become: true
   tags:
     - python
 
