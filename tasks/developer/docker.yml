@@ -140,7 +140,7 @@
       register: k9s_installed
       changed_when: not k9s_installed.stat.exists
 
-    - name:
+    - name: Install K9s
       unarchive:
         src: '{{ k9s_baseurl }}/{{ k9s_package }}'
         remote_src: true
@@ -152,20 +152,35 @@
 
   tags: [kubernetes]
 
-- name: helmfile
+- name: helm
   block:
 
-    - name: Find out whether helmfile is installed
-      stat: path=/usr/local/bin/helmfile
+    - name: Find out whether helm is installed
+      stat: path=/usr/local/bin/helm
       register: helm_installed
       changed_when: not helm_installed.stat.exists
 
-    - name: Install helmfile binary
-      get_url:
-        url: '{{ helm_baseurl }}/{{ helm_version }}/helmfile_linux_amd64'
-        dest: /usr/local/bin/helmfile
+    - name: Install helm binary
+      unarchive:
+        src: '{{ helm_baseurl }}/{{ helm_package }}'
+        remote_src: true
+        extra_opts: ['--strip-components', '1', '--wildcards', '*/helm']
+        dest: /usr/local/bin/
         mode: 0755
       when: not helm_installed.stat.exists or force_upgrade == 'yes'
+      become: true
+
+    - name: Find out whether helmfile is installed
+      stat: path=/usr/local/bin/helmfile
+      register: helmfile_installed
+      changed_when: not helmfile_installed.stat.exists
+
+    - name: Install helmfile binary
+      get_url:
+        url: '{{ helmfile_baseurl }}/{{ helmfile_version }}/helmfile_linux_amd64'
+        dest: /usr/local/bin/helmfile
+        mode: 0755
+      when: not helmfile_installed.stat.exists or force_upgrade == 'yes'
       become: true
 
   tags: [kubernetes]
