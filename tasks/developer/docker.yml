@@ -189,7 +189,7 @@
       changed_when: not helmdiff_installed.stat.exists
 
     - name: Install helm-diff plugin
-      command: helm plugin install https://github.com/databus23/helm-diff --version master
+      shell: helm plugin install https://github.com/databus23/helm-diff --version master
       when: not helmdiff_installed.stat.exists or force_upgrade == 'yes'
 
   tags: [kubernetes]
