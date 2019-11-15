@@ -161,9 +161,8 @@
       changed_when: not helm_installed.stat.exists
 
     - name: Install helmfile binary
-      unarchive:
-        src: "{{ helm_baseurl }}/{{ helm_version }}/helmfile_linux_amd64"
-        remote_src: true
+      get_url:
+        url: '{{ helm_baseurl }}/{{ helm_version }}/helmfile_linux_amd64'
         dest: /usr/local/bin/helmfile
         mode: 0755
       when: not helm_installed.stat.exists or force_upgrade == 'yes'
