@@ -45,8 +45,8 @@ k9s_baseurl: 'https://github.com/derailed/k9s/releases/download'
 k9s_package: "{{ k9s_version }}/k9s_{{ k9s_version }}_Linux_x86_64.tar.gz"
 
 helm_baseurl: 'https://get.helm.sh'
-helm_version: 'v3.0.0'
-helm_package: "helm-{{ helm_version }}-linux-amd64.tar.gz"
+helm_version: '2.16.1'
+helm_package: "helm-v{{ helm_version }}-linux-amd64.tar.gz"
 
 helmfile_baseurl: 'https://github.com/roboll/helmfile/releases/download'
 helmfile_version: 'v0.92.0'
