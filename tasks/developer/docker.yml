@@ -183,13 +183,4 @@
       when: not helmfile_installed.stat.exists or force_upgrade == 'yes'
       become: true
 
-    - name: Find out whether helm-diff is installed
-      stat: path={{ ansible_env.HOME }}/.local/share/helm/plugins/helm-diff/
-      register: helmdiff_installed
-      changed_when: not helmdiff_installed.stat.exists
-
-    - name: Install helm-diff plugin
-      shell: helm plugin install https://github.com/databus23/helm-diff --version master
-      when: not helmdiff_installed.stat.exists or force_upgrade == 'yes'
-
   tags: [kubernetes]
