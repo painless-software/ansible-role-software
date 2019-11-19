@@ -31,6 +31,9 @@ minikube_version: '1.5.2'
 minikube_baseurl: 'https://github.com/kubernetes/minikube/releases/download'
 minikube_package: "v{{ minikube_version }}/minikube_{{ minikube_version }}.deb"
 
+kubeseal_version: '0.9.5'
+kubeseal_baseurl: 'https://github.com/bitnami-labs/sealed-secrets/releases/download'
+
 openshift_cli_version: 'v3.11.0'
 openshift_cli_commit: '0cbc58b'
 openshift_cli_baseurl: 'https://github.com/openshift/origin/releases/download'

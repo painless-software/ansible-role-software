@@ -80,6 +80,24 @@
 
   tags: [kubernetes]
 
+- name: kubeseal
+  block:
+
+    - name: Find out whether kubeseal is installed
+      stat: path=/usr/local/bin/kubeseal
+      register: kubeseal_installed
+      changed_when: not kubeseal_installed.stat.exists
+
+    - name: Install kubeseal binary
+      get_url:
+        url: '{{ kubeseal_baseurl }}/v{{ kubeseal_version }}/kubeseal-linux-amd64'
+        dest: /usr/local/bin/kubeseal
+        mode: 0755
+      when: not kubeseal_installed.stat.exists or force_upgrade == 'yes'
+      become: true
+
+  tags: [kubernetes]
+
 - name: OpenShift CLI
   block:
 
