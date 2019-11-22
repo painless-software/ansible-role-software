@@ -2,9 +2,7 @@
 # Software and configuration to make your use of computers safer
 
 - name: KeePassXC offline password manager
-  package:
-    name: keepassxc
-    state: present
+  command: snap install keepassxc
   become: true
   tags:
     - keepass
