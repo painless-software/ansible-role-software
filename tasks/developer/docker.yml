@@ -150,6 +150,24 @@
 
   tags: [kubernetes]
 
+- name: k3s - lightweight K8s
+  block:
+
+    - name: Find out whether k3s is installed
+      stat: path=/usr/local/bin/k3s
+      register: k3s_installed
+      changed_when: not k3s_installed.stat.exists
+
+    - name: Install k3s binary
+      get_url:
+        url: '{{ k3s_baseurl }}/v{{ k3s_version }}/k3s'
+        dest: /usr/local/bin/k3s
+        mode: 0755
+      when: not k3s_installed.stat.exists or force_upgrade == 'yes'
+      become: true
+
+  tags: [kubernetes]
+
 - name: K9s - curses-based K8s CLI
   block:
 
