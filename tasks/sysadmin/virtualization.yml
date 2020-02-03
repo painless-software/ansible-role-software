@@ -50,6 +50,7 @@
         url: '{{ vmware_baseurl }}/{{ vmware_package }}'
         dest: '{{ vmware_installer }}'
         mode: 0755
+        force: '{{ force_upgrade }}'
     - name: Install VMware Player
       command: '{{ vmware_install_cmd }}'
   when: not vmware_player.stat.exists or force_upgrade == 'yes'

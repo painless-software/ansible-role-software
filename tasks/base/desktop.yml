@@ -33,6 +33,7 @@
         url: https://raw.githubusercontent.com/NicolasBernaerts/ubuntu-scripts/master/ubuntugnome/gnomeshell-extension-manage
         dest: /usr/local/bin/gnome-shell-extension-manage
         mode: 0755
+        force: '{{ force_upgrade }}'
 
     - name: Install useful GNOME Shell extensions system-wide
       command: "gnome-shell-extension-manage --install --system --extension-id {{ item }} --version latest"

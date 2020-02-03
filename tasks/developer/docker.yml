@@ -83,17 +83,12 @@
 - name: kubeseal
   block:
 
-    - name: Find out whether kubeseal is installed
-      stat: path=/usr/local/bin/kubeseal
-      register: kubeseal_installed
-      changed_when: not kubeseal_installed.stat.exists
-
     - name: Install kubeseal binary
       get_url:
         url: '{{ kubeseal_baseurl }}/v{{ kubeseal_version }}/kubeseal-linux-amd64'
         dest: /usr/local/bin/kubeseal
         mode: 0755
-      when: not kubeseal_installed.stat.exists or force_upgrade == 'yes'
+        force: '{{ force_upgrade }}'
       become: true
 
   tags: [kubernetes]
@@ -153,17 +148,12 @@
 - name: k3s - lightweight K8s
   block:
 
-    - name: Find out whether k3s is installed
-      stat: path=/usr/local/bin/k3s
-      register: k3s_installed
-      changed_when: not k3s_installed.stat.exists
-
     - name: Install k3s binary
       get_url:
         url: '{{ k3s_baseurl }}/v{{ k3s_version }}/k3s'
         dest: /usr/local/bin/k3s
         mode: 0755
-      when: not k3s_installed.stat.exists or force_upgrade == 'yes'
+        force: '{{ force_upgrade }}'
       become: true
 
   tags: [kubernetes]
@@ -206,17 +196,12 @@
       when: not helm_installed.stat.exists or force_upgrade == 'yes'
       become: true
 
-    - name: Find out whether helmfile is installed
-      stat: path=/usr/local/bin/helmfile
-      register: helmfile_installed
-      changed_when: not helmfile_installed.stat.exists
-
     - name: Install helmfile binary
       get_url:
         url: '{{ helmfile_baseurl }}/{{ helmfile_version }}/helmfile_linux_amd64'
         dest: /usr/local/bin/helmfile
         mode: 0755
-      when: not helmfile_installed.stat.exists or force_upgrade == 'yes'
+        force: '{{ force_upgrade }}'
       become: true
 
   tags: [kubernetes]

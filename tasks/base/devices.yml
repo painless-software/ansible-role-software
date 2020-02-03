@@ -12,8 +12,9 @@
     - name: Download DisplayLink script -- Run /opt/displaylink-debian.sh manually!
       get_url:
         url: https://raw.githubusercontent.com/AdnanHodzic/displaylink-debian/master/displaylink-debian.sh
-        dest: /opt/
+        dest: /opt/displaylink-debian.sh
         mode: 0755
+        force: '{{ force_upgrade }}'
 
   become: true
   tags:
