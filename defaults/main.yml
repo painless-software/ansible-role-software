@@ -19,19 +19,19 @@ desktop_gnomeshell_extensions_defaults:
 
 desktop_gnomeshell_extensions: "{{ desktop_gnomeshell_extensions_defaults }}"
 
-franz_version: '5.4.1-beta.3'
+franz_version: '5.4.4-beta.1'
 franz_baseurl: 'https://github.com/getferdi/ferdi/releases/download'
 franz_package: 'v{{ franz_version }}/ferdi_{{ franz_version }}_amd64.deb'
 
-kompose_version: '1.19.0'
+kompose_version: '1.20.0'
 kompose_baseurl: 'https://github.com/kubernetes/kompose/releases/download'
 kompose_package: "v{{ kompose_version }}/kompose_{{ kompose_version }}_amd64.deb"
 
-minikube_version: '1.5.2'
+minikube_version: '1.6.2'
 minikube_baseurl: 'https://github.com/kubernetes/minikube/releases/download'
 minikube_package: "v{{ minikube_version }}/minikube_{{ minikube_version }}.deb"
 
-kubeseal_version: '0.9.5'
+kubeseal_version: '0.9.7'
 kubeseal_baseurl: 'https://github.com/bitnami-labs/sealed-secrets/releases/download'
 
 openshift_cli_version: 'v3.11.0'
@@ -39,23 +39,23 @@ openshift_cli_commit: '0cbc58b'
 openshift_cli_baseurl: 'https://github.com/openshift/origin/releases/download'
 openshift_cli_package: "{{ openshift_cli_version }}/openshift-origin-client-tools-{{ openshift_cli_version }}-{{ openshift_cli_commit }}-linux-64bit.tar.gz"
 
-minishift_version: '1.34.1'
+minishift_version: '1.34.2'
 minishift_baseurl: 'https://github.com/minishift/minishift/releases/download'
 minishift_package: "v{{ minishift_version }}/minishift-{{ minishift_version }}-linux-amd64.tgz"
 
-k3s_version: '1.0.0'
+k3s_version: '1.17.2+k3s1'
 k3s_baseurl: 'https://github.com/rancher/k3s/releases/download'
 
-k9s_version: '0.9.3'
+k9s_version: '0.13.7'
 k9s_baseurl: 'https://github.com/derailed/k9s/releases/download'
-k9s_package: "{{ k9s_version }}/k9s_{{ k9s_version }}_Linux_x86_64.tar.gz"
+k9s_package: "v{{ k9s_version }}/k9s_{{ k9s_version }}_Linux_x86_64.tar.gz"
 
 helm_baseurl: 'https://get.helm.sh'
 helm_version: '2.16.1'
 helm_package: "helm-v{{ helm_version }}-linux-amd64.tar.gz"
 
 helmfile_baseurl: 'https://github.com/roboll/helmfile/releases/download'
-helmfile_version: 'v0.92.0'
+helmfile_version: 'v0.98.3'
 
 editors_jetbrains_ides_defaults:
   - intellij-idea-community
@@ -93,7 +93,7 @@ imagescan_deb_tail: "1epson4{{ ansible_distribution|lower }}{{ ansible_distribut
 imagescan_download_path: "{{ ansible_distribution|lower }}/{{ imagescan_distro_type }}/deb/x64/{{ imagescan_archive }}.tar.gz"
 imagescan_download_base: 'https://download2.ebz.epson.net/imagescanv3'
 
-vagrant_version: '2.2.6'
+vagrant_version: '2.2.7'
 vagrant_baseurl: 'https://releases.hashicorp.com/vagrant'
 vagrant_package: "{{ vagrant_version }}/vagrant_{{ vagrant_version }}_x86_64.deb"
 
