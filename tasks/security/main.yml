@@ -12,3 +12,9 @@
   become: true
   tags:
     - bitwarden
+
+- name: OAuthTool
+  package: name=oathtool state=present
+  become: true
+  tags:
+    - cli
