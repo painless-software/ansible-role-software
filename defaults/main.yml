@@ -46,7 +46,7 @@ minishift_package: "v{{ minishift_version }}/minishift-{{ minishift_version }}-l
 k3s_version: '1.17.2+k3s1'
 k3s_baseurl: 'https://github.com/rancher/k3s/releases/download'
 
-k9s_version: '0.13.7'
+k9s_version: '0.14.0'
 k9s_baseurl: 'https://github.com/derailed/k9s/releases/download'
 k9s_package: "v{{ k9s_version }}/k9s_{{ k9s_version }}_Linux_x86_64.tar.gz"
 
