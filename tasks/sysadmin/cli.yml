@@ -13,6 +13,7 @@
       - tree
       - vim
       - whois
+      - xclip
     state: present
   become: true
   tags:
@@ -23,5 +24,35 @@
     dest: '{{ ansible_env.HOME }}/.tmux.conf'
     create: true
     line: 'set -g mouse on'
+  tags:
+    - cli
+
+- name: Provide some useful aliases
+  block:
+
+    - name: ip, ipb, open, pbcopy, pbpaste
+      lineinfile:
+        path: '{{ ansible_env.HOME }}/.bash_aliases'
+        create: true
+        line: '{{ item }}'
+      with_items:
+        - "alias ip='ip --color'"
+        - "alias ipb='ip --brief --color'"
+        - "alias open='xdg-open'"
+        - "alias pbcopy='xclip -selection clipboard'"
+        - "alias pbpaste='xclip -selection clipboard -o'"
+
+    - name: auto-tmux ssh
+      blockinfile:
+        path: '{{ ansible_env.HOME }}/.bash_aliases'
+        create: true
+        block: |
+          # Auto open tmux in ssh sessions. Use `/usr/bin/ssh` for plain SSH.
+          function ssh () {
+            TERM=${TERM//-unicode-/-}
+            TERM=${TERM//screen\./}
+            /usr/bin/ssh -t $@ "tmux attach || tmux new || bash"
+          }
+
   tags:
     - cli
