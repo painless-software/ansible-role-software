@@ -1,16 +1,10 @@
 ---
 # Software and configuration for tablets and 2-in-1 convertibles
 
-- block:
-
-  - name: Install Flatpak (a prerequisite)
-    package: name=flatpak state=present
-    become: true
-
-  - name: Install Xournal++ handwriting app
-    command: flatpak install flathub com.github.xournalpp.xournalpp -y
-
-  tags: [touch]
+- name: Install Xournal++ handwriting app
+  command: flatpak install -y flathub com.github.xournalpp.xournalpp
+  tags:
+    - touch
 
 - block:
   - name: Ensure prerequisites for Write handwriting app
@@ -51,4 +45,5 @@
         Icon=
 
   become: true
-  tags: [touch]
+  tags:
+    - touch

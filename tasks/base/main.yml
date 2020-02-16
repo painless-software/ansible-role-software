@@ -5,6 +5,10 @@
   apt: update_cache=yes upgrade=no
   become: true
 
+- name: Install Flatpak package manager
+  package: name=flatpak state=present
+  become: true
+
 - import_tasks: desktop.yml
 - import_tasks: webbrowsers.yml
 - import_tasks: communication.yml

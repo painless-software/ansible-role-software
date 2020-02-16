@@ -13,6 +13,11 @@
   tags:
     - bitwarden
 
+- name: GNOME Authenticator
+  command: flatpak install -y flathub com.github.bilelmoussaoui.Authenticator
+  tags:
+    - otp
+
 - name: OAuthTool
   package: name=oathtool state=present
   become: true
