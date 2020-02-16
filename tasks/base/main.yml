@@ -13,11 +13,11 @@
           - flatpak
           - gnome-software-plugin-flatpak
         state: present
-      become: true
 
     - name: Add default repository for Flatpak (flathub)
       command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
+  become: true
   tags:
     - flatpak
 
