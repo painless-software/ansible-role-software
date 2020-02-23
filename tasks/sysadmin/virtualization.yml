@@ -15,6 +15,7 @@
   package:
     name:
       - virtualbox
+      - virtualbox-ext-pack
     state: present
   become: true
   tags:
