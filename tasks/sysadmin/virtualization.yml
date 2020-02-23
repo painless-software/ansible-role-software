@@ -21,10 +21,10 @@
 
     - name: Install VirtualBox and its extension pack
       package:
-      name:
-        - virtualbox
-        - virtualbox-ext-pack
-      state: present
+        name:
+          - virtualbox
+          - virtualbox-ext-pack
+        state: present
 
   become: true
   tags:
