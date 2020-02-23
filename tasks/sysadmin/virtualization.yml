@@ -12,11 +12,20 @@
     - libvirt
 
 - name: Install VirtualBox
-  package:
-    name:
-      - virtualbox
-      - virtualbox-ext-pack
-    state: present
+  block:
+
+    - name: Accept license for extension pack (preseeding)
+      shell: |
+        source /usr/share/debconf/confmodule
+        db_fset virtualbox-ext-pack/license seen true
+
+    - name: Install VirtualBox and its extension pack
+      package:
+      name:
+        - virtualbox
+        - virtualbox-ext-pack
+      state: present
+
   become: true
   tags:
     - virtualbox
