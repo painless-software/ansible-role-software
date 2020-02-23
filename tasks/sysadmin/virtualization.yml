@@ -19,6 +19,7 @@
         name: virtualbox-ext-pack
         question: virtualbox-ext-pack/license
         value: true
+        vtype: select
 
     - name: Install VirtualBox and its extension pack
       package:
