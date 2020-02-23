@@ -15,9 +15,10 @@
   block:
 
     - name: Accept license for extension pack (preseeding)
-      shell: |
-        . /usr/share/debconf/confmodule
-        db_fset virtualbox-ext-pack/license seen true
+      debconf:
+        name: virtualbox-ext-pack
+        question: virtualbox-ext-pack/license
+        value: true
 
     - name: Install VirtualBox and its extension pack
       package:
