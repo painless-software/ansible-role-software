@@ -1,19 +1,26 @@
 ---
 # Software and configuration for Personal Information Management (PIM)
 
-- name: GNOME common apps (latest versions)
-  flatpak:
-    name: "{{ item }}"
-    state: present
+- name: GNOME common apps (compatible snap version)
+  command: snap install {{ item }}
   loop:
-    - org.gnome.Calendar
-    - org.gnome.Contacts
-    - org.gnome.Geary
-    - org.gnome.Maps
+    - gnome-calendar
+    - gnome-contacts
   become: true
   tags:
     - gnome
     - calendar
     - contacts
+
+- name: GNOME common apps (latest version via flatpak)
+  flatpak:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - org.gnome.Geary
+    - org.gnome.Maps
+  become: true
+  tags:
+    - gnome
     - email
     - maps
