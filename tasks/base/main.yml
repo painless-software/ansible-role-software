@@ -6,7 +6,6 @@
   become: true
 
 - block:
-
     - name: Install Flatpak package manager
       package:
         name:
@@ -25,5 +24,6 @@
 - import_tasks: webbrowsers.yml
 - import_tasks: communication.yml
 - import_tasks: tablet.yml
+- import_tasks: pim.yml
 - import_tasks: printers.yml
 - import_tasks: devices.yml

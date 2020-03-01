@@ -11,14 +11,6 @@
   tags:
     - email
 
-- name: Geary GNOME email client
-  block:
-
-    - name: Add PPA for Geary email client
-      apt_repository: repo=ppa:geary-team/releases state=present
-    - name: Lightweight email client for GNOME
-      package: name=geary state=present
-
   become: true
   tags:
     - email

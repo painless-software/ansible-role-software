@@ -1,0 +1,19 @@
+---
+# Software and configuration for Personal Information Management (PIM)
+
+- name: GNOME common apps (latest versions)
+  flatpak:
+    name:
+      - org.gnome.Calendar
+      - org.gnome.Contacts
+      - org.gnome.Geary
+      - org.gnome.Maps
+    remote: flathub
+    state: present
+  become: true
+  tags:
+    - gnome
+    - calendar
+    - contacts
+    - email
+    - maps
