@@ -14,7 +14,9 @@
     - bitwarden
 
 - name: GNOME Authenticator
-  command: flatpak install -y flathub com.github.bilelmoussaoui.Authenticator
+  flatpak:
+    name: com.github.bilelmoussaoui.Authenticator
+    state: present
   tags:
     - otp
 

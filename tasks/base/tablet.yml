@@ -2,7 +2,10 @@
 # Software and configuration for tablets and 2-in-1 convertibles
 
 - name: Install Xournal++ handwriting app
-  command: flatpak install -y flathub com.github.xournalpp.xournalpp
+  flatpak:
+    name: com.github.xournalpp.xournalpp
+    state: present
+  become: true
   tags:
     - touch
 
