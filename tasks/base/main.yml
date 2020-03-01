@@ -5,17 +5,12 @@
   apt: update_cache=yes upgrade=no
   become: true
 
-- block:
-    - name: Install Flatpak package manager
-      package:
-        name:
-          - flatpak
-          - gnome-software-plugin-flatpak
-        state: present
-
-    - name: Add default repository for Flatpak (flathub)
-      command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
+- name: Install Flatpak package manager
+  package:
+    name:
+      - flatpak
+      - gnome-software-plugin-flatpak
+    state: present
   become: true
   tags:
     - flatpak

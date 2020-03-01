@@ -8,7 +8,6 @@
       - org.gnome.Contacts
       - org.gnome.Geary
       - org.gnome.Maps
-    remote: flathub
     state: present
   become: true
   tags:
