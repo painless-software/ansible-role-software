@@ -11,10 +11,6 @@
   tags:
     - email
 
-  become: true
-  tags:
-    - email
-
 - name: Install popular chat clients (snaps)
   command: snap install {{ item }} --classic
   with_items:
