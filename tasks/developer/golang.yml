@@ -1,0 +1,11 @@
+---
+# Google's Go language and tooling
+
+- name: Install Go and Go tools
+  command: snap install {{ item }} --classic
+  loop:
+    - go
+    - goreleaser
+  become: true
+  tags:
+    - golang
