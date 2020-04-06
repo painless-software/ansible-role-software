@@ -67,12 +67,12 @@ editors_vscode_plugins_defaults:
   - bbenoist.vagrant
   - dlech.ev3dev-browser
   - joaompinto.asciidoctor-vscode
-  - jpogran.puppet-vscode
   - k--kato.intellij-idea-keybindings
   - ms-azuretools.vscode-docker
   - ms-python.python
   - MS-vsliveshare.vsliveshare
   - MS-vsliveshare.vsliveshare-audio
+  - puppet.puppet-vscode
   - saahilclaypool.scratchpadmd
   - tht13.rst-vscode
 
