@@ -29,21 +29,22 @@
   tags:
     - rambox
 
-- name: Franz multi-messenger
+- name: Ferdi multi-messenger
   block:
 
-    - name: Find out whether Franz multi-messenger is installed
-      command: dpkg-query -W franz
-      register: franz_installed
-      failed_when: franz_installed.rc > 1
-      changed_when: franz_installed.rc == 1
+    - name: Find out whether Ferdi multi-messenger is installed
+      command: dpkg-query -W ferdi
+      register: ferdi_installed
+      failed_when: ferdi_installed.rc > 1
+      changed_when: ferdi_installed.rc == 1
 
-    - name: Install Franz multi-messenger
-      apt: deb={{ franz_baseurl }}/{{ franz_package }}
-      when: franz_installed.rc == 1 or force_upgrade == 'yes'
+    - name: Install Ferdi multi-messenger
+      apt: deb={{ ferdi_baseurl }}/{{ ferdi_package }}
+      when: ferdi_installed.rc == 1 or force_upgrade == 'yes'
       become: true
 
   tags:
+    - ferdi
     - franz
 
 - name: Zoom conferencing
