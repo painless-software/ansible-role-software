@@ -47,6 +47,30 @@
     - ferdi
     - franz
 
+- name: Mircosoft Teams
+  block:
+
+    - name: Add signing key of Mircosoft packaging
+      apt_key:
+        url: https://packages.microsoft.com/keys/microsoft.asc
+        state: present
+
+    - name: Add APT source for Teams deb package
+      apt_repository:
+        repo: deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main
+        filename: teams
+        update_cache: true
+        state: present
+
+    - name: Install Mircosoft Teams
+      package:
+        name: teams
+        state: present
+
+  become: true
+  tags:
+    - teams
+
 - name: Zoom conferencing
   block:
 
