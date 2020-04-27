@@ -19,7 +19,7 @@ desktop_gnomeshell_extensions_defaults:
 
 desktop_gnomeshell_extensions: "{{ desktop_gnomeshell_extensions_defaults }}"
 
-franz_version: '5.5.0-gm.2'
+franz_version: '5.5.0'
 franz_baseurl: 'https://github.com/getferdi/ferdi/releases/download'
 franz_package: 'v{{ franz_version }}/ferdi_{{ franz_version }}_amd64.deb'
 
@@ -46,7 +46,7 @@ minishift_package: "v{{ minishift_version }}/minishift-{{ minishift_version }}-l
 k3s_version: '1.17.4+k3s1'
 k3s_baseurl: 'https://github.com/rancher/k3s/releases/download'
 
-k9s_version: '0.19.2'
+k9s_version: '0.19.3'
 k9s_baseurl: 'https://github.com/derailed/k9s/releases/download'
 k9s_package: "v{{ k9s_version }}/k9s_Linux_x86_64.tar.gz"
 
