@@ -2,19 +2,42 @@
 # Software you need for consuming Web contents
 
 - block:
-  - name: Popular Web browsers (avoid duplicate installs)
-    command: snap remove {{ item }}
-    with_items:
-      - chromium
-      - firefox
+    - name: Avoid duplicate installs of Firefox (snap)
+      command: snap remove firefox
 
-  - name: Install popular Web browsers
-    package:
-      name:
-        - chromium-browser
-        - firefox
-      state: present
+    - name: Install Firefox Web browser
+      package:
+        name:
+          - firefox
+        state: present
 
   become: true
   tags:
+    - firefox
+    - webbrowsers
+
+- block:
+    - name: Avoid duplicate installs of Chromium (snap)
+      command: snap remove chromium
+
+    - name: Avoid duplicate installs of Chromium (deb)
+      package:
+        name:
+          - chromium-browser
+        state: absent
+
+    - name: Enable PPA for ungoogled Chromium
+      apt_repository:
+        repo: ppa:braewoods/ungoogled-chromium
+        state: present
+
+    - name: Install ungoogled Chromium
+      package:
+        name:
+          - ungoogled-chromium
+        state: present
+
+  become: true
+  tags:
+    - chromium
     - webbrowsers
