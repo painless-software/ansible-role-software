@@ -25,3 +25,18 @@
   become: true
   tags:
     - cli
+
+- block:
+    - name: Enable PPA for latest stable Wireshark
+      apt_repository:
+        repo: ppa:wireshark-dev/stable
+        state: present
+
+    - name: Install Wireshark
+      package:
+        name: wireshark
+        state: present
+
+  become: true
+  tags:
+    - wireshark
