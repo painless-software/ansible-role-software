@@ -6,6 +6,7 @@
   with_items:
     - insomnia
     - jq
+    - yq
   become: true
   tags:
     - restapi
