@@ -65,9 +65,11 @@ editors_vscode_plugins_defaults:
   - AravindKumar.gherkin-indent
   - bajdzis.vscode-database
   - bbenoist.vagrant
+  - bungcip.better-toml
   - dlech.ev3dev-browser
   - joaompinto.asciidoctor-vscode
   - k--kato.intellij-idea-keybindings
+  - lextudio.restructuredtext
   - ms-azuretools.vscode-docker
   - ms-python.python
   - ms-vscode.go
@@ -75,7 +77,6 @@ editors_vscode_plugins_defaults:
   - MS-vsliveshare.vsliveshare-audio
   - puppet.puppet-vscode
   - saahilclaypool.scratchpadmd
-  - tht13.rst-vscode
 
 editors_jetbrains_ides: "{{ editors_jetbrains_ides_defaults }}"
 editors_popular_ides: "{{ editors_popular_ides_defaults }}"
