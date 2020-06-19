@@ -9,3 +9,13 @@
   become: true
   tags:
     - golang
+
+- name: Configure PATH to local Go binaries (Bash)
+  lineinfile:
+    dest: '{{ ansible_env.HOME }}/.bash_aliases'
+    create: true
+    line: '{{ item }}'
+  with_items:
+    - 'export PATH="{{ ansible_env.HOME }}/go/bin:$PATH"'
+  tags:
+    - golang
