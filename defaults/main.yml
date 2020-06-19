@@ -67,6 +67,7 @@ editors_vscode_plugins_defaults:
   - bbenoist.vagrant
   - bungcip.better-toml
   - dlech.ev3dev-browser
+  - editorconfig.editorconfig
   - joaompinto.asciidoctor-vscode
   - k--kato.intellij-idea-keybindings
   - lextudio.restructuredtext
