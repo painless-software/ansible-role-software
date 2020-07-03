@@ -108,6 +108,8 @@
         extra_opts: ['--strip-components', '1', '--wildcards', '*/oc']
         dest: /usr/local/bin/
         mode: 0755
+        owner: root
+        group: root
       when: not oc_installed.stat.exists or force_upgrade == 'yes'
       become: true
 
@@ -134,6 +136,8 @@
         extra_opts: ['--strip-components', '1', '--wildcards', '*/minishift']
         dest: /usr/local/bin/
         mode: 0755
+        owner: root
+        group: root
       when: not minishift_installed.stat.exists or force_upgrade == 'yes'
       become: true
 
@@ -173,6 +177,8 @@
         extra_opts: ['k9s']
         dest: /usr/local/bin/
         mode: 0755
+        owner: root
+        group: root
       when: not k9s_installed.stat.exists or force_upgrade == 'yes'
       become: true
 
@@ -186,37 +192,44 @@
       register: helm2_installed
       changed_when: not helm2_installed.stat.exists
 
+    - name: Install helm2 binary
+      unarchive:
+        src: '{{ helm_baseurl }}/{{ helm2_package }}'
+        remote_src: true
+        extra_opts: ['--strip-components=1', '--transform=s/helm/helm2/', '--wildcards', '*/helm']
+        dest: /usr/local/bin/
+        mode: 0755
+        owner: root
+        group: root
+      when: not helm2_installed.stat.exists or force_upgrade == 'yes'
+      become: true
+
     - name: Find out whether helm3 is installed
       stat: path=/usr/local/bin/helm3
       register: helm3_installed
       changed_when: not helm3_installed.stat.exists
 
-    - name: Install helm2 binary
-      unarchive:
-        src: '{{ helm2_baseurl }}/{{ helm2_package }}'
-        remote_src: true
-        extra_opts: ['--strip-components', '1', '--wildcards', '*/helm']
-        dest: /usr/local/bin/helm2
-        mode: 0755
-      when: not helm_installed.stat.exists or force_upgrade == 'yes'
-      become: true
+    - name: Newer, default helm
+      block:
 
-    - name: Install helm3 binary
-      unarchive:
-        src: '{{ helm3_baseurl }}/{{ helm3_package }}'
-        remote_src: true
-        extra_opts: ['--strip-components', '1', '--wildcards', '*/helm']
-        dest: /usr/local/bin/helm3
-        mode: 0755
+        - name: Install helm3 binary
+          unarchive:
+            src: '{{ helm_baseurl }}/{{ helm3_package }}'
+            remote_src: true
+            extra_opts: ['--strip-components=1', '--transform=s/helm/helm3/', '--wildcards', '*/helm']
+            dest: /usr/local/bin/
+            mode: 0755
+            owner: root
+            group: root
+
+        - name: Add symbolic link helm -> helm3
+          file:
+            src: /usr/local/bin/helm3
+            path: helm
+            state: link
+            force: yes
+
       when: not helm3_installed.stat.exists or force_upgrade == 'yes'
-      become: true
-
-    - name: Add symbolic link helm -> helm3
-      file:
-        path: /usr/local/bin/helm
-        src: /usr/local/bin/helm3
-        state: link
-      when: not helm_installed.stat.exists or force_upgrade == 'yes'
       become: true
 
     - name: Install helmfile binary
@@ -227,4 +240,4 @@
         force: '{{ force_upgrade }}'
       become: true
 
-  tags: [kubernetes]
+  tags: [kubernetes, helm]
