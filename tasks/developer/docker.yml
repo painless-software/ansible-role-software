@@ -181,18 +181,41 @@
 - name: helm
   block:
 
-    - name: Find out whether helm is installed
-      stat: path=/usr/local/bin/helm
-      register: helm_installed
-      changed_when: not helm_installed.stat.exists
+    - name: Find out whether helm2 is installed
+      stat: path=/usr/local/bin/helm2
+      register: helm2_installed
+      changed_when: not helm2_installed.stat.exists
 
-    - name: Install helm binary
+    - name: Find out whether helm3 is installed
+      stat: path=/usr/local/bin/helm3
+      register: helm3_installed
+      changed_when: not helm3_installed.stat.exists
+
+    - name: Install helm2 binary
       unarchive:
-        src: '{{ helm_baseurl }}/{{ helm_package }}'
+        src: '{{ helm2_baseurl }}/{{ helm2_package }}'
         remote_src: true
         extra_opts: ['--strip-components', '1', '--wildcards', '*/helm']
-        dest: /usr/local/bin/
+        dest: /usr/local/bin/helm2
         mode: 0755
+      when: not helm_installed.stat.exists or force_upgrade == 'yes'
+      become: true
+
+    - name: Install helm3 binary
+      unarchive:
+        src: '{{ helm3_baseurl }}/{{ helm3_package }}'
+        remote_src: true
+        extra_opts: ['--strip-components', '1', '--wildcards', '*/helm']
+        dest: /usr/local/bin/helm3
+        mode: 0755
+      when: not helm3_installed.stat.exists or force_upgrade == 'yes'
+      become: true
+
+    - name: Add symbolic link helm -> helm3
+      file:
+        path: /usr/local/bin/helm
+        src: /usr/local/bin/helm3
+        state: link
       when: not helm_installed.stat.exists or force_upgrade == 'yes'
       become: true
 
