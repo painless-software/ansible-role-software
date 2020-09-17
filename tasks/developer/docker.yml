@@ -93,6 +93,19 @@
 
   tags: [kubernetes]
 
+- name: SOPS
+  block:
+
+    - name: Install sops binary
+      get_url:
+        url: '{{ sops_baseurl }}/v{{ sops_version }}/sops-v{{ sops_version }}.linux'
+        dest: /usr/local/bin/sops
+        mode: 0755
+        force: '{{ force_upgrade }}'
+      become: true
+
+  tags: [kubernetes]
+
 - name: OpenShift CLI
   block:
 
