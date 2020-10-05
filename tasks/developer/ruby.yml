@@ -30,3 +30,22 @@
   become: true
   tags:
     - ruby
+
+- name: Ruby Version Manager
+  block:
+
+  - name: Enable PPA for RVM
+    apt_repository:
+      repo: ppa:rael-gc/rvm
+      state: present
+
+  - name: Install RVM
+    package:
+      name:
+        - software-properties-common
+        - rvm
+      state: present
+
+  become: true
+  tags:
+    - ruby
