@@ -43,8 +43,8 @@
 
     - name: Add APT source for Podman
       apt_repository:
-        repo: 'deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_{{ ansible_distribution_version }}/'
-        filename: kubic-lobcontainers
+        repo: 'deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_{{ ansible_distribution_version }}/ /'
+        filename: 'devel:kubic:libcontainers:stable'
         state: present
 
     - name: Install Podman
