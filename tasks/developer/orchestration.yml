@@ -119,7 +119,7 @@
 
     - name: Install k3s binary
       get_url:
-        url: '{{ k3s_baseurl }}/v{{ k3s_version }}/k3s'
+        url: '{{ k3s_baseurl }}/{{ k3s_version }}/k3s'
         dest: /usr/local/bin/k3s
         mode: 0755
         force: '{{ force_upgrade }}'
