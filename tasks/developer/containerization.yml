@@ -23,7 +23,9 @@
     - name: Install system packages for working with Docker
       package:
         name:
+          - containerd.io
           - docker-ce
+          - docker-ce-cli
           - docker-compose
         state: present
 
