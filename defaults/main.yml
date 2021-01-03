@@ -29,7 +29,7 @@ kompose_package: "v{{ kompose_version }}/kompose_{{ kompose_version }}_amd64.deb
 
 minikube_version: '1.16.0'
 minikube_baseurl: 'https://github.com/kubernetes/minikube/releases/download'
-minikube_package: "v{{ minikube_version }}/minikube_{{ minikube_version }}-0_amd64.deb"
+minikube_package: "v{{ minikube_version }}/minikube_{{ minikube_version }}-1_amd64.deb"
 
 kubeseal_version: '0.13.1'
 kubeseal_baseurl: 'https://github.com/bitnami-labs/sealed-secrets/releases/download'
