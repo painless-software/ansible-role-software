@@ -47,6 +47,30 @@
     - ferdi
     - franz
 
+- name: Signal for Desktop
+  block:
+
+    - name: Add signing key of Signal packaging
+      apt_key:
+        url: https://updates.signal.org/desktop/apt/keys.asc
+        state: present
+
+    - name: Add APT source for Signal deb package
+      apt_repository:
+        repo: deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main
+        filename: signal-xenial
+        update_cache: true
+        state: present
+
+    - name: Install Signal for Desktop
+      package:
+        name: signal-desktop
+        state: present
+
+  become: true
+  tags:
+    - signal
+
 - name: Mircosoft Teams
   block:
 
