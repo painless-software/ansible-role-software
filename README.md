@@ -2,7 +2,7 @@ Ansible Role: Software
 ======================
 
 [![Build Status](
-https://img.shields.io/travis/painless-software/ansible-role-software/master.svg
+https://img.shields.io/travis/painless-software/ansible-role-software/main.svg
 )](https://travis-ci.org/painless-software/ansible-role-software)
 
 > Painless software provisioning for your developer machine.
