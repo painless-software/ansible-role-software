@@ -7,6 +7,7 @@
       - dos2unix
       - httpie
       - lolcat
+      - moreutils
       - ncdu
       - ssh
       - tmux
