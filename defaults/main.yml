@@ -19,7 +19,7 @@ desktop_gnomeshell_extensions_defaults:
 
 desktop_gnomeshell_extensions: "{{ desktop_gnomeshell_extensions_defaults }}"
 
-ferdi_version: '5.6.0-beta.6'
+ferdi_version: '5.6.0'
 ferdi_baseurl: 'https://github.com/getferdi/ferdi/releases/download'
 ferdi_package: 'v{{ ferdi_version }}/ferdi_{{ ferdi_version }}_amd64.deb'
 
