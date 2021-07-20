@@ -15,7 +15,7 @@
 
 - name: GNOME Authenticator
   flatpak:
-    name: com.github.bilelmoussaoui.Authenticator
+    name: com.belmoussaoui.Authenticator
     state: present
   tags:
     - otp
