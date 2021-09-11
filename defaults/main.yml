@@ -73,6 +73,7 @@ editors_vscode_plugins_defaults:
   - bungcip.better-toml
   - ev3dev.ev3dev-browser
   - editorconfig.editorconfig
+  - james-yu.latex-workshop
   - joaompinto.asciidoctor-vscode
   - k--kato.intellij-idea-keybindings
   - lextudio.restructuredtext
@@ -83,6 +84,7 @@ editors_vscode_plugins_defaults:
   - MS-vsliveshare.vsliveshare-audio
   - puppet.puppet-vscode
   - saahilclaypool.scratchpadmd
+  - valentjn.vscode-ltex
 
 editors_jetbrains_ides: "{{ editors_jetbrains_ides_defaults }}"
 editors_popular_ides: "{{ editors_popular_ides_defaults }}"
