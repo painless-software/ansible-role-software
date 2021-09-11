@@ -101,10 +101,6 @@ imagescan_deb_tail: "1epson4{{ ansible_distribution|lower }}{{ ansible_distribut
 imagescan_download_path: "{{ ansible_distribution|lower }}/{{ imagescan_distro_type }}/deb/x64/{{ imagescan_archive }}.tar.gz"
 imagescan_download_base: 'https://download2.ebz.epson.net/imagescanv3'
 
-vagrant_version: '2.2.14'
-vagrant_baseurl: 'https://releases.hashicorp.com/vagrant'
-vagrant_package: "{{ vagrant_version }}/vagrant_{{ vagrant_version }}_x86_64.deb"
-
 vmware_version: '16.1.0-17198959'
 vmware_package: "VMware-Player-{{ vmware_version }}.x86_64.bundle"
 vmware_baseurl: 'https://download3.vmware.com/software/player/file'

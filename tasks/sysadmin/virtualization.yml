@@ -35,17 +35,23 @@
 - name: Vagrant (instead of outdated package from system)
   block:
 
-    - name: Find out whether Vagrant is installed
-      command: dpkg-query -W vagrant
-      register: vagrant_installed
-      failed_when: vagrant_installed.rc > 1
-      changed_when: vagrant_installed.rc == 1
+    - name: Signing key of Hashicorp packaging
+      apt_key:
+        url: https://apt.releases.hashicorp.com/gpg
+        state: present
 
-    - name: Install Vagrant from website
-      apt: deb={{ vagrant_baseurl }}/{{ vagrant_package }}
-      when: vagrant_installed.rc == 1 or force_upgrade == 'yes'
-      become: true
+    - name: APT source for Vagrant
+      apt_repository:
+        repo: 'deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_lsb.codename }} main'
+        filename: hashicorp-vagrant
+        state: present
 
+    - name: Vagrant package from Hashicorp
+      package:
+        name: vagrant
+        state: present
+
+  become: true
   tags:
     - vagrant
 
