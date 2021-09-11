@@ -49,7 +49,7 @@
     - name: Vagrant package from Hashicorp
       package:
         name: vagrant
-        state: present
+        state: "{{ 'latest' if force_upgrade == 'yes' else 'present' }}"
 
   become: true
   tags:
