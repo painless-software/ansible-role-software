@@ -112,8 +112,8 @@ vmware_uninstall_cmd: "{{ vmware_installer} --uninstall-product=vmware-player --
 
 # from: https://www.citrix.com/downloads/citrix-receiver/linux/receiver-for-linux-latest.html
 # see also: https://help.ubuntu.com/community/CitrixICAClientHowTo
-citrix_version: '13.10.0.20'
+citrix_version: '21.8.0.40'
 citrix_package: "icaclient_{{ citrix_version }}_amd64.deb"
-citrix_baseurl: 'https://downloads.citrix.com/14822'
-citrix_accepthash: '1534069820_1eff0bc56556cb96ab7a6661fd919a6e'
+citrix_baseurl: 'https://downloads.citrix.com/19785'
+citrix_accepthash: 'exp=1631374162~acl=/*~hmac=bb60a08dd57b2988f4a7d72fbf2e8074056f2cb23942a0959ffeb94fee223092'
 citrix_download_url: "{{ citrix_baseurl }}/{{ citrix_package }}?__gda__={{ citrix_accepthash }}"
