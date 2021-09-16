@@ -93,11 +93,11 @@ editors_vscode_plugins: "{{ editors_vscode_plugins_defaults }}"
 epson_printer_hostname: epson-wf-7710
 epson_printer_model: WF-7710
 
-imagescan_version: '3.61.0'
-imagescan_plugin_gt_version: '1.0.2'
-imagescan_plugin_ocr_version: '1.0.2'
-imagescan_plugin_networkscan_version: '1.1.3'
-imagescan_distro_type: "{% if ansible_distribution_version in ['18.04'] %}lts1{% else %}latest1{% endif %}"
+imagescan_version: '3.65.0'
+imagescan_plugin_gt_version: '1.0.3'
+imagescan_plugin_ocr_version: '1.0.3'
+imagescan_plugin_networkscan_version: '1.1.4'
+imagescan_distro_type: "{% if ansible_distribution_version in ['18.04', '20.04'] %}lts1{% else %}latest1{% endif %}"
 imagescan_archive: "imagescan-bundle-{{ ansible_distribution|lower }}-{{ ansible_distribution_version }}-{{ imagescan_version }}.x64.deb"
 imagescan_deb_tail: "1epson4{{ ansible_distribution|lower }}{{ ansible_distribution_version }}_amd64.deb"
 imagescan_download_path: "{{ ansible_distribution|lower }}/{{ imagescan_distro_type }}/deb/x64/{{ imagescan_archive }}.tar.gz"
