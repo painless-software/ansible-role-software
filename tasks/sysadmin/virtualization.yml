@@ -91,10 +91,25 @@
             warn: false
           register: citrix_accepthash
 
-        - name: Install Citrix client (Workspace App)
-          apt: deb={{ citrix_download_url }}
-          become: true
+        - block:
 
+            - name: Install Citrix client (Workspace App)
+              apt: deb={{ citrix_download_url }}
+
+            - name: Ensure CA certificates for Citrix client
+              package:
+                name: ca-certificates
+                state: present
+
+            - name: Use installed CA certs with Citrix client
+              file:
+                src: /etc/ssl/certs
+                path: /opt/Citrix/ICAClient/keystore/cacerts
+                state: link
+                follow: no
+                force: yes
+
+          become: true
       when: not citrix_installed.stat.exists or force_upgrade == 'yes'
 
   tags:
