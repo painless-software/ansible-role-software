@@ -83,10 +83,19 @@
       stat: path=/opt/Citrix/ICAClient/selfservice
       register: citrix_installed
 
-    - name: Install Citrix Receiver
-      apt: deb={{ citrix_download_url }}
+    - block:
+
+        - name: Parse accept hash from Linux download overview
+          ansible.builtin.shell:
+            cmd: "curl -s {{ citrix_overview_url }} | grep '{{ citrix_hash_start_marker }}' | sed -e 's/^.*{{ citrix_hash_start_marker }}//' -e 's/{{ citrix_hash_stop_marker }}.*$//' | uniq"
+            warn: false
+          register: citrix_accepthash
+
+        - name: Install Citrix client (Workspace App)
+          apt: deb={{ citrix_download_url }}
+          become: true
+
       when: not citrix_installed.stat.exists or force_upgrade == 'yes'
-      become: true
 
   tags:
     - citrix
