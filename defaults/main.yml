@@ -115,5 +115,7 @@ vmware_uninstall_cmd: "{{ vmware_installer} --uninstall-product=vmware-player --
 citrix_version: '21.8.0.40'
 citrix_package: "icaclient_{{ citrix_version }}_amd64.deb"
 citrix_baseurl: 'https://downloads.citrix.com/19785'
-citrix_accepthash: 'exp=1631374162~acl=/*~hmac=bb60a08dd57b2988f4a7d72fbf2e8074056f2cb23942a0959ffeb94fee223092'
-citrix_download_url: "{{ citrix_baseurl }}/{{ citrix_package }}?__gda__={{ citrix_accepthash }}"
+citrix_overview_url: 'https://www.citrix.com/downloads/workspace-app/linux/workspace-app-for-linux-latest.html'
+citrix_hash_start_marker: '?__gda__='
+citrix_hash_stop_marker: '" id="'
+citrix_download_url: "{{ citrix_baseurl }}/{{ citrix_package }}{{ citrix_hash_start_marker }}{{ citrix_accepthash.stdout }}"
