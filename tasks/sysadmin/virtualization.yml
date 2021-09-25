@@ -80,7 +80,8 @@
   block:
 
     - name: Find out whether Citrix client is installed
-      stat: path=/opt/Citrix/ICAClient/selfservice
+      stat:
+        path: /opt/Citrix/ICAClient/selfservice
       register: citrix_installed
 
     - block:
@@ -94,20 +95,24 @@
         - block:
 
             - name: Install Citrix client (Workspace App)
-              apt: deb={{ citrix_download_url }}
+              apt:
+                deb: '{{ citrix_download_url }}'
+
+            - name: Remove CA certs shipped by Citrix
+              file:
+                path: /opt/Citrix/ICAClient/keystore/cacerts
+                state: absent
 
             - name: Ensure CA certificates for Citrix client
               package:
                 name: ca-certificates
-                state: present
+                state: latest
 
             - name: Use installed CA certs with Citrix client
               file:
                 src: /etc/ssl/certs
                 path: /opt/Citrix/ICAClient/keystore/cacerts
                 state: link
-                follow: no
-                force: yes
 
           become: true
       when: not citrix_installed.stat.exists or force_upgrade == 'yes'
