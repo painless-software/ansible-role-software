@@ -40,6 +40,7 @@
     - vscode
 
 - name: Install various JetBrains IDEs
+  community.general.snap:
     name: '{{ item }}'
     classic: yes
     state: present
