@@ -19,7 +19,7 @@
 
     - name: Clone PythonTurtle source code
       git:
-        repo: https://github.com/cool-RR/PythonTurtle.git
+        repo: https://github.com/PythonTurtle/PythonTurtle.git
         dest: /opt/PythonTurtle
         depth: 1
 
