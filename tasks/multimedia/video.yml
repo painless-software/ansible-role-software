@@ -3,8 +3,7 @@
 
 - name: Install OpenShot video editor
   package:
-    name:
-      - openshot
+    name: openshot
     state: present
   become: true
   tags:
@@ -23,10 +22,9 @@
     - video-watching
 
 - name: Install YouTube downloader
-  pip:
+  snap:
     name: youtube-dl
-    executable: pip3
-    state: latest
+    state: present
   become: true
   tags:
     - multimedia
