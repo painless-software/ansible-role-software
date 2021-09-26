@@ -5,12 +5,22 @@
   apt: update_cache=yes upgrade=no
   become: true
 
-- name: Install Flatpak package manager
-  package:
-    name:
-      - flatpak
-      - gnome-software-plugin-flatpak
-    state: present
+- name: Flatpak package manager
+  block:
+
+    - name: Install Flatpak package manager
+      package:
+        name:
+          - flatpak
+          - gnome-software-plugin-flatpak
+        state: present
+
+    - name: Configure Flatpak remote "flathub"
+      flatpak_remote:
+        name: flathub
+        flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+        state: present
+
   become: true
   tags:
     - flatpak
