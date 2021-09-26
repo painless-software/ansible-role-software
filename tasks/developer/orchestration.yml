@@ -5,7 +5,7 @@
   block:
 
     - name: Install Kubernetes CLI
-      community.general.snap:
+      snap:
         name: kubectl
         classic: yes
         state: present

@@ -2,7 +2,7 @@
 # Software for music consumption
 
 - name: Install proprietary music players
-  community.general.snap:
+  snap:
     name: spotify
     state: present
   become: true
@@ -20,7 +20,7 @@
     - music-composing
 
 - name: Install Audacity audio editor
-  community.general.snap:
+  snap:
     name: audacity
     state: present
   become: true

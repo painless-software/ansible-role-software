@@ -12,7 +12,7 @@
     - email
 
 - name: Install Slack chat clients (unconfined snap)
-  community.general.snap:
+  snap:
     name: slack
     classic: yes
     state: present
@@ -21,7 +21,7 @@
     - slack
 
 - name: Install popular chat clients (snaps)
-  community.general.snap:
+  snap:
     name:
       - ferdi
       - rambox

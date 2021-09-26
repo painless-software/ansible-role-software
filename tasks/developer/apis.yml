@@ -2,7 +2,7 @@
 # API browsers and debugging tools
 
 - name: Install Insomnia REST client and command line tools
-  community.general.snap:
+  snap:
     name: '{{ item }}'
     state: present
   loop:

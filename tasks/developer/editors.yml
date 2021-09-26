@@ -2,7 +2,7 @@
 # Programmer's editors and IDEs
 
 - name: Install Atom IDE
-  community.general.snap:
+  snap:
     name: atom
     classic: yes
     state: present
@@ -40,7 +40,7 @@
     - vscode
 
 - name: Install various JetBrains IDEs
-  community.general.snap:
+  snap:
     name: '{{ item }}'
     classic: yes
     state: present

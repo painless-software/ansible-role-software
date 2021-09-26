@@ -2,7 +2,7 @@
 # Google's Go language and tooling
 
 - name: Install Go and Go tools
-  community.general.snap:
+  snap:
     name: '{{ item }}'
     classic: yes
     state: present

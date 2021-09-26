@@ -2,7 +2,7 @@
 # Software and configuration for Personal Information Management (PIM)
 
 - name: GNOME common apps (compatible snap version)
-  community.general.snap:
+  snap:
     name:
       - gnome-calendar
       - gnome-contacts

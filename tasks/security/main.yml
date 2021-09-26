@@ -2,7 +2,7 @@
 # Software and configuration to make your use of computers safer
 
 - name: KeePassXC offline password manager
-  community.general.snap:
+  snap:
     name: keepassxc
     state: present
   become: true
@@ -10,7 +10,7 @@
     - keepass
 
 - name: Bitwarden password manager
-  community.general.snap:
+  snap:
     name: bitwarden
     state: present
   become: true

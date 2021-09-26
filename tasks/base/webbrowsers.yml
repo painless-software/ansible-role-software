@@ -3,7 +3,7 @@
 
 - block:
     - name: Avoid duplicate installs of Firefox (snap)
-      community.general.snap:
+      snap:
         name: firefox
         state: absent
 
@@ -20,7 +20,7 @@
 
 - block:
     - name: Avoid duplicate installs of Chromium (snap)
-      community.general.snap:
+      snap:
         name: chromium
         state: absent
 
