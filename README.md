@@ -53,25 +53,24 @@ installs Ansible, and then launches a playbook similar to the example above.
 Alternatively, you can run this Ansible role from the terminal in a manual
 fashion, e.g.
 
-```bash
-# install all software on your local machine (Ansible 2.7+)
-$ ansible localhost -m include_role -a role=painless.software
+```console
+ansible localhost -m include_role -a role=painless.software
 ```
 
 The more obvious way is to write a simple playbook (see above), specify only
 the software you want to install, include your custom settings and/or
 personal secrets, and run your playbook as usual:
 
-```bash
-$ ansible-playbook playbook.yml -K
+```console
+ansible-playbook playbook.yml -K
 ```
 
 Packages that must be downloaded manually cannot be upgraded automatically
 without sacrificing speed. To force upgrading use `force_upgrade=yes`, e.g.
 
-```bash
+```console
 # HINT: for a list of available tags use --list-tags
-$ ansible-playbook playbook.yml -K -e force_upgrade=yes -t rocketchat,franz,rambox
+ansible-playbook playbook.yml -K -t citrix,geogebra,zoom -e force_upgrade=yes
 ```
 
 Prerequisites
@@ -81,16 +80,18 @@ Obviously, you need [Ansible](
 http://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 to install this role and run your playbook, e.g.
 
-```bash
-$ sudo apt-get install ansible
-$ ansible-galaxy install painless.software
+```console
+sudo apt-get install ansible
+```
+```console
+ansible-galaxy install painless.software
 ```
 
 If some software fails to install, complaining `pip` is not installed, either
 include the `python` tag in your Ansible run or run:
 
-```bash
-$ sudo apt-get install python3-pip
+```console
+sudo apt-get install python3-pip
 ```
 
 How Does It Work?
