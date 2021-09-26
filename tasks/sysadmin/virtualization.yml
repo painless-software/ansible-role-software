@@ -88,7 +88,7 @@
 
         - name: Parse accept hash from Linux download overview
           ansible.builtin.shell:
-            cmd: "curl -s {{ citrix_overview_url }} | grep '{{ citrix_hash_start_marker }}' | sed -e 's/^.*{{ citrix_hash_start_marker }}//' -e 's/{{ citrix_hash_stop_marker }}.*$//' | uniq"
+            cmd: "wget -q -O- {{ citrix_overview_url }} | grep '{{ citrix_hash_start_marker }}' | sed -e 's/^.*{{ citrix_hash_start_marker }}//' -e 's/{{ citrix_hash_stop_marker }}.*$//' | uniq"
             warn: false
           register: citrix_accepthash
 
