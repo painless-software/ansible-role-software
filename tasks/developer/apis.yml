@@ -2,8 +2,10 @@
 # API browsers and debugging tools
 
 - name: Install Insomnia REST client and command line tools
-  command: snap install {{ item }}
-  with_items:
+  community.general.snap:
+    name: '{{ item }}'
+    state: present
+  loop:
     - insomnia
     - jq
     - yq

@@ -11,41 +11,30 @@
   tags:
     - email
 
+- name: Install Slack chat clients (unconfined snap)
+  community.general.snap:
+    name: slack
+    classic: yes
+    state: present
+  become: true
+  tags:
+    - slack
+
 - name: Install popular chat clients (snaps)
-  command: snap install {{ item }} --classic
-  with_items:
-    - rocketchat-desktop
-    - skype
-    - slack
+  community.general.snap:
+    name:
+      - ferdi
+      - rambox
+      - rocketchat-desktop
+      - skype
+    state: present
   become: true
-  tags:
-    - rocketchat
-    - skype
-    - slack
-
-- name: Install Rambox multi-messenger
-  command: snap install rambox
-  become: true
-  tags:
-    - rambox
-
-- name: Ferdi multi-messenger
-  block:
-
-    - name: Find out whether Ferdi multi-messenger is installed
-      command: dpkg-query -W ferdi
-      register: ferdi_installed
-      failed_when: ferdi_installed.rc > 1
-      changed_when: ferdi_installed.rc == 1
-
-    - name: Install Ferdi multi-messenger
-      apt: deb={{ ferdi_baseurl }}/{{ ferdi_package }}
-      when: ferdi_installed.rc == 1 or force_upgrade == 'yes'
-      become: true
-
   tags:
     - ferdi
     - franz
+    - rambox
+    - rocketchat
+    - skype
 
 - name: Signal for Desktop
   block:

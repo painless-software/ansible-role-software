@@ -17,7 +17,9 @@
 
     # see https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet/issues/474
     - name: Ensure system monitor is not installed via snap
-      command: snap remove gnome-system-monitor
+      community.general.snap:
+        name: gnome-system-monitor
+        state: absent
 
     - name: Ensure prerequisites for system monitor extension
       package:

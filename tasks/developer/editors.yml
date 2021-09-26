@@ -2,7 +2,10 @@
 # Programmer's editors and IDEs
 
 - name: Install Atom IDE
-  command: snap install atom --classic
+  community.general.snap:
+    name: atom
+    classic: yes
+    state: present
   become: true
   tags:
     - atom
@@ -37,8 +40,10 @@
     - vscode
 
 - name: Install various JetBrains IDEs
-  command: snap install {{ item }} --classic
-  with_items: '{{ editors_jetbrains_ides }}'
+    name: '{{ item }}'
+    classic: yes
+    state: present
+  loop: '{{ editors_jetbrains_ides }}'
   become: true
   tags:
     - jetbrains

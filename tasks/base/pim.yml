@@ -2,10 +2,11 @@
 # Software and configuration for Personal Information Management (PIM)
 
 - name: GNOME common apps (compatible snap version)
-  command: snap install {{ item }}
-  loop:
-    - gnome-calendar
-    - gnome-contacts
+  community.general.snap:
+    name:
+      - gnome-calendar
+      - gnome-contacts
+    state: present
   become: true
   tags:
     - gnome

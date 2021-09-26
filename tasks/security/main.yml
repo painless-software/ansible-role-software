@@ -2,13 +2,17 @@
 # Software and configuration to make your use of computers safer
 
 - name: KeePassXC offline password manager
-  command: snap install keepassxc
+  community.general.snap:
+    name: keepassxc
+    state: present
   become: true
   tags:
     - keepass
 
 - name: Bitwarden password manager
-  command: snap install bitwarden
+  community.general.snap:
+    name: bitwarden
+    state: present
   become: true
   tags:
     - bitwarden
@@ -21,7 +25,9 @@
     - otp
 
 - name: OAuthTool
-  package: name=oathtool state=present
+  package:
+    name: oathtool
+    state: present
   become: true
   tags:
     - cli

@@ -5,7 +5,10 @@
   block:
 
     - name: Install Kubernetes CLI
-      command: snap install kubectl --classic
+      community.general.snap:
+        name: kubectl
+        classic: yes
+        state: present
       become: true
 
     - name: Activate Bash autocompletion for kubectl

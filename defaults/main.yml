@@ -19,10 +19,6 @@ desktop_gnomeshell_extensions_defaults:
 
 desktop_gnomeshell_extensions: "{{ desktop_gnomeshell_extensions_defaults }}"
 
-ferdi_version: '5.6.2'
-ferdi_baseurl: 'https://github.com/getferdi/ferdi/releases/download'
-ferdi_package: 'v{{ ferdi_version }}/ferdi_{{ ferdi_version }}_amd64.deb'
-
 kompose_version: '1.22.0'
 kompose_baseurl: 'https://github.com/kubernetes/kompose/releases/download'
 kompose_package: "v{{ kompose_version }}/kompose_{{ kompose_version }}_amd64.deb"

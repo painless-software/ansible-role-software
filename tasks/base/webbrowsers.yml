@@ -3,7 +3,9 @@
 
 - block:
     - name: Avoid duplicate installs of Firefox (snap)
-      command: snap remove firefox
+      community.general.snap:
+        name: firefox
+        state: absent
 
     - name: Install Firefox Web browser
       package:
@@ -18,7 +20,9 @@
 
 - block:
     - name: Avoid duplicate installs of Chromium (snap)
-      command: snap remove chromium
+      community.general.snap:
+        name: chromium
+        state: absent
 
     - name: Avoid duplicate installs of Chromium (deb)
       package:

@@ -2,7 +2,10 @@
 # Google's Go language and tooling
 
 - name: Install Go and Go tools
-  command: snap install {{ item }} --classic
+  community.general.snap:
+    name: '{{ item }}'
+    classic: yes
+    state: present
   loop:
     - go
     - goreleaser

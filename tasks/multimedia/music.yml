@@ -2,9 +2,9 @@
 # Software for music consumption
 
 - name: Install proprietary music players
-  command: snap install {{ item }}
-  with_items:
-    - spotify
+  community.general.snap:
+    name: spotify
+    state: present
   become: true
   tags:
     - multimedia
@@ -20,9 +20,9 @@
     - music-composing
 
 - name: Install Audacity audio editor
-  command: snap install {{ item }}
-  with_items:
-    - audacity
+  community.general.snap:
+    name: audacity
+    state: present
   become: true
   tags:
     - multimedia
