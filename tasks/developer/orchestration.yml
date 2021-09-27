@@ -30,7 +30,7 @@
 
     - name: Install Minikube
       apt: deb={{ minikube_baseurl }}/{{ minikube_package }}
-      when: minikube_installed.rc == 1 or force_upgrade == 'yes'
+      when: minikube_installed.rc == 1 or state == 'latest'
       become: true
 
   tags: [kubernetes]
@@ -43,7 +43,7 @@
         url: '{{ kubeseal_baseurl }}/v{{ kubeseal_version }}/kubeseal-linux-amd64'
         dest: /usr/local/bin/kubeseal
         mode: 0755
-        force: '{{ force_upgrade }}'
+        force: "{% 'yes' if state == 'latest' else 'no' %}"
       become: true
 
   tags: [kubernetes]
@@ -56,7 +56,7 @@
         url: '{{ sops_baseurl }}/v{{ sops_version }}/sops-v{{ sops_version }}.linux'
         dest: /usr/local/bin/sops
         mode: 0755
-        force: '{{ force_upgrade }}'
+        force: "{% 'yes' if state == 'latest' else 'no' %}"
       become: true
 
   tags: [kubernetes]
@@ -78,7 +78,7 @@
         mode: 0755
         owner: root
         group: root
-      when: not oc_installed.stat.exists or force_upgrade == 'yes'
+      when: not oc_installed.stat.exists or state == 'latest'
       become: true
 
     - name: Activate Bash autocompletion for OpenShift CLI
@@ -106,7 +106,7 @@
         mode: 0755
         owner: root
         group: root
-      when: not minishift_installed.stat.exists or force_upgrade == 'yes'
+      when: not minishift_installed.stat.exists or state == 'latest'
       become: true
 
     - name: Activate Bash autocompletion for Minishift
@@ -125,7 +125,7 @@
         url: '{{ k3s_baseurl }}/{{ k3s_version }}/k3s'
         dest: /usr/local/bin/k3s
         mode: 0755
-        force: '{{ force_upgrade }}'
+        force: "{% 'yes' if state == 'latest' else 'no' %}"
       become: true
 
   tags: [kubernetes]
@@ -147,7 +147,7 @@
         mode: 0755
         owner: root
         group: root
-      when: not k9s_installed.stat.exists or force_upgrade == 'yes'
+      when: not k9s_installed.stat.exists or state == 'latest'
       become: true
 
   tags: [kubernetes]
@@ -169,7 +169,7 @@
         mode: 0755
         owner: root
         group: root
-      when: not helm2_installed.stat.exists or force_upgrade == 'yes'
+      when: not helm2_installed.stat.exists or state == 'latest'
       become: true
 
     - name: Find out whether helm3 is installed
@@ -197,7 +197,7 @@
             state: link
             force: yes
 
-      when: not helm3_installed.stat.exists or force_upgrade == 'yes'
+      when: not helm3_installed.stat.exists or state == 'latest'
       become: true
 
     - name: Install helmfile binary
@@ -205,7 +205,7 @@
         url: '{{ helmfile_baseurl }}/{{ helmfile_version }}/helmfile_linux_amd64'
         dest: /usr/local/bin/helmfile
         mode: 0755
-        force: '{{ force_upgrade }}'
+        force: "{% 'yes' if state == 'latest' else 'no' %}"
       become: true
 
   tags: [kubernetes, helm]

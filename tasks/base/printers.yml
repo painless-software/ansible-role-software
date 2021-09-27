@@ -15,7 +15,7 @@
         remote_src: yes
         src: "{{ imagescan_download_base }}/{{ imagescan_download_path }}"
         dest: /tmp/
-      when: imagescan_installed.rc == 1 or force_upgrade == 'yes'
+      when: imagescan_installed.rc == 1 or state == 'latest'
 
     - name: Ensure prerequisites for Image Scan v3
       package:
@@ -29,7 +29,7 @@
         - "/tmp/{{ imagescan_archive }}/plugins/imagescan-plugin-gt-s650_{{ imagescan_plugin_gt_version }}-{{ imagescan_deb_tail }}"
         - "/tmp/{{ imagescan_archive }}/plugins/imagescan-plugin-ocr-engine_{{ imagescan_plugin_ocr_version }}-{{ imagescan_deb_tail }}"
         - "/tmp/{{ imagescan_archive }}/plugins/imagescan-plugin-networkscan_{{ imagescan_plugin_networkscan_version }}-{{ imagescan_deb_tail }}"
-      when: imagescan_installed.rc == 1 or force_upgrade == 'yes'
+      when: imagescan_installed.rc == 1 or state == 'latest'
 
     - name: Configure EPSON scanner via Image Scan v3
       lineinfile:

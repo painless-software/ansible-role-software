@@ -49,14 +49,15 @@
     - name: Vagrant package from Hashicorp
       package:
         name: vagrant
-        state: "{{ 'latest' if force_upgrade == 'yes' else 'present' }}"
+        state: '{{ state }}'
 
   become: true
   tags:
     - vagrant
 
 - name: Find out whether VMware Player is installed
-  stat: path=/usr/bin/vmplayer
+  stat:
+    path: /usr/bin/vmplayer
   register: vmware_player
   changed_when: not vmware_player.stat.exists
   tags:
@@ -77,12 +78,12 @@
             url: '{{ vmware_baseurl }}/{{ vmware_package }}'
             dest: '{{ vmware_installer }}'
             mode: 0755
-            force: '{{ force_upgrade }}'
+            force: "{% 'yes' if state == 'latest' else 'no' %}"
 
         - name: Install VMware Player
           command: '{{ vmware_install_cmd }}'
 
-      when: state == 'present' and (not vmware_player.stat.exists or force_upgrade == 'yes')
+      when: state == 'present' and not vmware_player.stat.exists or state == 'latest'
 
   become: true
   tags:
@@ -104,7 +105,8 @@
             warn: false
           register: citrix_accepthash
 
-        - block:
+        - name: Install and configure Citrix
+          block:
 
             - name: Install Citrix client (Workspace App)
               apt:
@@ -115,7 +117,7 @@
                 path: /opt/Citrix/ICAClient/keystore/cacerts
                 state: absent
 
-            - name: Ensure CA certificates for Citrix client
+            - name: Ensure CA certificates (system)
               package:
                 name: ca-certificates
                 state: latest
@@ -127,7 +129,7 @@
                 state: link
 
           become: true
-      when: not citrix_installed.stat.exists or force_upgrade == 'yes'
+      when: not citrix_installed.stat.exists or state == 'latest'
 
   tags:
     - citrix

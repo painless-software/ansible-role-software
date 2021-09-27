@@ -62,7 +62,7 @@
     url: https://raw.githubusercontent.com/containers/podman-compose/devel/podman_compose.py
     dest: /usr/local/bin/podman-compose
     mode: 0755
-    force: '{{ force_upgrade }}'
+    force: "{% 'yes' if state == 'latest' else 'no' %}"
 
   become: true
   tags: [podman]
@@ -78,7 +78,7 @@
 
     - name: Install Kompose (Compose->Kubernetes converter)
       apt: deb={{ kompose_baseurl }}/{{ kompose_package }}
-      when: kompose_installed.rc == 1 or force_upgrade == 'yes'
+      when: kompose_installed.rc == 1 or state == 'latest'
       become: true
 
   tags: [kubernetes]

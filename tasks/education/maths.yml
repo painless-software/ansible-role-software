@@ -13,7 +13,7 @@
   - name: Install GeoGebra Classic 6
     apt:
       deb: http://www.geogebra.org/download/deb.php?arch=amd64&ver=6
-    when: geogebra_installed.rc == 1 or force_upgrade == 'yes'
+    when: geogebra_installed.rc == 1 or state == 'latest'
     become: true
 
   tags:

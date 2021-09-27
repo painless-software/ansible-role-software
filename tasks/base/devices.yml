@@ -14,7 +14,7 @@
         url: https://raw.githubusercontent.com/AdnanHodzic/displaylink-debian/master/displaylink-debian.sh
         dest: /opt/displaylink-debian.sh
         mode: 0755
-        force: '{{ force_upgrade }}'
+        force: "{% 'yes' if state == 'latest' else 'no' %}"
 
   become: true
   tags:

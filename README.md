@@ -66,11 +66,11 @@ ansible-playbook playbook.yml -K
 ```
 
 Packages that must be downloaded manually cannot be upgraded automatically
-without sacrificing speed. To force upgrading use `force_upgrade=yes`, e.g.
+without sacrificing speed. To force upgrading use `state=latest`, e.g.
 
 ```console
 # HINT: for a list of available tags use --list-tags
-ansible-playbook playbook.yml -K -t citrix,geogebra,zoom -e force_upgrade=yes
+ansible-playbook playbook.yml -K -t citrix,geogebra,zoom -e state=latest
 ```
 
 To uninstall a software (when supported) use `state=absent`, e.g.

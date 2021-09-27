@@ -12,7 +12,7 @@
 
     - name: Install TeamViewer from website
       apt: deb=https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
-      when: teamviewer_installed.rc == 1 or force_upgrade == 'yes'
+      when: teamviewer_installed.rc == 1 or state == 'latest'
       become: true
 
   tags:

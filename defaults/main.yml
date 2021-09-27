@@ -1,6 +1,5 @@
 ---
 state: present
-force_upgrade: false
 
 userdefaults_organization: painless
 
