@@ -97,7 +97,7 @@ imagescan_plugin_networkscan_version: '1.1.4'
 imagescan_distro_type: "{{ 'lts' if ansible_distribution_version in ['18.04','20.04'] else 'latest' }}"
 imagescan_distro_version: "{{ '20.04' if imagescan_distro_type == 'lts' else '20.10' }}"
 imagescan_archive: "imagescan-bundle-{{ ansible_distribution|lower }}-{{ imagescan_distro_version }}-{{ imagescan_version }}.x64.deb"
-imagescan_deb_tail: "1epson4{{ ansible_distribution|lower }}{{ imagescan_distro_version if imagescan_distro_type == 'lts' }}_amd64.deb"
+imagescan_deb_tail: "1epson4{{ ansible_distribution|lower }}{{ imagescan_distro_version }}_amd64.deb"
 imagescan_download_path: "{{ ansible_distribution|lower }}/{{ imagescan_distro_type }}1/deb/x64/{{ imagescan_archive }}.tar.gz"
 imagescan_download_base: 'https://download2.ebz.epson.net/imagescanv3'
 
