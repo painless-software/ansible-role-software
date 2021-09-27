@@ -78,7 +78,7 @@
             url: '{{ vmware_baseurl }}/{{ vmware_package }}'
             dest: '{{ vmware_installer }}'
             mode: 0755
-            force: "{% 'yes' if state == 'latest' else 'no' %}"
+            force: "{{ 'yes' if state == 'latest' else 'no' }}"
 
         - name: Install VMware Player
           command: '{{ vmware_install_cmd }}'
