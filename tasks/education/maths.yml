@@ -2,19 +2,9 @@
 # Software for mathematics
 
 - name: GeoGebra
-  block:
-
-  - name: Find out whether GeoGebra is installed
-    command: dpkg-query -W geogebra-classic
-    register: geogebra_installed
-    failed_when: geogebra_installed.rc > 1
-    changed_when: geogebra_installed.rc == 1
-
-  - name: Install GeoGebra Classic 6
-    apt:
-      deb: http://www.geogebra.org/download/deb.php?arch=amd64&ver=6
-    when: geogebra_installed.rc == 1 or state == 'latest'
-    become: true
-
+  flatpak:
+    name: org.geogebra.GeoGebra
+    state: '{{ state }}'
+  become: true
   tags:
     - geogebra
