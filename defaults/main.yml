@@ -105,7 +105,7 @@ vmware_package: "VMware-Player-{{ vmware_version }}.x86_64.bundle"
 vmware_baseurl: 'https://download3.vmware.com/software/player/file'
 vmware_installer: "/tmp/{{ vmware_package }}"
 vmware_install_cmd: "{{ vmware_installer }} --console --eulas-agreed --required"
-vmware_uninstall_cmd: "{{ vmware_installer} --uninstall-product=vmware-player --required"
+vmware_uninstall_cmd: "{{ vmware_installer}} --uninstall-product=vmware-player --required"
 
 citrix_version: '21.8.0.40'
 citrix_package: "icaclient_{{ citrix_version }}_amd64.deb"

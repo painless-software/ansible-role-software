@@ -73,6 +73,12 @@ without sacrificing speed. To force upgrading use `force_upgrade=yes`, e.g.
 ansible-playbook playbook.yml -K -t citrix,geogebra,zoom -e force_upgrade=yes
 ```
 
+To uninstall a software (when supported) use `state=absent`, e.g.
+
+```console
+ansible-playbook playbook.yml -K -t vmware -e state=absent
+```
+
 Prerequisites
 -------------
 
