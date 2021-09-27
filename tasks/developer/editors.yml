@@ -1,49 +1,30 @@
 ---
 # Programmer's editors and IDEs
 
-- name: Install Atom IDE
+- name: Atom IDE
   snap:
     name: atom
     classic: yes
-    state: present
+    state: '{{ state }}'
   become: true
   tags:
     - atom
 
-- name: VSCodium (freed version of Visual Studio Code)
-  block:
-    - block:
-        - name: Add signing key of VSCodium package maintainer
-          apt_key:
-            url: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
-            state: present
-
-        - name: Add APT source for VSCodium deb package
-          apt_repository:
-            repo: 'deb [signed-by=/etc/apt/trusted.gpg.d/vscodium-archive-keyring.gpg] https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs/ vscodium main'
-            filename: vscodium
-            update_cache: true
-            state: present
-
-        - name: Install VSCodium IDE
-          package:
-            name: codium
-            state: present
-
-      become: true
-
-    - name: Install popular extensions for VSCodium (Visual Studio Code)
-      command: codium --install-extension "{{ item }}" --force
-      with_items: '{{ editors_vscode_plugins }}'
-
+- name: Codium (freed version of Visual Studio Code)
+  snap:
+    name: codium
+    classic: yes
+    state: '{{ state }}'
+  become: true
   tags:
+    - codium
     - vscode
 
-- name: Install various JetBrains IDEs
+- name: Popular IDEs by JetBrains
   snap:
     name: '{{ item }}'
     classic: yes
-    state: present
+    state: '{{ state }}'
   loop: '{{ editors_jetbrains_ides }}'
   become: true
   tags:
