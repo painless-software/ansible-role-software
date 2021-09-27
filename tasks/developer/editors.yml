@@ -13,14 +13,14 @@
 - name: VSCodium (freed version of Visual Studio Code)
   block:
 
-    - name: Install Codium IDE
+    - name: Codium IDE
       snap:
         name: codium
         classic: yes
         state: '{{ state }}'
       become: true
 
-    - name: Install popular extensions for Codium (Visual Studio Code)
+    - name: Popular extensions for Codium (Visual Studio Code)
       command: codium --install-extension "{{ item }}" --force
       loop: '{{ editors_vscode_plugins }}'
       when: state == 'present'

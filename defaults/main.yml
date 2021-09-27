@@ -19,18 +19,18 @@ desktop_gnomeshell_extensions_defaults:
 
 desktop_gnomeshell_extensions: "{{ desktop_gnomeshell_extensions_defaults }}"
 
-kompose_version: '1.22.0'
+kompose_version: '1.24.0'
 kompose_baseurl: 'https://github.com/kubernetes/kompose/releases/download'
 kompose_package: "v{{ kompose_version }}/kompose_{{ kompose_version }}_amd64.deb"
 
-minikube_version: '1.16.0'
+minikube_version: '1.23.2'
 minikube_baseurl: 'https://github.com/kubernetes/minikube/releases/download'
-minikube_package: "v{{ minikube_version }}/minikube_{{ minikube_version }}-1_amd64.deb"
+minikube_package: "v{{ minikube_version }}/minikube_{{ minikube_version }}-0_amd64.deb"
 
-kubeseal_version: '0.13.1'
+kubeseal_version: '0.16.0'
 kubeseal_baseurl: 'https://github.com/bitnami-labs/sealed-secrets/releases/download'
 
-sops_version: '3.6.1'
+sops_version: '3.7.1'
 sops_baseurl: 'https://github.com/mozilla/sops/releases/download'
 
 openshift_cli_version: 'v3.11.0'
@@ -42,45 +42,46 @@ minishift_version: '1.34.3'
 minishift_baseurl: 'https://github.com/minishift/minishift/releases/download'
 minishift_package: "v{{ minishift_version }}/minishift-{{ minishift_version }}-linux-amd64.tgz"
 
-k3s_version: 'v1.20.0+k3s2'
+k3s_version: 'v1.22.2+k3s1'
 k3s_baseurl: 'https://github.com/rancher/k3s/releases/download'
 
-k9s_version: '0.24.2'
+k9s_version: '0.24.15'
 k9s_baseurl: 'https://github.com/derailed/k9s/releases/download'
 k9s_package: "v{{ k9s_version }}/k9s_Linux_x86_64.tar.gz"
 
 helm_baseurl: 'https://get.helm.sh'
 helm2_version: '2.17.0'
 helm2_package: "helm-v{{ helm2_version }}-linux-amd64.tar.gz"
-helm3_version: '3.4.1'
+helm3_version: '3.7.0'
 helm3_package: "helm-v{{ helm3_version }}-linux-amd64.tar.gz"
 
 helmfile_baseurl: 'https://github.com/roboll/helmfile/releases/download'
-helmfile_version: 'v0.136.0'
+helmfile_version: 'v0.140.1'
 
 editors_jetbrains_ides_defaults:
   - intellij-idea-community
   - pycharm-community
 
 editors_vscode_plugins_defaults:
-  - AravindKumar.gherkin-indent
   - bajdzis.vscode-database
   - bbenoist.vagrant
   - bungcip.better-toml
   - ev3dev.ev3dev-browser
   - editorconfig.editorconfig
   - james-yu.latex-workshop
-  - joaompinto.asciidoctor-vscode
-  - k--kato.intellij-idea-keybindings
   - lextudio.restructuredtext
   - ms-azuretools.vscode-docker
   - ms-python.python
   - ms-vscode.go
-  - MS-vsliveshare.vsliveshare
-  - MS-vsliveshare.vsliveshare-audio
   - puppet.puppet-vscode
-  - saahilclaypool.scratchpadmd
   - valentjn.vscode-ltex
+  # Not available yet in Open VSX Registry, https://open-vsx.org/
+  # - AravindKumar.gherkin-indent
+  # - joaompinto.asciidoctor-vscode
+  # - k--kato.intellij-idea-keybindings
+  # - MS-vsliveshare.vsliveshare
+  # - MS-vsliveshare.vsliveshare-audio
+  # - saahilclaypool.scratchpadmd
 
 editors_jetbrains_ides: "{{ editors_jetbrains_ides_defaults }}"
 editors_popular_ides: "{{ editors_popular_ides_defaults }}"

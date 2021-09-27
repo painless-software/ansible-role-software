@@ -17,7 +17,8 @@
         create: true
         line: 'source <(kubectl completion bash)'
 
-  tags: [kubernetes]
+  tags:
+    - kubernetes
 
 - name: Minikube
   block:
@@ -33,7 +34,8 @@
       when: minikube_installed.rc == 1 or state == 'latest'
       become: true
 
-  tags: [kubernetes]
+  tags:
+    - kubernetes
 
 - name: kubeseal
   block:
@@ -46,7 +48,8 @@
         force: "{{ 'yes' if state == 'latest' else 'no' }}"
       become: true
 
-  tags: [kubernetes]
+  tags:
+    - kubernetes
 
 - name: SOPS
   block:
@@ -59,7 +62,8 @@
         force: "{{ 'yes' if state == 'latest' else 'no' }}"
       become: true
 
-  tags: [kubernetes]
+  tags:
+    - kubernetes
 
 - name: OpenShift CLI
   block:
@@ -87,7 +91,8 @@
         create: true
         line: 'source <(oc completion bash)'
 
-  tags: [kubernetes]
+  tags:
+    - kubernetes
 
 - name: Minishift
   block:
@@ -115,7 +120,8 @@
         create: true
         line: 'source <(minishift completion bash)'
 
-  tags: [kubernetes]
+  tags:
+    - kubernetes
 
 - name: k3s - lightweight K8s
   block:
@@ -128,13 +134,15 @@
         force: "{{ 'yes' if state == 'latest' else 'no' }}"
       become: true
 
-  tags: [kubernetes]
+  tags:
+    - kubernetes
 
 - name: K9s - curses-based K8s CLI
   block:
 
     - name: Find out whether K9s is installed
-      stat: path=/usr/local/bin/k9s
+      stat:
+        path: /usr/local/bin/k9s
       register: k9s_installed
       changed_when: not k9s_installed.stat.exists
 
@@ -150,13 +158,15 @@
       when: not k9s_installed.stat.exists or state == 'latest'
       become: true
 
-  tags: [kubernetes]
+  tags:
+    - kubernetes
 
 - name: helm
   block:
 
     - name: Find out whether helm2 is installed
-      stat: path=/usr/local/bin/helm2
+      stat:
+        path: /usr/local/bin/helm2
       register: helm2_installed
       changed_when: not helm2_installed.stat.exists
 
@@ -173,7 +183,8 @@
       become: true
 
     - name: Find out whether helm3 is installed
-      stat: path=/usr/local/bin/helm3
+      stat:
+        path: /usr/local/bin/helm3
       register: helm3_installed
       changed_when: not helm3_installed.stat.exists
 
@@ -208,4 +219,6 @@
         force: "{{ 'yes' if state == 'latest' else 'no' }}"
       become: true
 
-  tags: [kubernetes, helm]
+  tags:
+    - kubernetes
+    - helm
