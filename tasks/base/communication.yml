@@ -11,7 +11,7 @@
   tags:
     - email
 
-- name: Install Slack chat clients (unconfined snap)
+- name: Slack chat client (unconfined)
   snap:
     name: slack
     classic: yes
@@ -20,25 +20,32 @@
   tags:
     - slack
 
-- name: Install popular chat clients (snaps)
+- name: Ferdi multi-messenger client (Franz free/libre)
   snap:
-    name:
-      - ferdi
-      - rambox
-      - rocketchat-desktop
-      - skype
-      - teams
+    name: ferdi
     state: present
   become: true
   tags:
     - ferdi
     - franz
-    - rambox
-    - rocketchat
-    - skype
-    - teams
 
-- name: Signal for Desktop
+- name: Rambox multi-messenger client
+  snap:
+    name: rambox
+    state: present
+  become: true
+  tags:
+    - rambox
+
+- name: RocketChat messaging client
+  snap:
+    name: rocketchat-desktop
+    state: present
+  become: true
+  tags:
+    - rocketchat
+
+- name: Signal messaging for Desktop
   snap:
     name: signal-desktop
     state: present
@@ -46,7 +53,23 @@
   tags:
     - signal
 
-- name: Zoom conferencing
+- name: Skype messaging client
+  snap:
+    name: skype
+    state: present
+  become: true
+  tags:
+    - skype
+
+- name: Mircosoft Teams client
+  snap:
+    name: teams
+    state: present
+  become: true
+  tags:
+    - teams
+
+- name: Zoom conferencing client
   snap:
     name: zoom-client
     state: present
