@@ -1,29 +1,32 @@
 ---
 # Software for music consumption
 
-- name: Install proprietary music players
-  snap:
-    name: spotify
-    state: '{{ bool_state }}'
-  become: true
-  tags:
-    - multimedia
-    - music-listening
+- name: Music editors and players
+  block:
 
-- name: Install LMMS music composing studio
-  package:
-    name: lmms
-    state: '{{ state }}'
-  become: true
-  tags:
-    - multimedia
-    - music-composing
+    - name: Spotify music player
+      snap:
+        name: spotify
+        state: '{{ bool_state }}'
+      become: true
+      tags:
+        - music-listening
 
-- name: Install Audacity audio editor
-  snap:
-    name: audacity
-    state: '{{ bool_state }}'
-  become: true
+    - name: LMMS music composing studio
+      package:
+        name: lmms
+        state: '{{ state }}'
+      become: true
+      tags:
+        - music-composing
+
+    - name: Audacity audio editor
+      snap:
+        name: audacity
+        state: '{{ bool_state }}'
+      become: true
+      tags:
+        - music-editing
+
   tags:
     - multimedia
-    - music-editing

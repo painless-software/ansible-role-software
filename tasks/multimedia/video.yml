@@ -1,46 +1,48 @@
 ---
-# Software for image manipulation, video editing, audio conversion, etc.
+# Software for video editing, audio conversion, etc.
 
-- name: OpenShot video editor
-  package:
-    name: openshot
-    state: '{{ state }}'
-  become: true
+- name: Video software
+  block:
+
+    - name: OpenShot video editor
+      package:
+        name: openshot
+        state: '{{ state }}'
+      become: true
+      tags:
+        - video-editing
+
+    - name: Video conversion tools and codecs
+      package:
+        name:
+          - ffmpeg
+          - ubuntu-restricted-extras
+        state: '{{ state }}'
+      become: true
+      tags:
+        - video-watching
+
+    - name: YouTube downloader
+      snap:
+        name: youtube-dl
+        state: '{{ bool_state }}'
+      become: true
+      tags:
+        - music-listening
+        - video-watching
+
+    - name: YouTube downloader defaults for music extraction
+      lineinfile:
+        dest: '{{ ansible_env.HOME }}/.config/youtube-dl/config'
+        create: true
+        line: '{{ item }}'
+        state: '{{ bool_state }}'
+      with_items:
+        - '--extract-audio'
+        - '--audio-format mp3'
+        - '--add-metadata'
+      tags:
+        - music-listening
+
   tags:
     - multimedia
-    - video-editing
-
-- name: Video conversion tools and codecs
-  package:
-    name:
-      - ffmpeg
-      - ubuntu-restricted-extras
-    state: '{{ state }}'
-  become: true
-  tags:
-    - multimedia
-    - video-watching
-
-- name: YouTube downloader
-  snap:
-    name: youtube-dl
-    state: '{{ bool_state }}'
-  become: true
-  tags:
-    - multimedia
-    - music-listening
-    - video-watching
-
-- name: YouTube downloader defaults for music extraction
-  lineinfile:
-    dest: '{{ ansible_env.HOME }}/.config/youtube-dl/config'
-    create: true
-    line: '{{ item }}'
-    state: '{{ bool_state }}'
-  with_items:
-    - '--extract-audio'
-    - '--audio-format mp3'
-    - '--add-metadata'
-  tags:
-    - multimedia
-    - music-listening
