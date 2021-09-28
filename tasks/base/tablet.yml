@@ -1,7 +1,7 @@
 ---
 # Software and configuration for tablets and 2-in-1 convertibles
 
-- name: Install Xournal++ handwriting app
+- name: Xournal++ handwriting app
   flatpak:
     name: com.github.xournalpp.xournalpp
     state: '{{ bool_state }}'
@@ -11,7 +11,7 @@
     - xournal
 
 - block:
-  - name: Ensure prerequisites for Write handwriting app
+  - name: Prerequisites for Write handwriting app
     package:
       name:
         - libqt5widgets5
@@ -19,7 +19,7 @@
         - libqt5svg5
       state: '{{ state }}'
 
-  - name: Install Write handwriting app
+  - name: Write handwriting app
     unarchive:
       src: http://www.styluslabs.com/download/write-tgz
       remote_src: true
@@ -28,13 +28,13 @@
       owner: root
       group: root
 
-  - name: Create symlink for Write handwriting app
+  - name: Symlink for Write handwriting app
     file:
       src: /opt/Write/Write
       dest: /usr/local/bin/Write
       state: link
 
-  - name: Create desktop shortcut for Write handwriting
+  - name: Desktop shortcut for Write handwriting
     blockinfile:
       dest: /usr/share/applications/Write.desktop
       create: true
