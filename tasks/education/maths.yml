@@ -4,7 +4,7 @@
 - name: GeoGebra
   flatpak:
     name: org.geogebra.GeoGebra
-    state: '{{ state }}'
+    state: '{{ bool_state }}'
   become: true
   tags:
     - geogebra
