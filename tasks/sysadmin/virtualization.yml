@@ -121,7 +121,6 @@
           package:
             name: ca-certificates
             state: latest
-          when: bool_state == 'present'
 
         - name: Use installed CA certs with Citrix client
           file:
