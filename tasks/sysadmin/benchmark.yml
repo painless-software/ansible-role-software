@@ -1,7 +1,7 @@
 ---
 # Software for hardware info and benchmarking
 
-- name: Install hardware info and benchmarking tools
+- name: Hardware info and benchmarking tools
   package:
     name:
       - hardinfo

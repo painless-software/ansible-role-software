@@ -1,7 +1,7 @@
 ---
 # Utilities used on the command line
 
-- name: Install a few useful command line tools
+- name: A few useful command line tools
   package:
     name:
       - dos2unix

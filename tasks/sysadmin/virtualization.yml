@@ -1,7 +1,7 @@
 ---
 # Software and configuration for virtualization
 
-- name: Install libvirt and virt-manager
+- name: libvirt (incl. virt-manager)
   package:
     name:
       - libvirt-bin
@@ -21,7 +21,7 @@
         value: 'true'
         vtype: select
 
-    - name: Install VirtualBox and its extension pack
+    - name: VirtualBox and its extension pack
       package:
         name:
           - virtualbox
@@ -108,7 +108,7 @@
         - name: Install and configure Citrix
           block:
 
-            - name: Install Citrix client (Workspace App)
+            - name: Citrix client (Workspace App)
               apt:
                 deb: '{{ citrix_download_url }}'
 

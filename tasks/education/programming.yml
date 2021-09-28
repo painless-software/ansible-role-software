@@ -12,7 +12,7 @@
 - name: Python Turtle
   block:
 
-    - name: Install dependencies for PythonTurtle
+    - name: Dependencies for PythonTurtle
       package:
         name: python3-wxgtk4.0
         state: present
@@ -23,7 +23,7 @@
         dest: /opt/PythonTurtle
         depth: 1
 
-    - name: Create desktop shortcut for PythonTurtle
+    - name: Desktop shortcut for PythonTurtle
       blockinfile:
         dest: /usr/share/applications/PythonTurtle.desktop
         create: true

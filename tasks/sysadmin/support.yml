@@ -10,7 +10,7 @@
       failed_when: teamviewer_installed.rc > 1
       changed_when: teamviewer_installed.rc == 1
 
-    - name: Install TeamViewer from website
+    - name: TeamViewer (download from website)
       apt:
         deb: https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
         state: '{{ state }}'

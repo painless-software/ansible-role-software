@@ -1,7 +1,7 @@
 ---
 # Software and configuration for network layer
 
-- name: Install OpenVPN integration for Network Manager
+- name: OpenVPN integration for Network Manager
   package:
     name:
       - network-manager-openvpn
