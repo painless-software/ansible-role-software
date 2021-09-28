@@ -1,0 +1,10 @@
+---
+# Software for learning and working with languages
+
+- name: Glate (Google Translate for desktop)
+  snap:
+    name: glate
+    state: '{{ bool_state }}'
+  become: true
+  tags:
+    - translation

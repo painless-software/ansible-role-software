@@ -2,4 +2,5 @@
 # Educational software and learning resources
 
 - import_tasks: programming.yml
+- import_tasks: languages.yml
 - import_tasks: maths.yml
