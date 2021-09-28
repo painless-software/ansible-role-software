@@ -15,7 +15,7 @@
       - vim
       - whois
       - xclip
-    state: present
+    state: '{{ state }}'
   become: true
   tags:
     - cli
@@ -25,6 +25,7 @@
     dest: '{{ ansible_env.HOME }}/.tmux.conf'
     create: true
     line: 'set -g mouse on'
+    state: '{{ bool_state }}'
   tags:
     - cli
 
@@ -36,6 +37,7 @@
         path: '{{ ansible_env.HOME }}/.bash_aliases'
         create: true
         line: '{{ item }}'
+        state: '{{ bool_state }}'
       with_items:
         - "alias ip='ip --color'"
         - "alias ipb='ip --brief --color'"
@@ -54,6 +56,7 @@
             TERM=${TERM//screen\./}
             /usr/bin/ssh -t $@ "tmux attach || tmux new || bash"
           }
+        state: '{{ bool_state }}'
 
   tags:
     - cli

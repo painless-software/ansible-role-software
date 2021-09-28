@@ -1,24 +1,26 @@
 ---
 # Google's Go language and tooling
 
-- name: Install Go and Go tools
-  snap:
-    name: '{{ item }}'
-    classic: yes
-    state: present
-  loop:
-    - go
-    - goreleaser
-  become: true
-  tags:
-    - golang
+- block:
 
-- name: Configure PATH to local Go binaries (Bash)
-  lineinfile:
-    dest: '{{ ansible_env.HOME }}/.bash_aliases'
-    create: true
-    line: '{{ item }}'
-  with_items:
-    - 'export PATH="{{ ansible_env.HOME }}/go/bin:$PATH"'
+    - name: Install Go and Go tools
+      snap:
+        name: '{{ item }}'
+        classic: yes
+        state: '{{ bool_state }}'
+      loop:
+        - go
+        - goreleaser
+      become: true
+
+    - name: Configure PATH to local Go binaries (Bash)
+      lineinfile:
+        dest: '{{ ansible_env.HOME }}/.bash_aliases'
+        create: true
+        line: '{{ item }}'
+        state: '{{ bool_state }}'
+      with_items:
+        - 'export PATH="{{ ansible_env.HOME }}/go/bin:$PATH"'
+
   tags:
     - golang

@@ -6,7 +6,7 @@
     name:
       - network-manager-openvpn
       - network-manager-openvpn-gnome
-    state: present
+    state: '{{ state }}'
   become: true
   tags:
     - office

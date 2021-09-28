@@ -4,7 +4,7 @@
 - name: Install proprietary music players
   snap:
     name: spotify
-    state: present
+    state: '{{ bool_state }}'
   become: true
   tags:
     - multimedia
@@ -13,7 +13,7 @@
 - name: Install LMMS music composing studio
   package:
     name: lmms
-    state: present
+    state: '{{ state }}'
   become: true
   tags:
     - multimedia
@@ -22,7 +22,7 @@
 - name: Install Audacity audio editor
   snap:
     name: audacity
-    state: present
+    state: '{{ bool_state }}'
   become: true
   tags:
     - multimedia

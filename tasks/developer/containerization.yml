@@ -9,13 +9,13 @@
         id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
         keyserver: p80.pool.sks-keyservers.net
         keyring: /etc/apt/trusted.gpg.d/docker-ce.gpg
-        state: present
+        state: '{{ bool_state }}'
 
     - name: Add APT source for Docker CE
       apt_repository:
         repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} {{ item }}'
         filename: docker-ce
-        state: present
+        state: '{{ bool_state }}'
       with_items:
         - stable
         - edge
@@ -27,13 +27,18 @@
           - docker-ce
           - docker-ce-cli
           - docker-compose
-        state: present
+        state: '{{ state }}'
 
     - name: Add user "{{ ansible_user_id }}" to docker group (requires log out/in again)
-      user: name={{ ansible_user_id }} groups=docker append=yes
+      user:
+        name: '{{ ansible_user_id }}'
+        groups: docker
+        append: yes
+        state: '{{ bool_state }}'
 
   become: true
-  tags: [docker]
+  tags:
+    - docker
 
 - name: Podman
   block:
@@ -41,21 +46,22 @@
     - name: Add APT keys for Podman
       apt_key:
         url: 'https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_{{ ansible_distribution_version }}/Release.key'
-        state: present
+        state: '{{ bool_state }}'
 
     - name: Add APT source for Podman
       apt_repository:
         repo: 'deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_{{ ansible_distribution_version }}/ /'
         filename: 'devel:kubic:libcontainers:stable'
-        state: present
+        state: '{{ bool_state }}'
 
     - name: Install Podman
       package:
         name: podman
-        state: present
+        state: '{{ state }}'
 
   become: true
-  tags: [podman]
+  tags:
+    - podman
 
 - name: Install podman-compose
   get_url:
@@ -63,9 +69,11 @@
     dest: /usr/local/bin/podman-compose
     mode: 0755
     force: "{{ 'yes' if state == 'latest' else 'no' }}"
+    state: '{{ bool_state }}'
 
   become: true
-  tags: [podman]
+  tags:
+    - podman
 
 - name: Kompose (Compose->Kubernetes converter)
   block:
@@ -77,8 +85,11 @@
       changed_when: kompose_installed.rc == 1
 
     - name: Install Kompose (Compose->Kubernetes converter)
-      apt: deb={{ kompose_baseurl }}/{{ kompose_package }}
+      apt:
+        deb: '{{ kompose_baseurl }}/{{ kompose_package }}'
+        state: '{{ state }}'
       when: kompose_installed.rc == 1 or state == 'latest'
       become: true
 
-  tags: [kubernetes]
+  tags:
+    - kubernetes

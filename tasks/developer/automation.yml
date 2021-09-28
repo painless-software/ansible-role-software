@@ -10,29 +10,29 @@
     failed_when: puppet_pdk_installed.rc > 1
     changed_when: puppet_pdk_installed.rc == 1
 
-  - name: Install APT key and sources for PDK (Puppet 5)
+  - name: APT key and sources for PDK
     apt:
-      deb: https://apt.puppetlabs.com/puppet-release-bionic.deb
-      state: present
+      deb: https://apt.puppetlabs.com/puppet-release-{{ ansible_distribution_release }}.deb
+      state: '{{ state }}'
     when: puppet_pdk_installed.rc == 1
 
-  - name: Install Puppet developer packages
+  - name: Puppet developer packages
     package:
       name:
         - puppet
         - pdk
-      state: present
+      state: '{{ state }}'
       update_cache: true
 
   become: true
   tags:
     - puppet
 
-- name: Install Ansible developer packages
+- name: Ansible developer packages
   package:
     name:
       - ansible
       - ansible-tower-cli
-    state: present
+    state: '{{ state }}'
   tags:
     - ansible

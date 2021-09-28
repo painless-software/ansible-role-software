@@ -1,5 +1,6 @@
 ---
 state: present
+bool_state: "{{ state if state == 'absent' else 'present' }}"
 
 userdefaults_organization: painless
 

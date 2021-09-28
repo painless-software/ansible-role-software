@@ -1,20 +1,22 @@
 ---
 # JavaScript development tools and configuration
 
-- name: Install Node.js
-  package:
-    name:
-      - nodejs
-      - npm
-    state: present
-  become: true
-  tags:
-    - nodejs
+- block:
 
-- name: Activate Bash autocompletion for npm
-  lineinfile:
-    dest: '{{ ansible_env.HOME }}/.bash_aliases'
-    create: true
-    line: 'source <(npm completion)'
+    - name: Install Node.js
+      package:
+        name:
+          - nodejs
+          - npm
+        state: '{{ state }}'
+      become: true
+
+    - name: Activate Bash autocompletion for npm
+      lineinfile:
+        dest: '{{ ansible_env.HOME }}/.bash_aliases'
+        create: true
+        line: 'source <(npm completion)'
+        state: '{{ bool_state }}'
+
   tags:
     - nodejs

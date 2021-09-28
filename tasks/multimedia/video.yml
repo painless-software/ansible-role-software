@@ -1,41 +1,42 @@
 ---
 # Software for image manipulation, video editing, audio conversion, etc.
 
-- name: Install OpenShot video editor
+- name: OpenShot video editor
   package:
     name: openshot
-    state: present
+    state: '{{ state }}'
   become: true
   tags:
     - multimedia
     - video-editing
 
-- name: Install video conversion tools and codecs
+- name: Video conversion tools and codecs
   package:
     name:
       - ffmpeg
       - ubuntu-restricted-extras
-    state: present
+    state: '{{ state }}'
   become: true
   tags:
     - multimedia
     - video-watching
 
-- name: Install YouTube downloader
+- name: YouTube downloader
   snap:
     name: youtube-dl
-    state: present
+    state: '{{ bool_state }}'
   become: true
   tags:
     - multimedia
     - music-listening
     - video-watching
 
-- name: Set YouTube downloader defaults for music extraction
+- name: YouTube downloader defaults for music extraction
   lineinfile:
     dest: '{{ ansible_env.HOME }}/.config/youtube-dl/config'
     create: true
     line: '{{ item }}'
+    state: '{{ bool_state }}'
   with_items:
     - '--extract-audio'
     - '--audio-format mp3'

@@ -2,7 +2,10 @@
 # Software and configurations for serious developers
 
 - name: Ensure "Development/repos" directory exists
-  file: path={{ ansible_env.HOME }}/Development/repos state=directory recurse=true
+  file:
+    path: '{{ ansible_env.HOME }}/Development/repos'
+    state: directory
+    recurse: true
   # ... and maybe set folder icons:
   # https://askubuntu.com/questions/115845/how-can-i-change-the-folder-icon
 

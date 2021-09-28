@@ -15,8 +15,8 @@
 
 - name: GNOME common apps (latest version via flatpak)
   flatpak:
-    name: "{{ item }}"
-    state: present
+    name: '{{ item }}'
+    state: '{{ bool_state }}'
   loop:
     - org.gnome.Geary
     - org.gnome.Maps

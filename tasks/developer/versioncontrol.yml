@@ -8,13 +8,16 @@
       - git-extras
       - git-gui
       - gitk
-    state: present
+    state: '{{ state }}'
   become: true
   tags:
     - git
 
 - name: Install Git configuration files
-  copy: src={{ item.src }} dest={{ item.dest }} force=no
+  copy:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    force: no
   with_items:
     - src: files/developer/versioncontrol/system-gitconfig
       dest: /etc/gitconfig
@@ -39,6 +42,7 @@
     dest: /etc/bash_completion.d/bash-git-prompt
     create: true
     line: '{{ item }}'
+    state: '{{ bool_state }}'
   with_items:
     - '# Show an informative bash prompt when working with Git repositories'
     - GIT_PROMPT_ONLY_IN_REPO=1
@@ -65,6 +69,7 @@
     dest: '{{ ansible_env.HOME }}/.bash_aliases'
     create: true
     line: '{{ item }}'
+    state: '{{ bool_state }}'
   with_items:
     - '# -- Bash-it ------'
     - "export BASH_IT='/opt/bash-it'"
@@ -87,7 +92,10 @@
     - git
 
 - name: Allow Bash-it features to be enabled
-  file: path=/opt/bash-it/enabled state=directory mode=0777
+  file:
+    path: /opt/bash-it/enabled
+    state: directory
+    mode: 0777
   become: true
   tags:
     - bash

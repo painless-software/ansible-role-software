@@ -4,7 +4,7 @@
 - name: Prerequisites for building Debian packages
   package:
     name: debhelper
-    state: present
+    state: '{{ bool_state }}'
   become: true
   tags:
     - debian

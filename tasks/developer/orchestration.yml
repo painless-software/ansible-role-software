@@ -8,7 +8,7 @@
       snap:
         name: kubectl
         classic: yes
-        state: present
+        state: '{{ bool_state }}'
       become: true
 
     - name: Activate Bash autocompletion for kubectl
@@ -16,6 +16,7 @@
         dest: '{{ ansible_env.HOME }}/.bash_aliases'
         create: true
         line: 'source <(kubectl completion bash)'
+        state: '{{ bool_state }}'
 
   tags:
     - kubernetes
@@ -30,8 +31,10 @@
       changed_when: minikube_installed.rc == 1
 
     - name: Install Minikube
-      apt: deb={{ minikube_baseurl }}/{{ minikube_package }}
+      apt:
+        deb: '{{ minikube_baseurl }}/{{ minikube_package }}'
       when: minikube_installed.rc == 1 or state == 'latest'
+      state: '{{ state }}'
       become: true
 
   tags:
@@ -69,7 +72,8 @@
   block:
 
     - name: Find out whether OpenShift CLI is installed
-      stat: path=/usr/local/bin/oc
+      stat:
+        path: /usr/local/bin/oc
       register: oc_installed
       changed_when: not oc_installed.stat.exists
 
@@ -90,6 +94,7 @@
         dest: '{{ ansible_env.HOME }}/.bash_aliases'
         create: true
         line: 'source <(oc completion bash)'
+        state: '{{ bool_state }}'
 
   tags:
     - kubernetes
@@ -119,6 +124,7 @@
         dest: '{{ ansible_env.HOME }}/.bash_aliases'
         create: true
         line: 'source <(minishift completion bash)'
+        state: '{{ bool_state }}'
 
   tags:
     - kubernetes

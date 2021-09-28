@@ -5,21 +5,21 @@
   - name: Enable PPA for newer GIMP
     apt_repository:
       repo: ppa:otto-kesselgulasch/gimp
-      state: present
+      state: '{{ bool_state }}'
 
   - name: Install image and video conversion tools
     package:
       name:
         - imagemagick
         - trimage
-      state: present
+      state: '{{ state }}'
 
   - name: Install image manipulation programs
     package:
       name:
         - gimp-gmic
         - inkscape
-      state: present
+      state: '{{ state }}'
 
   become: true
   tags:

@@ -28,7 +28,7 @@
           - gir1.2-gtop-2.0
           - gir1.2-nm-1.0
           - gnome-system-monitor
-        state: present
+        state: '{{ state }}'
 
     - name: Install GNOME Shell extension manage CLI
       get_url:

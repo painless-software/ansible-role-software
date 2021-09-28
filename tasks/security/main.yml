@@ -4,7 +4,7 @@
 - name: KeePassXC offline password manager
   snap:
     name: keepassxc
-    state: present
+    state: '{{ bool_state }}'
   become: true
   tags:
     - keepass
@@ -12,7 +12,7 @@
 - name: Bitwarden password manager
   snap:
     name: bitwarden
-    state: present
+    state: '{{ bool_state }}'
   become: true
   tags:
     - bitwarden
@@ -20,14 +20,14 @@
 - name: GNOME Authenticator
   flatpak:
     name: com.belmoussaoui.Authenticator
-    state: present
+    state: '{{ bool_state }}'
   tags:
     - otp
 
 - name: OAuthTool
   package:
     name: oathtool
-    state: present
+    state: '{{ state }}'
   become: true
   tags:
     - cli
@@ -36,12 +36,12 @@
     - name: Enable PPA for latest stable Wireshark
       apt_repository:
         repo: ppa:wireshark-dev/stable
-        state: present
+        state: '{{ bool_state }}'
 
     - name: Install Wireshark
       package:
         name: wireshark
-        state: present
+        state: '{{ state }}'
 
   become: true
   tags:

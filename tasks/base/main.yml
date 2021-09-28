@@ -2,7 +2,9 @@
 # The base system (of a modern Linux distribution)
 
 - name: Update APT cache before starting
-  apt: update_cache=yes upgrade=no
+  apt:
+    update_cache: yes
+    upgrade: no
   become: true
 
 - name: Flatpak package manager
@@ -13,13 +15,13 @@
         name:
           - flatpak
           - gnome-software-plugin-flatpak
-        state: present
+        state: '{{ state }}'
 
     - name: Configure Flatpak remote "flathub"
       flatpak_remote:
         name: flathub
         flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
-        state: present
+        state: '{{ bool_state }}'
 
   become: true
   tags:

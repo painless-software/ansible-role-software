@@ -6,6 +6,7 @@
     dest: '{{ ansible_env.HOME }}/.gemrc'
     create: true
     line: 'gem: --no-document'
+    state: '{{ bool_state }}'
   tags:
     - ruby
 
@@ -15,6 +16,7 @@
     dest: '{{ ansible_env.HOME }}/.bash_aliases'
     create: true
     line: '{{ item }}'
+    state: '{{ bool_state }}'
   with_items:
     - '# Ensure Ruby Gems installed via `--user-install` are found'
     - 'which gem > /dev/null && {'
@@ -26,7 +28,9 @@
     - bash
 
 - name: Install Ruby development dependencies
-  package: name=bundler state=present
+  package:
+    name: bundler
+    state: '{{ state }}'
   become: true
   tags:
     - ruby
@@ -37,14 +41,14 @@
   - name: Enable PPA for RVM
     apt_repository:
       repo: ppa:rael-gc/rvm
-      state: present
+      state: '{{ bool_state }}'
 
   - name: Install RVM
     package:
       name:
         - software-properties-common
         - rvm
-      state: present
+      state: '{{ state }}'
 
   become: true
   tags:

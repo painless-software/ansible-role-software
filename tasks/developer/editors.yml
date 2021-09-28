@@ -5,7 +5,7 @@
   snap:
     name: atom
     classic: yes
-    state: '{{ state }}'
+    state: '{{ bool_state }}'
   become: true
   tags:
     - atom
@@ -17,13 +17,13 @@
       snap:
         name: codium
         classic: yes
-        state: '{{ state }}'
+        state: '{{ bool_state }}'
       become: true
 
     - name: Popular extensions for Codium (Visual Studio Code)
       command: codium --install-extension "{{ item }}" --force
       loop: '{{ editors_vscode_plugins }}'
-      when: state == 'present'
+      when: state in ['present', 'latest']
 
   tags:
     - codium
@@ -33,7 +33,7 @@
   snap:
     name: '{{ item }}'
     classic: yes
-    state: '{{ state }}'
+    state: '{{ bool_state }}'
   loop: '{{ editors_jetbrains_ides }}'
   become: true
   tags:

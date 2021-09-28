@@ -4,10 +4,11 @@
 - name: Install Xournal++ handwriting app
   flatpak:
     name: com.github.xournalpp.xournalpp
-    state: present
+    state: '{{ bool_state }}'
   become: true
   tags:
     - touch
+    - xournal
 
 - block:
   - name: Ensure prerequisites for Write handwriting app
@@ -16,7 +17,7 @@
         - libqt5widgets5
         - libqt5network5
         - libqt5svg5
-      state: present
+      state: '{{ state }}'
 
   - name: Install Write handwriting app
     unarchive:
@@ -50,3 +51,4 @@
   become: true
   tags:
     - touch
+    - write

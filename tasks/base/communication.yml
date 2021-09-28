@@ -6,7 +6,7 @@
     name:
       - enigmail
       - xul-ext-lightning
-    state: present
+    state: '{{ state }}'
   become: true
   tags:
     - email
@@ -15,7 +15,7 @@
   snap:
     name: slack
     classic: yes
-    state: present
+    state: '{{ bool_state }}'
   become: true
   tags:
     - slack
@@ -23,7 +23,7 @@
 - name: Ferdi multi-messenger client (Franz free/libre)
   snap:
     name: ferdi
-    state: present
+    state: '{{ bool_state }}'
   become: true
   tags:
     - ferdi
@@ -32,7 +32,7 @@
 - name: Rambox multi-messenger client
   snap:
     name: rambox
-    state: present
+    state: '{{ bool_state }}'
   become: true
   tags:
     - rambox
@@ -40,7 +40,7 @@
 - name: RocketChat messaging client
   snap:
     name: rocketchat-desktop
-    state: present
+    state: '{{ bool_state }}'
   become: true
   tags:
     - rocketchat
@@ -48,7 +48,7 @@
 - name: Signal messaging for Desktop
   snap:
     name: signal-desktop
-    state: present
+    state: '{{ bool_state }}'
   become: true
   tags:
     - signal
@@ -56,7 +56,7 @@
 - name: Skype messaging client
   snap:
     name: skype
-    state: present
+    state: '{{ bool_state }}'
   become: true
   tags:
     - skype
@@ -64,7 +64,7 @@
 - name: Mircosoft Teams client
   snap:
     name: teams
-    state: present
+    state: '{{ bool_state }}'
   become: true
   tags:
     - teams
@@ -72,7 +72,7 @@
 - name: Zoom conferencing client
   snap:
     name: zoom-client
-    state: present
+    state: '{{ bool_state }}'
   become: true
   tags:
     - zoom

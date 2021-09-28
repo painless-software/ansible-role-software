@@ -6,7 +6,7 @@
     name:
       - hardinfo
       - lshw
-    state: present
+    state: '{{ state }}'
   become: true
   tags:
     - benchmark

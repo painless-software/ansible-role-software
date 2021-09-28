@@ -6,7 +6,7 @@
     name:
       - libvirt-bin
       - virt-manager
-    state: present
+    state: '{{ state }}'
   become: true
   tags:
     - libvirt
@@ -26,7 +26,7 @@
         name:
           - virtualbox
           - virtualbox-ext-pack
-        state: present
+        state: '{{ state }}'
 
   become: true
   tags:
@@ -38,13 +38,13 @@
     - name: Signing key of Hashicorp packaging
       apt_key:
         url: https://apt.releases.hashicorp.com/gpg
-        state: present
+        state: '{{ bool_state }}'
 
     - name: APT source for Vagrant
       apt_repository:
         repo: 'deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_lsb.codename }} main'
         filename: hashicorp-vagrant
-        state: present
+        state: '{{ bool_state }}'
 
     - name: Vagrant package from Hashicorp
       package:
