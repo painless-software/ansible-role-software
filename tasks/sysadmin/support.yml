@@ -14,7 +14,10 @@
 
         - name: Uninstall TeamViewer
           package:
-            name: teamviewer
+            name:
+              - teamviewer
+              - teamviewer-host
+              - teamviewer-monitoring
             state: absent
           when: bool_state == 'absent'
 
