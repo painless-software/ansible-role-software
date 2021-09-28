@@ -10,6 +10,12 @@
       failed_when: teamviewer_installed.rc > 1
       changed_when: teamviewer_installed.rc == 1
 
+    - name: Uninstall TeamViewer
+      package:
+        name: teamviewer
+        state: absent
+      when: bool_state == 'absent'
+
     - name: TeamViewer (download from website)
       apt:
         deb: https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
