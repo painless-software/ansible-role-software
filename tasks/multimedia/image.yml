@@ -2,24 +2,28 @@
 # Software for image manipulation, video editing, audio conversion, etc.
 
 - block:
-  - name: Enable PPA for newer GIMP
-    apt_repository:
-      repo: ppa:otto-kesselgulasch/gimp
-      state: '{{ bool_state }}'
 
-  - name: Install image and video conversion tools
-    package:
-      name:
-        - imagemagick
-        - trimage
-      state: '{{ state }}'
+    - name: The GIMP
+      flatpak:
+        name: org.gimp.GIMP
+        state: '{{ bool_state }}'
 
-  - name: Install image manipulation programs
-    package:
-      name:
-        - gimp-gmic
-        - inkscape
-      state: '{{ state }}'
+    - name: GREYC's Magic for Image Computing
+      flatpak:
+        name: org.gimp.GIMP.Plugin.GMic
+        state: '{{ bool_state }}'
+
+    - name: Image and video conversion tools
+      package:
+        name:
+          - imagemagick
+          - trimage
+        state: '{{ state }}'
+
+    - name: Inkscape vector graphics
+      package:
+        name: inkscape
+        state: '{{ state }}'
 
   become: true
   tags:
