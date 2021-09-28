@@ -13,7 +13,7 @@
     - name: TeamViewer (download from website)
       apt:
         deb: https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
-        state: '{{ state }}'
+        state: '{{ bool_state }}'
       when: teamviewer_installed.rc == 1 or state == 'latest'
       become: true
 

@@ -92,44 +92,39 @@
 - name: Citrix client
   block:
 
-    - name: Find out whether Citrix client is installed
-      stat:
-        path: /opt/Citrix/ICAClient/selfservice
-      register: citrix_installed
+    - name: Parse accept hash from Linux download overview
+      ansible.builtin.shell:
+        cmd: "wget -q -O- {{ citrix_overview_url }} | grep '{{ citrix_hash_start_marker }}' | sed -e 's/^.*{{ citrix_hash_start_marker }}//' -e 's/{{ citrix_hash_stop_marker }}.*$//' | uniq"
+        warn: false
+      register: citrix_accepthash
+      when: bool_state == 'present'
 
     - block:
 
-        - name: Parse accept hash from Linux download overview
-          ansible.builtin.shell:
-            cmd: "wget -q -O- {{ citrix_overview_url }} | grep '{{ citrix_hash_start_marker }}' | sed -e 's/^.*{{ citrix_hash_start_marker }}//' -e 's/{{ citrix_hash_stop_marker }}.*$//' | uniq"
-            warn: false
-          register: citrix_accepthash
+        - name: Citrix client (Workspace App)
+          apt:
+            deb: '{{ citrix_download_url }}'
+            state: '{{ bool_state }}'
 
-        - name: Install and configure Citrix
-          block:
+        - name: Remove CA certs shipped by Citrix
+          file:
+            path: /opt/Citrix/ICAClient/keystore/cacerts
+            state: absent
 
-            - name: Citrix client (Workspace App)
-              apt:
-                deb: '{{ citrix_download_url }}'
+        - name: Ensure CA certificates (system)
+          package:
+            name: ca-certificates
+            state: latest
+          when: bool_state == 'present'
 
-            - name: Remove CA certs shipped by Citrix
-              file:
-                path: /opt/Citrix/ICAClient/keystore/cacerts
-                state: absent
+        - name: Use installed CA certs with Citrix client
+          file:
+            src: /etc/ssl/certs
+            path: /opt/Citrix/ICAClient/keystore/cacerts
+            state: link
+          when: bool_state == 'present'
 
-            - name: Ensure CA certificates (system)
-              package:
-                name: ca-certificates
-                state: latest
-
-            - name: Use installed CA certs with Citrix client
-              file:
-                src: /etc/ssl/certs
-                path: /opt/Citrix/ICAClient/keystore/cacerts
-                state: link
-
-          become: true
-      when: not citrix_installed.stat.exists or state == 'latest'
+      become: true
 
   tags:
     - citrix

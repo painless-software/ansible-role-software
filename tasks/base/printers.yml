@@ -58,7 +58,7 @@
     - name: APT keyring for SULD
       apt:
         deb: http://www.bchemnet.com/suldr/pool/debian/extra/su/suldr-keyring_2_all.deb
-        state: '{{ state }}'
+        state: '{{ bool_state }}'
       when: suldrkeyring_installed.rc == 1
 
     - name: Add APT source for SULD
