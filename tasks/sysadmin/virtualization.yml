@@ -93,7 +93,7 @@
   block:
 
     - name: Parse accept hash from Linux download overview
-      ansible.builtin.shell:
+      shell:
         cmd: "wget -q -O- {{ citrix_overview_url }} | grep '{{ citrix_hash_start_marker }}' | sed -e 's/^.*{{ citrix_hash_start_marker }}//' -e 's/{{ citrix_hash_stop_marker }}.*$//' | uniq"
         warn: false
       register: citrix_accepthash
@@ -112,17 +112,17 @@
             deb: '{{ citrix_download_url }}'
           when: bool_state == 'present'
 
-        - name: Remove CA certs shipped by Citrix
-          file:
-            path: /opt/Citrix/ICAClient/keystore/cacerts
-            state: absent
-
         - name: Ensure CA certificates (system)
           package:
             name: ca-certificates
             state: latest
 
-        - name: Use installed CA certs with Citrix client
+        - name: Remove CA certs shipped by Citrix
+          shell:
+            cmd: 'test -L /opt/Citrix/ICAClient/keystore/cacerts || rm -rf /opt/Citrix/ICAClient/keystore/cacerts'
+          when: bool_state == 'present'
+
+        - name: Use system CA certs with Citrix client
           file:
             src: /etc/ssl/certs
             path: /opt/Citrix/ICAClient/keystore/cacerts
