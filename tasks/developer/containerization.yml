@@ -87,7 +87,6 @@
     - name: Install Kompose (Compose->Kubernetes converter)
       apt:
         deb: '{{ kompose_baseurl }}/{{ kompose_package }}'
-        state: '{{ bool_state }}'
       when: kompose_installed.rc == 1 or state == 'latest'
       become: true
 

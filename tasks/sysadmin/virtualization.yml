@@ -101,10 +101,16 @@
 
     - block:
 
-        - name: Citrix client (Workspace App)
+        - name: Uninstall Citrix client (Workspace App)
+          package:
+            name: icaclient
+            state: absent
+          when: bool_state == 'absent'
+
+        - name: Install Citrix client (Workspace App)
           apt:
             deb: '{{ citrix_download_url }}'
-            state: '{{ bool_state }}'
+          when: bool_state == 'present'
 
         - name: Remove CA certs shipped by Citrix
           file:

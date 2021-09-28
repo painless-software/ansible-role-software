@@ -25,7 +25,6 @@
     - name: Install EPSON Image Scan v3
       apt:
         deb: '{{ item }}'
-        state: present
       with_items:
         - "/tmp/{{ imagescan_archive }}/core/imagescan_{{ imagescan_version }}-{{ imagescan_deb_tail }}"
         - "/tmp/{{ imagescan_archive }}/plugins/imagescan-plugin-gt-s650_{{ imagescan_plugin_gt_version }}-{{ imagescan_deb_tail }}"
@@ -58,7 +57,6 @@
     - name: APT keyring for SULD
       apt:
         deb: http://www.bchemnet.com/suldr/pool/debian/extra/su/suldr-keyring_2_all.deb
-        state: '{{ bool_state }}'
       when: suldrkeyring_installed.rc == 1
 
     - name: Add APT source for SULD

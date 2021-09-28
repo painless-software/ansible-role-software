@@ -13,7 +13,6 @@
   - name: APT key and sources for PDK
     apt:
       deb: https://apt.puppetlabs.com/puppet-release-{{ ansible_distribution_release }}.deb
-      state: '{{ bool_state }}'
     when: puppet_pdk_installed.rc == 1
 
   - name: Puppet developer packages
