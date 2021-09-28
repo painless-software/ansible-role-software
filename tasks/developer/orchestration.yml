@@ -33,8 +33,8 @@
     - name: Install Minikube
       apt:
         deb: '{{ minikube_baseurl }}/{{ minikube_package }}'
+        state: '{{ state }}'
       when: minikube_installed.rc == 1 or state == 'latest'
-      state: '{{ state }}'
       become: true
 
   tags:
