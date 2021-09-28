@@ -1,47 +1,57 @@
 ---
 # Software you need for consuming Web contents
 
-- block:
-    - name: Avoid duplicate installs of Firefox (snap)
-      snap:
-        name: firefox
-        state: absent
+- name: Webbrowsers
+  block:
 
-    - name: Install Firefox Web browser
-      package:
-        name:
-          - firefox
-        state: present
+    - name: Firefox
+      block:
+
+        - name: Avoid duplicate installs (Firefox deb)
+          package:
+            name: firefox
+            state: absent
+          when: bool_state == 'present'
+
+        - name: Firefox Web browser (snap)
+          snap:
+            name: firefox
+            state: '{{ bool_state }}'
+
+      tags:
+        - firefox
+
+    - name: Chromium
+      block:
+
+        - name: Avoid duplicate installs (Chromium deb)
+          package:
+            name: chromium-browser
+            state: absent
+          when: bool_state == 'present'
+
+        - name: Chromium Web browser (snap)
+          snap:
+            name: chromium
+            state: '{{ bool_state }}'
+
+      tags:
+        - chromium
+
+    - name: Opera Web browser (snap)
+      snap:
+        name: opera
+        state: '{{ bool_state }}'
+      tags:
+        - opera
+
+    - name: Brave Web browser (snap)
+      snap:
+        name: brave
+        state: '{{ bool_state }}'
+      tags:
+        - opera
 
   become: true
   tags:
-    - firefox
-    - webbrowsers
-
-- block:
-    - name: Avoid duplicate installs of Chromium (snap)
-      snap:
-        name: chromium
-        state: absent
-
-    - name: Avoid duplicate installs of Chromium (deb)
-      package:
-        name:
-          - chromium-browser
-        state: absent
-
-    - name: Enable PPA for ungoogled Chromium
-      apt_repository:
-        repo: ppa:braewoods/ungoogled-chromium
-        state: present
-
-    - name: Install ungoogled Chromium
-      package:
-        name:
-          - ungoogled-chromium
-        state: present
-
-  become: true
-  tags:
-    - chromium
     - webbrowsers
