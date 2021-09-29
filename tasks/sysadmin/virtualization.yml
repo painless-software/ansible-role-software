@@ -92,25 +92,41 @@
 - name: Citrix client
   block:
 
-    - name: Parse accept hash from Linux download overview
-      shell:
-        cmd: "wget -q -O- {{ citrix_overview_url }} | grep '{{ citrix_hash_start_marker }}' | sed -e 's/^.*{{ citrix_hash_start_marker }}//' -e 's/{{ citrix_hash_stop_marker }}.*$//' | uniq"
-        warn: false
-      register: citrix_accepthash
-      when: bool_state == 'present'
+    - name: Uninstall procedures (Citrix)
+      block:
 
-    - block:
+        - name: Verify if CA certs folder is a symbolic link
+          stat:
+            path: /opt/Citrix/ICAClient/keystore/cacerts
+          register: link
+
+        - name: Remove symlink before uninstallation
+          file:
+            path: /opt/Citrix/ICAClient/keystore/cacerts
+            follow: no
+            state: absent
+          when: link.stat.islnk is defined and link.stat.islnk
 
         - name: Uninstall Citrix client (Workspace App)
           package:
             name: icaclient
             state: absent
-          when: bool_state == 'absent'
+
+      become: true
+      when: bool_state == 'absent'
+
+    - name: Installation procedures (Citrix)
+      block:
+
+        - name: Parse accept hash from Linux download overview
+          shell:
+            cmd: "wget -q -O- {{ citrix_overview_url }} | grep '{{ citrix_hash_start_marker }}' | sed -e 's/^.*{{ citrix_hash_start_marker }}//' -e 's/{{ citrix_hash_stop_marker }}.*$//' | uniq"
+            warn: false
+          register: citrix_accepthash
 
         - name: Install Citrix client (Workspace App)
           apt:
             deb: '{{ citrix_download_url }}'
-          when: bool_state == 'present'
 
         - name: Ensure CA certificates (system)
           package:
@@ -118,18 +134,18 @@
             state: latest
 
         - name: Remove CA certs shipped by Citrix
-          shell:
-            cmd: 'test -L /opt/Citrix/ICAClient/keystore/cacerts || rm -rf /opt/Citrix/ICAClient/keystore/cacerts'
-          when: bool_state == 'present'
+          file:
+            path: /opt/Citrix/ICAClient/keystore/cacerts
+            state: absent
 
         - name: Use system CA certs with Citrix client
           file:
             src: /etc/ssl/certs
             path: /opt/Citrix/ICAClient/keystore/cacerts
             state: link
-          when: bool_state == 'present'
 
       become: true
+      when: bool_state == 'present'
 
   tags:
     - citrix
