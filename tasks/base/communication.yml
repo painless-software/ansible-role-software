@@ -21,8 +21,8 @@
     - slack
 
 - name: Ferdi multi-messenger client (Franz free/libre)
-  snap:
-    name: ferdi
+  flatpak:
+    name: com.getferdi.Ferdi
     state: '{{ bool_state }}'
   become: true
   tags:
