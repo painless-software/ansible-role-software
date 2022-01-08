@@ -20,6 +20,33 @@
   tags:
     - cli
 
+- name: duf (Disk Usage/Free Utility)
+  block:
+
+    - name: Find out whether duf is installed
+      command: dpkg-query -W duf
+      register: duf_installed
+      failed_when: duf_installed.rc > 1
+      changed_when: duf_installed.rc == 1
+
+    - block:
+
+        - name: Uninstall duf (Disk Usage/Free Utility)
+          package:
+            name: duf
+            state: absent
+          when: bool_state == 'absent'
+
+        - name: Install duf (Disk Usage/Free Utility)
+          apt:
+            deb: '{{ duf_baseurl }}/{{ duf_package }}'
+          when: duf_installed.rc == 1 or state == 'latest'
+
+      become: true
+
+  tags:
+    - cli
+
 - name: Ensure sane default settings for tmux
   lineinfile:
     dest: '{{ ansible_env.HOME }}/.tmux.conf'
