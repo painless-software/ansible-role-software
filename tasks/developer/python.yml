@@ -52,7 +52,7 @@
   with_items:
     - 'export PYENV_ROOT={{ ansible_env.HOME }}/.pyenv'
     - 'export PATH="$PYENV_ROOT/bin:$PATH"'
-    - 'source <(pyenv init -)'
+    - 'source <(pyenv init --path)'
   tags:
     - bash
     - python
