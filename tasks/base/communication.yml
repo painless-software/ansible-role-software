@@ -11,6 +11,29 @@
   tags:
     - email
 
+- name: Element (official Matrix client)
+  block:
+
+    - name: APT keys for Element
+      apt_key:
+        url: https://packages.element.io/debian/element-io-archive-keyring.gpg
+        state: '{{ bool_state }}'
+
+    - name: APT source for Element
+      apt_repository:
+        repo: 'deb https://packages.element.io/debian/ default main'
+        filename: element-io
+        state: '{{ bool_state }}'
+
+    - name: Element Desktop
+      package:
+        name: element-desktop
+        state: '{{ state }}'
+
+  become: true
+  tags:
+    - matrix
+
 - name: Slack chat client (unconfined)
   snap:
     name: slack
