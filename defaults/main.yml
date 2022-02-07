@@ -20,7 +20,7 @@ desktop_gnomeshell_extensions_defaults:
 
 desktop_gnomeshell_extensions: "{{ desktop_gnomeshell_extensions_defaults }}"
 
-duf_version: '0.7.0'
+duf_version: '0.8.0'
 duf_baseurl: 'https://github.com/muesli/duf/releases/download'
 duf_package: "v{{ duf_version }}/duf_{{ duf_version }}_linux_amd64.deb"
 
