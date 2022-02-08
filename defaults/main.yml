@@ -20,7 +20,7 @@ desktop_gnomeshell_extensions_defaults:
 
 desktop_gnomeshell_extensions: "{{ desktop_gnomeshell_extensions_defaults }}"
 
-duf_version: '0.8.0'
+duf_version: '0.8.1'
 duf_baseurl: 'https://github.com/muesli/duf/releases/download'
 duf_package: "v{{ duf_version }}/duf_{{ duf_version }}_linux_amd64.deb"
 
@@ -49,21 +49,19 @@ minishift_version: '1.34.3'
 minishift_baseurl: 'https://github.com/minishift/minishift/releases/download'
 minishift_package: "v{{ minishift_version }}/minishift-{{ minishift_version }}-linux-amd64.tgz"
 
-k3s_version: 'v1.22.2+k3s1'
+k3s_version: 'v1.23.3+k3s1'
 k3s_baseurl: 'https://github.com/rancher/k3s/releases/download'
 
-k9s_version: '0.24.15'
+k9s_version: '0.25.18'
 k9s_baseurl: 'https://github.com/derailed/k9s/releases/download'
 k9s_package: "v{{ k9s_version }}/k9s_Linux_x86_64.tar.gz"
 
 helm_baseurl: 'https://get.helm.sh'
-helm2_version: '2.17.0'
-helm2_package: "helm-v{{ helm2_version }}-linux-amd64.tar.gz"
-helm3_version: '3.7.0'
-helm3_package: "helm-v{{ helm3_version }}-linux-amd64.tar.gz"
+helm_version: '3.8.0'
+helm_package: "helm-v{{ helm_version }}-linux-amd64.tar.gz"
 
 helmfile_baseurl: 'https://github.com/roboll/helmfile/releases/download'
-helmfile_version: 'v0.140.1'
+helmfile_version: 'v0.143.0'
 
 editors_jetbrains_ides_defaults:
   - intellij-idea-community

@@ -131,12 +131,23 @@
 - name: k3s - lightweight K8s
   block:
 
-    - name: Install k3s binary
-      get_url:
-        url: '{{ k3s_baseurl }}/{{ k3s_version }}/k3s'
-        dest: /usr/local/bin/k3s
-        mode: 0755
-        force: "{{ 'yes' if state == 'latest' else 'no' }}"
+    - name: Install/uninstall K3s
+      block:
+
+        - name: Install k3s binary
+          get_url:
+            url: '{{ k3s_baseurl }}/{{ k3s_version }}/k3s'
+            dest: /usr/local/bin/k3s
+            mode: 0755
+            force: "{{ 'yes' if state == 'latest' else 'no' }}"
+          when: not state == 'absent'
+
+        - name: Uninstall K3s
+          file:
+            path: /usr/local/bin/k3s
+            state: absent
+          when: state == 'absent'
+
       become: true
 
   tags:
@@ -151,16 +162,26 @@
       register: k9s_installed
       changed_when: not k9s_installed.stat.exists
 
-    - name: Install K9s
-      unarchive:
-        src: '{{ k9s_baseurl }}/{{ k9s_package }}'
-        remote_src: true
-        extra_opts: ['k9s']
-        dest: /usr/local/bin/
-        mode: 0755
-        owner: root
-        group: root
-      when: not k9s_installed.stat.exists or state == 'latest'
+    - name: Install/uninstall K9s
+      block:
+
+        - name: Install K9s
+          unarchive:
+            src: '{{ k9s_baseurl }}/{{ k9s_package }}'
+            remote_src: true
+            extra_opts: ['k9s']
+            dest: /usr/local/bin/
+            mode: 0755
+            owner: root
+            group: root
+          when: not k9s_installed.stat.exists or state == 'latest'
+
+        - name: Uninstall K9s
+          file:
+            path: /usr/local/bin/k9s
+            state: absent
+          when: state == 'absent'
+
       become: true
 
   tags:
@@ -169,59 +190,51 @@
 - name: helm
   block:
 
-    - name: Find out whether helm2 is installed
+    - name: Find out whether helm is installed
       stat:
-        path: /usr/local/bin/helm2
-      register: helm2_installed
-      changed_when: not helm2_installed.stat.exists
+        path: /usr/local/bin/helm
+      register: helm_installed
+      changed_when: not helm_installed.stat.exists
 
-    - name: Install helm2 binary
-      unarchive:
-        src: '{{ helm_baseurl }}/{{ helm2_package }}'
-        remote_src: true
-        extra_opts: ['--strip-components=1', '--transform=s/helm/helm2/', '--wildcards', '*/helm']
-        dest: /usr/local/bin/
-        mode: 0755
-        owner: root
-        group: root
-      when: not helm2_installed.stat.exists or state == 'latest'
-      become: true
-
-    - name: Find out whether helm3 is installed
-      stat:
-        path: /usr/local/bin/helm3
-      register: helm3_installed
-      changed_when: not helm3_installed.stat.exists
-
-    - name: Newer, default helm
+    - name: Install/uninstall helm
       block:
 
-        - name: Install helm3 binary
+        - name: Install helm binary
           unarchive:
-            src: '{{ helm_baseurl }}/{{ helm3_package }}'
+            src: '{{ helm_baseurl }}/{{ helm_package }}'
             remote_src: true
-            extra_opts: ['--strip-components=1', '--transform=s/helm/helm3/', '--wildcards', '*/helm']
+            extra_opts: ['--strip-components=1', '--wildcards', '*/helm']
             dest: /usr/local/bin/
             mode: 0755
             owner: root
             group: root
+          when: not helm_installed.stat.exists or state == 'latest'
 
-        - name: Add symbolic link helm -> helm3
+        - name: Uninstall helm
           file:
-            src: /usr/local/bin/helm3
-            path: helm
-            state: link
-            force: yes
+            path: /usr/local/bin/helm
+            state: absent
+          when: state == 'absent'
 
-      when: not helm3_installed.stat.exists or state == 'latest'
       become: true
 
-    - name: Install helmfile binary
-      get_url:
-        url: '{{ helmfile_baseurl }}/{{ helmfile_version }}/helmfile_linux_amd64'
-        dest: /usr/local/bin/helmfile
-        mode: 0755
-        force: "{{ 'yes' if state == 'latest' else 'no' }}"
+    - name: Install/uninstall helmfile
+      block:
+
+        - name: Install helmfile binary
+          get_url:
+            url: '{{ helmfile_baseurl }}/{{ helmfile_version }}/helmfile_linux_amd64'
+            dest: /usr/local/bin/helmfile
+            mode: 0755
+            force: "{{ 'yes' if state == 'latest' else 'no' }}"
+          when: not state == 'absent'
+
+        - name: Uninstall helmfile
+          file:
+            path: /usr/local/bin/helmfile
+            state: absent
+          when: state == 'absent'
+
       become: true
 
   tags:
