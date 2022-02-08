@@ -42,12 +42,32 @@
 - name: kubeseal
   block:
 
-    - name: Install kubeseal binary
-      get_url:
-        url: '{{ kubeseal_baseurl }}/v{{ kubeseal_version }}/kubeseal-linux-amd64'
-        dest: /usr/local/bin/kubeseal
-        mode: 0755
-        force: "{{ 'yes' if state == 'latest' else 'no' }}"
+    - name: Find out whether kubeseal is installed
+      stat:
+        path: /usr/local/bin/kubeseal
+      register: kubeseal_installed
+      changed_when: not kubeseal_installed.stat.exists
+
+    - name: Install/uninstall kubeseal
+      block:
+
+        - name: Install kubeseal binary
+          unarchive:
+            src: '{{ kubeseal_baseurl }}/{{ kubeseal_package }}'
+            remote_src: true
+            extra_opts: ['kubeseal']
+            dest: /usr/local/bin/
+            mode: 0755
+            owner: root
+            group: root
+          when: not state == 'absent'
+
+        - name: Uninstall kubeseal
+          file:
+            path: /usr/local/bin/kubeseal
+            state: absent
+          when: state == 'absent'
+
       become: true
 
   tags:
@@ -56,12 +76,29 @@
 - name: SOPS
   block:
 
-    - name: Install sops binary
-      get_url:
-        url: '{{ sops_baseurl }}/v{{ sops_version }}/sops-v{{ sops_version }}.linux'
-        dest: /usr/local/bin/sops
-        mode: 0755
-        force: "{{ 'yes' if state == 'latest' else 'no' }}"
+    - name: Find out whether SOPS is installed
+      stat:
+        path: /usr/local/bin/sops
+      register: sops_installed
+      changed_when: not sops_installed.stat.exists
+
+    - name: Install/uninstall SOPS
+      block:
+
+        - name: Install sops binary
+          get_url:
+            url: '{{ sops_baseurl }}/v{{ sops_version }}/sops-v{{ sops_version }}.linux'
+            dest: /usr/local/bin/sops
+            mode: 0755
+            force: "{{ 'yes' if state == 'latest' else 'no' }}"
+          when: not sops_installed.stat.exists or state == 'latest'
+
+        - name: Uninstall sops
+          file:
+            path: /usr/local/bin/sops
+            state: absent
+          when: state == 'absent'
+
       become: true
 
   tags:
@@ -76,16 +113,26 @@
       register: oc_installed
       changed_when: not oc_installed.stat.exists
 
-    - name: Install OpenShift CLI
-      unarchive:
-        src: '{{ openshift_cli_baseurl }}/{{ openshift_cli_package }}'
-        remote_src: true
-        extra_opts: ['--strip-components', '1', '--wildcards', '*/oc']
-        dest: /usr/local/bin/
-        mode: 0755
-        owner: root
-        group: root
-      when: not oc_installed.stat.exists or state == 'latest'
+    - name: Install/uninstall oc
+      block:
+
+        - name: Install OpenShift CLI
+          unarchive:
+            src: '{{ openshift_cli_baseurl }}/{{ openshift_cli_package }}'
+            remote_src: true
+            extra_opts: ['oc']
+            dest: /usr/local/bin/
+            mode: 0755
+            owner: root
+            group: root
+          when: not oc_installed.stat.exists or state == 'latest'
+
+        - name: Uninstall OpenShift CLI
+          file:
+            path: /usr/local/bin/oc
+            state: absent
+          when: state == 'absent'
+
       become: true
 
     - name: Activate Bash autocompletion for OpenShift CLI
