@@ -27,11 +27,10 @@
   tags:
     - puppet
 
-- name: Ansible developer packages
-  package:
-    name:
-      - ansible
-      - ansible-tower-cli
+- name: Ansible developer tools (awx-cli)
+  pip:
+    name: ansible-tower-cli
     state: '{{ state }}'
+  become: true
   tags:
     - ansible
