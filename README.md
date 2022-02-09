@@ -19,7 +19,9 @@ Requirements
 Supported operating systems and GNU/Linux distributions:
 
 - Ubuntu 18.04 LTS Bionic
-- Ubuntu 18.10 Cosmic
+- Ubuntu 20.04 LTS Focal
+- Ubuntu 21.04 Hirsute
+- Ubuntu 21.10 Impish
 
 Others may work but have not been verified by test installations.
 
