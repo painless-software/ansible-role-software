@@ -15,7 +15,7 @@
 
         - name: APT key and sources for Puppet
           apt:
-            deb: https://apt.puppet.com/puppet7-release-{{ ansible_distribution_release }}.deb
+            deb: '{{ puppet_package }}'
           when: puppet_pdk_installed.rc == 1 and not state == 'absent'
 
         - name: Puppet agent and development kit

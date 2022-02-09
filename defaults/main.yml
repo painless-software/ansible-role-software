@@ -106,6 +106,10 @@ imagescan_deb_tail: "1epson4{{ ansible_distribution|lower }}{{ imagescan_distro_
 imagescan_download_path: "{{ ansible_distribution|lower }}/{{ imagescan_distro_type }}1/deb/x64/{{ imagescan_archive }}.tar.gz"
 imagescan_download_base: 'https://download2.ebz.epson.net/imagescanv3'
 
+puppet_version: '7'
+puppet_distro: "{{ ansible_distribution_release if ansible_distribution_release in ['bionic','focal'] else 'focal' }}"
+puppet_package: "https://apt.puppet.com/puppet{{ puppet_version }}-release-{{ puppet_distro }}.deb"
+
 vmware_version: '16.2.1-18811642'
 vmware_package: "VMware-Player-Full-{{ vmware_version }}.x86_64.bundle"
 vmware_baseurl: 'https://download3.vmware.com/software/player/file'
