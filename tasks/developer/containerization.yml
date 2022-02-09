@@ -40,36 +40,19 @@
   tags:
     - docker
 
-- name: Podman
+- name: Podman and podman-compose
   block:
 
-    - name: Add APT keys for Podman
-      apt_key:
-        url: 'https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_{{ ansible_distribution_version }}/Release.key'
-        state: '{{ bool_state }}'
-
-    - name: Add APT source for Podman
-      apt_repository:
-        repo: 'deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_{{ ansible_distribution_version }}/ /'
-        filename: 'devel:kubic:libcontainers:stable'
-        state: '{{ bool_state }}'
-
-    - name: Install Podman
+    - name: Podman
       package:
         name: podman
         state: '{{ state }}'
+        purge: yes
 
-  become: true
-  tags:
-    - podman
-
-- name: Install podman-compose
-  get_url:
-    url: https://raw.githubusercontent.com/containers/podman-compose/devel/podman_compose.py
-    dest: /usr/local/bin/podman-compose
-    mode: 0755
-    force: "{{ 'yes' if state == 'latest' else 'no' }}"
-    state: '{{ bool_state }}'
+    - name: podman-compose
+      pip:
+        name: podman-compose
+        state: '{{ state }}'
 
   become: true
   tags:
