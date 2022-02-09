@@ -66,11 +66,7 @@
 - name: VMware Player
   block:
 
-    - name: Uninstall VMware Player
-      command: '{{ vmware_uninstall_cmd }}'
-      when: state == 'absent' and vmware_player.stat.exists
-
-    - name: Install or upgrade
+    - name: Install/upgrade/uninstall VMware Player
       block:
 
         - name: Download VMware Player installer
@@ -82,8 +78,11 @@
 
         - name: Install VMware Player
           command: '{{ vmware_install_cmd }}'
+          when: state == 'present' and not vmware_player.stat.exists or state == 'latest'
 
-      when: state == 'present' and not vmware_player.stat.exists or state == 'latest'
+        - name: Uninstall VMware Player
+          command: '{{ vmware_uninstall_cmd }}'
+          when: state == 'absent' and vmware_player.stat.exists
 
   become: true
   tags:
