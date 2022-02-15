@@ -18,10 +18,11 @@ Requirements
 
 Supported operating systems and GNU/Linux distributions:
 
-- Ubuntu 18.04 LTS Bionic
-- Ubuntu 20.04 LTS Focal
-- Ubuntu 21.04 Hirsute
 - Ubuntu 21.10 Impish
+- Ubuntu 21.04 Hirsute
+- Ubuntu 20.04 LTS Focal
+- Ubuntu 18.04 LTS Bionic
+- Kali Linux (Debian)
 
 Others may work but have not been verified by test installations.
 
@@ -34,7 +35,12 @@ Secrets that should be overridden by anyone installing the affected software
 Dependencies
 ------------
 
-None.
+Debian distributions without snap preconfigured (e.g. Kali) need to install
+`snapd` for software that is provided as snaps.
+
+```console
+sudo apt-get install snapd
+```
 
 Example Playbook
 ----------------
