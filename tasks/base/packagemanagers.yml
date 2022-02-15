@@ -44,17 +44,6 @@
         - snapd
         - apparmor
 
-    - name: Ensure snaps are included in PATH
-      copy:
-        dest: /etc/profile.d/apps-bin-path.sh
-        content: |
-          snap_bin_path="/snap/bin"
-          if [ -n "${PATH##*${snap_bin_path}}" ] && [ -n "${PATH##*${snap_bin_path}:*}" ]; then
-              export PATH="$PATH:${snap_bin_path}"
-          fi
-        force: no
-        backup: yes
-
   become: true
   tags:
     - snap
