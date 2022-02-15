@@ -104,7 +104,7 @@ sudo apt-get install python3-pip
 ```
 
 Debian distributions without snap preconfigured (e.g. Kali) need to install
-`snapd` for software that is provided as snaps.
+`snapd` for software that is provided as snaps:
 
 ```console
 sudo apt-get install snapd
