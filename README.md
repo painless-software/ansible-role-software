@@ -114,6 +114,13 @@ sudo systemctl enable --now snapd.socket snapd apparmor
 sudo snap install core
 ```
 
+Distributions that use Zsh may need to source `/etc/zsh/zprofile` to set up
+`PATH` for snaps and other applications. In doubt, add this to `~/.zshrc`:
+
+```zsh
+source /etc/zsh/zprofile
+```
+
 How Does It Work?
 -----------------
 
