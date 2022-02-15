@@ -103,9 +103,10 @@ include the `python` tag in your Ansible run or run:
 sudo apt-get install python3-pip
 ```
 
-Debian distributions [without snap pre-installed](
-https://snapcraft.io/docs/installing-snapd) (e.g. Kali) need to install and
-configure `snapd` for software that is provided as snaps, e.g.
+For software that is provided as snaps on Debian distributions [without snap
+pre-installed](https://snapcraft.io/docs/installing-snapd) (e.g. Kali), you
+need to include the `snap` tag in your Ansible run or install and configure
+`snapd` manually, e.g.
 
 ```console
 sudo apt-get install snapd

@@ -1,0 +1,49 @@
+---
+# Package managers that are or might not be pre-installed
+
+- name: Update APT cache before starting
+  apt:
+    update_cache: yes
+    upgrade: no
+  become: true
+
+- name: Flatpak package manager
+  block:
+
+    - name: Install Flatpak package manager
+      package:
+        name:
+          - flatpak
+          - gnome-software-plugin-flatpak
+        state: '{{ state }}'
+
+    - name: Configure Flatpak remote "flathub"
+      flatpak_remote:
+        name: flathub
+        flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+        state: '{{ bool_state }}'
+
+  become: true
+  tags:
+    - flatpak
+
+- name: Snap package manager
+  block:
+
+    - name: Install Snap package manager
+      package:
+        name: snapd
+        state: '{{ state }}'
+
+    - name: Configure snap service components
+      systemd:
+        name: '{{ item }}'
+        enabled: "{{ 'no' if state == 'absent' else 'yes' }}"
+      loop:
+        - snapd.socket
+        - snapd
+        - apparmor
+
+  become: true
+  tags:
+    - snap

@@ -1,32 +1,7 @@
 ---
 # The base system (of a modern Linux distribution)
 
-- name: Update APT cache before starting
-  apt:
-    update_cache: yes
-    upgrade: no
-  become: true
-
-- name: Flatpak package manager
-  block:
-
-    - name: Install Flatpak package manager
-      package:
-        name:
-          - flatpak
-          - gnome-software-plugin-flatpak
-        state: '{{ state }}'
-
-    - name: Configure Flatpak remote "flathub"
-      flatpak_remote:
-        name: flathub
-        flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
-        state: '{{ bool_state }}'
-
-  become: true
-  tags:
-    - flatpak
-
+- import_tasks: packagemanagers.yml
 - import_tasks: desktop.yml
 - import_tasks: webbrowsers.yml
 - import_tasks: communication.yml
