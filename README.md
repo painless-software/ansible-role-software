@@ -35,12 +35,7 @@ Secrets that should be overridden by anyone installing the affected software
 Dependencies
 ------------
 
-Debian distributions without snap preconfigured (e.g. Kali) need to install
-`snapd` for software that is provided as snaps.
-
-```console
-sudo apt-get install snapd
-```
+None.
 
 Example Playbook
 ----------------
@@ -106,6 +101,13 @@ include the `python` tag in your Ansible run or run:
 
 ```console
 sudo apt-get install python3-pip
+```
+
+Debian distributions without snap preconfigured (e.g. Kali) need to install
+`snapd` for software that is provided as snaps.
+
+```console
+sudo apt-get install snapd
 ```
 
 How Does It Work?
