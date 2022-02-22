@@ -1,0 +1,56 @@
+---
+# Security scanners and penetration testing tools
+
+- name: Grype
+  block:
+
+    - name: Find out whether grype is installed
+      command: dpkg-query -W grype
+      register: grype_installed
+      failed_when: grype_installed.rc > 1
+      changed_when: grype_installed.rc == 1
+
+    - block:
+
+        - name: Uninstall grype (container image scanner)
+          package:
+            name: grype
+            state: absent
+          when: bool_state == 'absent'
+
+        - name: Install grype (container image scanner)
+          apt:
+            deb: '{{ grype_baseurl }}/{{ grype_package }}'
+          when: grype_installed.rc == 1 or state == 'latest'
+
+      become: true
+
+  tags:
+    - security
+
+- name: Trivy
+  block:
+
+    - name: Find out whether trivy is installed
+      command: dpkg-query -W trivy
+      register: trivy_installed
+      failed_when: trivy_installed.rc > 1
+      changed_when: trivy_installed.rc == 1
+
+    - block:
+
+        - name: Uninstall trivy (container image scanner)
+          package:
+            name: trivy
+            state: absent
+          when: bool_state == 'absent'
+
+        - name: Install trivy (container image scanner)
+          apt:
+            deb: '{{ trivy_baseurl }}/{{ trivy_package }}'
+          when: trivy_installed.rc == 1 or state == 'latest'
+
+      become: true
+
+  tags:
+    - security

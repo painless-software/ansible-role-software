@@ -124,3 +124,11 @@ citrix_overview_url: 'https://www.citrix.com/downloads/workspace-app/linux/works
 citrix_hash_start_marker: '?__gda__='
 citrix_hash_stop_marker: '" id="'
 citrix_download_url: "{{ citrix_baseurl }}/{{ citrix_package }}{{ citrix_hash_start_marker }}{{ citrix_accepthash.stdout }}"
+
+grype_version: '0.33.0'
+grype_baseurl: 'https://github.com/anchore/grype/releases/download'
+grype_package: "v{{ grype_version }}/grype_{{ grype_version }}_linux_amd64.deb"
+
+trivy_version: '0.23.0'
+trivy_baseurl: 'https://github.com/aquasecurity/trivy/releases/download'
+trivy_package: "v{{ trivy_version }}/trivy_{{ trivy_version }}_Linux-64bit.deb"
