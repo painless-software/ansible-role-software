@@ -1,5 +1,5 @@
 ---
-# Security scanners and penetration testing tools
+# Vulnerability scanners and penetration testing tools
 
 - name: Grype
   block:
