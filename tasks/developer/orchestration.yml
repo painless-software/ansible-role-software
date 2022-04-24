@@ -287,3 +287,16 @@
   tags:
     - kubernetes
     - helm
+
+- name: Juju and MicroK8s
+  snap:
+    name:
+    - microk8s
+    - juju
+    - charmcraft
+    classic: yes
+    state: '{{ bool_state }}'
+  become: true
+  tags:
+    - kubernetes
+    - juju
