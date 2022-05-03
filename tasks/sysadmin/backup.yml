@@ -2,11 +2,10 @@
 # Software and configuration for data backup and restore
 
 - name: Déjà Dup (a backup/restore desktop application)
-  package:
+  snap:
     name:
       - deja-dup
-      - duplicity
-      - python-gi
+    classic: yes
     state: '{{ bool_state }}'
   become: true
   tags:
