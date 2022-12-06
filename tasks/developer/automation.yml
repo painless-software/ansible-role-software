@@ -1,6 +1,14 @@
 ---
 # Software and configuration for automation ninjas
 
+- name: Ansible developer tools (awx-cli)
+  pip:
+    name: ansible-tower-cli
+    state: '{{ state }}'
+  become: true
+  tags:
+    - ansible
+
 - name: Puppet development tool chain
   block:
 
@@ -33,10 +41,11 @@
   tags:
     - puppet
 
-- name: Ansible developer tools (awx-cli)
-  pip:
-    name: ansible-tower-cli
-    state: '{{ state }}'
+- name: Terraform
+  snap:
+    name: terraform
+    classic: yes
+    state: '{{ bool_state }}'
   become: true
   tags:
-    - ansible
+    - terraform
