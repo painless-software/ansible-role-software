@@ -68,12 +68,16 @@ editors_jetbrains_ides_defaults:
   - pycharm-community
 
 editors_vscode_plugins_defaults:
+  - asciidoctor.asciidoctor-vscode
   - bajdzis.vscode-database
   - bbenoist.vagrant
   - bungcip.better-toml
-  - ev3dev.ev3dev-browser
+  - CucumberOpen.cucumber-official
   - editorconfig.editorconfig
+  - ev3dev.ev3dev-browser
+  - hashicorp.terraform
   - james-yu.latex-workshop
+  - k--kato.intellij-idea-keybindings
   - lextudio.restructuredtext
   - ms-azuretools.vscode-docker
   - ms-python.python
@@ -81,9 +85,6 @@ editors_vscode_plugins_defaults:
   - puppet.puppet-vscode
   - valentjn.vscode-ltex
   # Not available yet in Open VSX Registry, https://open-vsx.org/
-  # - AravindKumar.gherkin-indent
-  # - joaompinto.asciidoctor-vscode
-  # - k--kato.intellij-idea-keybindings
   # - MS-vsliveshare.vsliveshare
   # - MS-vsliveshare.vsliveshare-audio
   # - saahilclaypool.scratchpadmd
