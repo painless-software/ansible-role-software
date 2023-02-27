@@ -43,6 +43,14 @@
   tags:
     - ruby
 
+- name: `rbenv install` command (ruby-build plugin)
+  git:
+    repo: https://github.com/rbenv/ruby-build.git
+    dest: '{{ ansible_env.HOME }}/.rbenv/plugins/ruby-build'
+    depth: 1
+  tags:
+    - ruby
+
 - name: Activate rbenv for Bash
   lineinfile:
     dest: '{{ ansible_env.HOME }}/.bash_aliases'
