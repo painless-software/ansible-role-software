@@ -36,7 +36,7 @@
   tags:
     - python
 
-- name: Clone pyenv (Python Version Management)
+- name: Clone pyenv (Python version management)
   git:
     repo: https://github.com/pyenv/pyenv.git
     dest: '{{ ansible_env.HOME }}/.pyenv'

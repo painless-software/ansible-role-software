@@ -35,21 +35,23 @@
   tags:
     - ruby
 
-- name: Ruby Version Manager
-  block:
-
-  - name: Enable PPA for RVM
-    apt_repository:
-      repo: ppa:rael-gc/rvm
-      state: '{{ bool_state }}'
-
-  - name: Install RVM
-    package:
-      name:
-        - software-properties-common
-        - rvm
-      state: '{{ state }}'
-
-  become: true
+- name: Clone rbenv (Ruby version management)
+  git:
+    repo: https://github.com/rbenv/rbenv.git
+    dest: '{{ ansible_env.HOME }}/.rbenv'
+    depth: 1
   tags:
+    - ruby
+
+- name: Activate rbenv for Bash
+  lineinfile:
+    dest: '{{ ansible_env.HOME }}/.bash_aliases'
+    create: true
+    line: '{{ item }}'
+  with_items:
+    - 'export RBENV_ROOT={{ ansible_env.HOME }}/.rbenv'
+    - 'export PATH="$RBENV_ROOT/bin:$PATH"'
+    - 'source <(rbenv init - bash)'
+  tags:
+    - bash
     - ruby
