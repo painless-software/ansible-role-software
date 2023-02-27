@@ -43,7 +43,7 @@
   tags:
     - ruby
 
-- name: `rbenv install` command (ruby-build plugin)
+- name: rbenv install command (ruby-build plugin)
   git:
     repo: https://github.com/rbenv/ruby-build.git
     dest: '{{ ansible_env.HOME }}/.rbenv/plugins/ruby-build'
