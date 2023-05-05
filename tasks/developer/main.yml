@@ -12,6 +12,7 @@
 - import_tasks: versioncontrol.yml
 - import_tasks: python.yml
 - import_tasks: ruby.yml
+- import_tasks: rust.yml
 - import_tasks: javascript.yml
 - import_tasks: java.yml
 - import_tasks: golang.yml

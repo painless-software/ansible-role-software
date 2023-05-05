@@ -1,0 +1,22 @@
+---
+# Rust tools and configuration
+
+- name: Install Rust toolchain
+  package:
+    name:
+      - cargo
+    state: present
+  become: true
+  tags:
+    - rust
+
+- name: Adjust PATH for Rust binaries built by Cargo
+  lineinfile:
+    dest: '{{ ansible_env.HOME }}/.bash_aliases'
+    create: true
+    line: '{{ item }}'
+  with_items:
+    - 'export PATH="{{ ansible_env.HOME }}/.cargo/bin:$PATH"'
+  tags:
+    - bash
+    - rust
