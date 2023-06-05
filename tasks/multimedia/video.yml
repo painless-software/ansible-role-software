@@ -22,10 +22,10 @@
       tags:
         - video-watching
 
-    - name: YouTube downloader
-      snap:
-        name: youtube-dl
-        state: '{{ bool_state }}'
+    - name: yt-dlp (YouTube downloader)
+      pip:
+        name: yt-dlp
+        state: '{{ state }}'
       become: true
       tags:
         - music-listening
@@ -33,7 +33,7 @@
 
     - name: YouTube downloader defaults for music extraction
       lineinfile:
-        dest: '{{ ansible_env.HOME }}/.config/youtube-dl/config'
+        dest: '{{ ansible_env.HOME }}/.config/yt-dlp/config'
         create: true
         line: '{{ item }}'
         state: '{{ bool_state }}'
