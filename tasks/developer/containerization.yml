@@ -24,6 +24,7 @@
           - containerd.io
           - docker-ce
           - docker-ce-cli
+          - golang-docker-credential-helpers
         state: '{{ state }}'
 
     - name: Uninstall Docker Compose v1 (absoleted by v2, use `docker compose`)
