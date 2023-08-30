@@ -112,3 +112,30 @@
   tags:
     - bash
     - git
+
+- name: GitLab CLI (glab)
+  block:
+
+    - name: Find out whether glab is installed
+      command: dpkg-query -W glab
+      register: glab_installed
+      failed_when: glab_installed.rc > 1
+      changed_when: glab_installed.rc == 1
+
+    - block:
+
+        - name: Uninstall glab (GitLab CLI)
+          package:
+            name: glab
+            state: absent
+          when: bool_state == 'absent'
+
+        - name: Install glab (GitLab CLI)
+          apt:
+            deb: '{{ glab_baseurl }}/{{ glab_package }}'
+          when: glab_installed.rc == 1 or state == 'latest'
+
+      become: true
+
+  tags:
+    - gitlab
