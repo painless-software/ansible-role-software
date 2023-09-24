@@ -4,6 +4,14 @@
 - name: Music editors and players
   block:
 
+    - name: GNOME music player (Rhythmbox)
+      flatpak:
+        name: org.gnome.Rhythmbox3
+        state: '{{ bool_state }}'
+      become: true
+      tags:
+        - music-listening
+
     - name: Spotify music player
       snap:
         name: spotify

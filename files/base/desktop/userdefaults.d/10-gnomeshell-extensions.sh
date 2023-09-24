@@ -6,7 +6,7 @@
 # - https://extensions.gnome.org/extension/4958/clipman/
 # - https://extensions.gnome.org/extension/5103/docker/
 
-# NOTE: extension names = folder names from /usr/local/share/gnome-shell/extensions/
+# NOTE: extension names = folder names from `/usr/local/share/gnome-shell/extensions/`
 # SEE ALSO: `gsettings get org.gnome.shell enabled-extensions`
 
 DISABLE_EXTENSIONS="\
