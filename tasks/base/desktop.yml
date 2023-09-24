@@ -44,7 +44,7 @@
         force: "{{ 'yes' if state == 'latest' else 'no' }}"
 
     - name: Useful GNOME Shell extensions (system-wide setup)
-      command: "gnome-shell-extension-manage --{{ 'remove' if bool_state == 'absent' else 'install' }} --system --extension-id {{ item }}"
+      command: "gnome-shell-extension-manage {{ '--remove' if bool_state == 'absent' else '--install' }} --system --extension-id {{ item }} --version latest"
       with_items: "{{ desktop_gnomeshell_extensions }}"
 
   become: true
