@@ -14,11 +14,13 @@ echo 'Restoring GNOME desktop organization default settings ...'
 # application bar appearance
 gsettings set org.gnome.desktop.calendar show-weekdate 'true'
 gsettings set org.gnome.desktop.interface clock-show-date 'false'
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings set org.gnome.desktop.interface show-battery-percentage 'true'
 
-# desktop appearanche & behavior
-gsettings set org.gnome.nautilus.desktop trash-icon-visible 'false'
-gsettings set org.gnome.shell enable-hot-corners 'true'
+# desktop appearance & behavior
+gsettings set org.gnome.shell.extensions.dash-to-dock show-trash 'false'
+gsettings set org.gnome.shell.extensions.ding show-trash 'false'
+gsettings set org.gnome.desktop.interface enable-hot-corners 'true'
 gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed 'false'
 
 # device behavior

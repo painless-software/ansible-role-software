@@ -4,7 +4,7 @@
 - name: Install desktop customization tools
   package:
     name:
-      - gnome-tweak-tool
+      - gnome-tweaks
       - dconf-editor
       - chrome-gnome-shell
     state: present
@@ -60,7 +60,7 @@
         - src: files/base/desktop/userdefaults.sh
           dest: "/opt/{{ userdefaults_organization }}/userdefaults.sh"
         - src: files/base/desktop/userdefaults.d/
-          dest: "/opt/{{ userdefaults_organization }}/userdefaults.d"
+          dest: "/opt/{{ userdefaults_organization }}/userdefaults.d/"
 
     - name: Install userdefaults script
       file:

@@ -22,7 +22,7 @@
     - src: files/developer/versioncontrol/system-gitconfig
       dest: /etc/gitconfig
     - src: files/developer/versioncontrol/userconfig/
-      dest: /etc/skel/.config
+      dest: /etc/skel/.config/
   become: true
   tags:
     - git

@@ -6,7 +6,7 @@
 
     - name: OpenShot video editor
       package:
-        name: openshot
+        name: openshot-qt
         state: '{{ state }}'
       become: true
       tags:
