@@ -5,18 +5,11 @@ bool_state: "{{ state if state == 'absent' else 'present' }}"
 userdefaults_organization: painless
 
 desktop_gnomeshell_extensions_defaults:
-  - 2  # https://extensions.gnome.org/extension/2/move-clock/
-  - 120  # https://extensions.gnome.org/extension/120/system-monitor/
-  - 708  # https://extensions.gnome.org/extension/708/panel-osd/
-  - 723  # https://extensions.gnome.org/extension/723/pixel-saver/
   - 744  # https://extensions.gnome.org/extension/744/hide-activities-button/
-  - 779  # https://extensions.gnome.org/extension/779/clipboard-indicator/
-  - 800  # https://extensions.gnome.org/extension/800/remove-dropdown-arrows/
-  - 873  # https://extensions.gnome.org/extension/873/overview-all-windows/
-  - 1015  # https://extensions.gnome.org/extension/1015/gravatar/
-  - 1065  # https://extensions.gnome.org/extension/1065/docker-status/
   - 1108  # https://extensions.gnome.org/extension/1108/add-username-to-top-panel/
-  - 1143  # https://extensions.gnome.org/extension/1143/logout-button/
+  - 3010  # https://extensions.gnome.org/extension/3010/system-monitor-next/
+  - 4958  # https://extensions.gnome.org/extension/4958/clipman/
+  - 5103  # https://extensions.gnome.org/extension/5103/docker/
 
 desktop_gnomeshell_extensions: "{{ desktop_gnomeshell_extensions_defaults }}"
 

@@ -1,19 +1,25 @@
 ---
 # Software and configuration to tweak your desktop environment
 
-- name: Install desktop customization tools
+- name: Desktop customization tools
   package:
     name:
       - gnome-tweaks
       - dconf-editor
+      # NOTE, in 23.04 renamed to: - gnome-browser-connector
       - chrome-gnome-shell
-    state: present
+    state: '{{ state }}'
   become: true
   tags:
     - gnome
 
 - name: GNOME Shell extensions
   block:
+
+    - name: Extension Manager for GNOME
+      flatpak:
+        name: com.mattjakeman.ExtensionManager
+        state: '{{ bool_state }}'
 
     # see https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet/issues/474
     - name: Ensure system monitor is not installed via snap
@@ -37,14 +43,13 @@
         mode: 0755
         force: "{{ 'yes' if state == 'latest' else 'no' }}"
 
-    - name: Install useful GNOME Shell extensions system-wide
-      command: "gnome-shell-extension-manage --install --system --extension-id {{ item }} --version latest"
+    - name: Useful GNOME Shell extensions (system-wide setup)
+      command: "gnome-shell-extension-manage --{{ 'remove' if bool_state == 'absent' else 'install' }} --system --extension-id {{ item }}"
       with_items: "{{ desktop_gnomeshell_extensions }}"
 
   become: true
   tags:
     - gnome
-    - unity
 
 - name: Userdefaults scripts
   block:
@@ -71,4 +76,3 @@
   become: true
   tags:
     - gnome
-    - unity
