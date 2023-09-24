@@ -2,11 +2,19 @@
 # Software and configuration for data backup and restore
 
 - name: Déjà Dup (a backup/restore desktop application)
-  snap:
-    name:
-      - deja-dup
-    classic: yes
-    state: '{{ bool_state }}'
+  block:
+
+    - name: Avoid duplicate installs (Déjà Dup deb)
+      package:
+        name: deja-dup
+        state: absent
+      when: bool_state == 'present'
+
+    - name: Déjà Dup - GNOME backup/restore client
+      flatpak:
+        name: org.gnome.DejaDup
+        state: '{{ bool_state }}'
+
   become: true
   tags:
     - backup
