@@ -20,10 +20,10 @@ ENABLE_EXTENSIONS="\
 
 echo 'Ensure unwanted GNOME Shell extensions are disabled ...'
 for extension in ${DISABLE_EXTENSIONS}; do
-    gnome-shell-extension-tool --disable-extension "$extension"
+    gnome-extensions disable "$extension"
 done
 
 echo 'Ensure desired GNOME Shell extensions are enabled ...'
 for extension in ${ENABLE_EXTENSIONS}; do
-    gnome-shell-extension-tool --enable-extension "$extension"
+    gnome-extensions enable "$extension"
 done
