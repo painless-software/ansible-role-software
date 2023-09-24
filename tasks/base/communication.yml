@@ -43,9 +43,9 @@
   tags:
     - slack
 
-- name: Ferdi multi-messenger client (Franz free/libre)
-  flatpak:
-    name: com.getferdi.Ferdi
+- name: Ferdium multi-messenger client (Franz/Ferdi free/libre)
+  snap:
+    name: ferdium
     state: '{{ bool_state }}'
   become: true
   tags:
@@ -86,7 +86,7 @@
 
 - name: Mircosoft Teams client
   snap:
-    name: teams
+    name: teams-for-linux
     state: '{{ bool_state }}'
   become: true
   tags:
