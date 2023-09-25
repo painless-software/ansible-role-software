@@ -34,6 +34,14 @@
   tags:
     - matrix
 
+- name: Discord desktop client
+  snap:
+    name: discord
+    state: '{{ bool_state }}'
+  become: true
+  tags:
+    - discord
+
 - name: Slack chat client (unconfined)
   snap:
     name: slack
@@ -83,6 +91,14 @@
   become: true
   tags:
     - skype
+
+- name: Telegram desktop client
+  snap:
+    name: telegram-desktop
+    state: '{{ bool_state }}'
+  become: true
+  tags:
+    - telegram
 
 - name: Mircosoft Teams client
   snap:
