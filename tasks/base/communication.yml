@@ -92,6 +92,14 @@
   tags:
     - teams
 
+- name: WhatsApp client (Whatsie)
+  snap:
+    name: whatsie
+    state: '{{ bool_state }}'
+  become: true
+  tags:
+    - whatsapp
+
 - name: Zoom conferencing client
   snap:
     name: zoom-client
