@@ -93,12 +93,12 @@ epson_printer_hostname: epson-wf-7710
 epson_printer_model: WF-7710
 
 # Download provided in eternity by: https://archive.org/download/epson-iscan-linux
-imagescan_version: '3.65.0'
-imagescan_plugin_gt_version: '1.0.3'
-imagescan_plugin_ocr_version: '1.0.3'
-imagescan_plugin_networkscan_version: '1.1.4'
-imagescan_distro_name: 'linuxmint'
-imagescan_distro_version: '20'
+imagescan_version: '3.63.0'
+imagescan_plugin_gt_version: '1.0.2'
+imagescan_plugin_ocr_version: '1.0.2'
+imagescan_plugin_networkscan_version: '1.1.3'
+imagescan_distro_name: 'ubuntu'
+imagescan_distro_version: '20.04'
 imagescan_archive: "imagescan-bundle-{{ imagescan_distro_name }}-{{ imagescan_distro_version }}-{{ imagescan_version }}.x64.deb"
 imagescan_deb_tail: "1epson4{{ imagescan_distro_name }}{{ imagescan_distro_version }}_amd64.deb"
 imagescan_download_path: "imagescan-bundle-{{ imagescan_distro_name }}-{{ imagescan_distro_version }}-{{ imagescan_version }}.x64.deb.tar.gz"
