@@ -3,10 +3,11 @@
 
 - name: GNOME common apps (compatible snap version)
   snap:
-    name:
-      - gnome-calendar
-      - gnome-contacts
-    state: present
+    name: '{{ item }}'
+    state: '{{ bool_state }}'
+  loop:
+    - gnome-calendar
+    - gnome-contacts
   become: true
   tags:
     - gnome
@@ -20,8 +21,11 @@
   loop:
     - org.gnome.Geary
     - org.gnome.Maps
+    - org.gnome.SimpleScan
   become: true
   tags:
     - gnome
     - email
     - maps
+    - epson-scanner
+    - samsung-printer

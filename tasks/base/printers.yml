@@ -1,7 +1,7 @@
 ---
 # Driver software and configuration for printers, scanners, MFPs
 
-- name: EPSON Image Scan v3, http://support.epson.net/linux/en/imagescanv3.php
+- name: EPSON Image Scan v3, https://support.epson.net/linux/en/iscan_c.html
   block:
 
     - name: Find out whether Image Scan v3 already installed
@@ -45,7 +45,7 @@
   tags:
     - epson-scanner
 
-- name: Samsung MFP printer + scanner
+- name: Samsung MFP printer + scanner, https://www.bchemnet.com/suldr/
   block:
 
     - name: Find out whether suldr-keyring is installed
@@ -56,12 +56,12 @@
 
     - name: APT keyring for SULD
       apt:
-        deb: http://www.bchemnet.com/suldr/pool/debian/extra/su/suldr-keyring_2_all.deb
+        deb: https://www.bchemnet.com/suldr/pool/debian/extra/su/suldr-keyring_2_all.deb
       when: suldrkeyring_installed.rc == 1
 
     - name: Add APT source for SULD
       apt_repository:
-        repo: deb http://www.bchemnet.com/suldr/ debian extra
+        repo: deb https://www.bchemnet.com/suldr/ debian extra
         filename: samsung-unified-driver
         update_cache: true
         state: '{{ bool_state }}'
