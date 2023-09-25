@@ -19,24 +19,23 @@ duf_package: "v{{ duf_version }}/duf_{{ duf_version }}_linux_amd64.deb"
 
 gimp_gmic_version: '2-40'
 
-glab_version: '1.32.0'
+glab_version: '1.33.0'
 glab_baseurl: 'https://gitlab.com/gitlab-org/cli/-/releases'
 glab_package: "v{{ glab_version }}/downloads/glab_{{ glab_version }}_Linux_x86_64.deb"
 
-kompose_version: '1.26.1'
+kompose_version: '1.30.0'
 kompose_baseurl: 'https://github.com/kubernetes/kompose/releases/download'
-kompose_package: "v{{ kompose_version }}/kompose_{{ kompose_version }}_amd64.deb"
 
-minikube_version: '1.25.1'
+minikube_version: '1.31.2'
 minikube_baseurl: 'https://github.com/kubernetes/minikube/releases/download'
 minikube_package: "v{{ minikube_version }}/minikube_{{ minikube_version }}-0_amd64.deb"
 
-kubeseal_version: '0.17.3'
+kubeseal_version: '0.24.0'
 kubeseal_baseurl: 'https://github.com/bitnami-labs/sealed-secrets/releases/download'
 kubeseal_package: "v{{ kubeseal_version }}/kubeseal-{{ kubeseal_version }}-linux-amd64.tar.gz"
 
-sops_version: '3.7.3'
-sops_baseurl: 'https://github.com/mozilla/sops/releases/download'
+sops_version: '3.8.0'
+sops_baseurl: 'https://github.com/getsops/sops/releases/download'
 
 openshift_cli_version: 'latest-4.9'
 openshift_cli_baseurl: 'https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp'

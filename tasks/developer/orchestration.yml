@@ -87,7 +87,7 @@
 
         - name: Install sops binary
           get_url:
-            url: '{{ sops_baseurl }}/v{{ sops_version }}/sops-v{{ sops_version }}.linux'
+            url: "{{ sops_baseurl }}/v{{ sops_version }}/sops-v{{ sops_version }}.linux.amd64"
             dest: /usr/local/bin/sops
             mode: 0755
             force: "{{ 'yes' if state == 'latest' else 'no' }}"

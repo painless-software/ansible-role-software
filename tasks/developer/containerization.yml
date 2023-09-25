@@ -65,15 +65,28 @@
   block:
 
     - name: Find out whether Kompose is installed
-      command: dpkg-query -W kompose
+      stat:
+        path: /usr/local/bin/kompose
       register: kompose_installed
-      failed_when: kompose_installed.rc > 1
-      changed_when: kompose_installed.rc == 1
+      changed_when: not kompose_installed.stat.exists
 
-    - name: Install Kompose (Compose->Kubernetes converter)
-      apt:
-        deb: '{{ kompose_baseurl }}/{{ kompose_package }}'
-      when: kompose_installed.rc == 1 or state == 'latest'
+    - name: Install/uninstall Kompose
+      block:
+
+        - name: Install kompose binary
+          get_url:
+            url: "{{ kompose_baseurl }}/v{{ kompose_version }}/kompose-linux-amd64"
+            dest: /usr/local/bin/kompose
+            mode: 0755
+            force: "{{ 'yes' if state == 'latest' else 'no' }}"
+          when: not kompose_installed.stat.exists or state == 'latest'
+
+        - name: Uninstall kompose
+          file:
+            path: /usr/local/bin/kompose
+            state: absent
+          when: state == 'absent'
+
       become: true
 
   tags:
