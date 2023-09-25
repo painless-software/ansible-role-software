@@ -29,7 +29,7 @@
         - name: Puppet agent and development kit
           package:
             name:
-              - puppet7-release
+              - puppet8-release
               - puppet-agent
               - pdk
             state: '{{ state }}'

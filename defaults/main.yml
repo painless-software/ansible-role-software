@@ -104,8 +104,8 @@ imagescan_deb_tail: "1epson4{{ imagescan_distro_name }}{{ imagescan_distro_versi
 imagescan_download_path: "imagescan-bundle-{{ imagescan_distro_name }}-{{ imagescan_distro_version }}-{{ imagescan_version }}.x64.deb.tar.gz"
 imagescan_download_base: 'https://archive.org/download/epson-iscan-linux'
 
-puppet_version: '7'
-puppet_distro: "{{ ansible_distribution_release if ansible_distribution_release in ['bionic','focal'] else 'focal' }}"
+puppet_version: '8'
+puppet_distro: "{{ ansible_distribution_release if ansible_distribution_release in ['buster','bullseye','bionic','focal','jammy'] else 'jammy' }}"
 puppet_package: "https://apt.puppet.com/puppet{{ puppet_version }}-release-{{ puppet_distro }}.deb"
 
 vmware_version: '16.2.1-18811642'
