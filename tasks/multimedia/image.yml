@@ -3,15 +3,13 @@
 
 - block:
 
-    - name: The GIMP
+    - name: The GIMP (incl. plugins)
       flatpak:
-        name: org.gimp.GIMP
+        name: '{{ item }}'
         state: '{{ bool_state }}'
-
-    - name: GREYC's Magic for Image Computing
-      flatpak:
-        name: org.gimp.GIMP.Plugin.GMic//{{ gimp_gmic_branch }}
-        state: '{{ bool_state }}'
+      loop:
+        - org.gimp.GIMP
+        - org.gimp.GIMP.Plugin.GMic//{{ gimp_gmic_branch }}
 
     - name: Image and video conversion tools
       package:
