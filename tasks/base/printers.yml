@@ -1,45 +1,46 @@
 ---
 # Driver software and configuration for printers, scanners, MFPs
 
-- name: EPSON Image Scan v3, https://support.epson.net/linux/en/iscan_c.html
+- name: GNOME Document Scanner (flatpak)
+  flatpak:
+    name: org.gnome.SimpleScan
+    state: '{{ bool_state }}'
+  become: true
+  tags:
+    - gnome
+    - epson-scanner
+    - samsung-printer
+
+- name: EPSON Scan 2, https://support.epson.net/linux/en/epsonscan2.php
   block:
 
-    - name: Find out whether Image Scan v3 already installed
-      command: dpkg-query -W imagescan
-      register: imagescan_installed
-      failed_when: imagescan_installed.rc > 1
-      changed_when: imagescan_installed.rc == 1
+    - name: Find out whether EPSON Scan 2 plugin already installed
+      command: dpkg-query -W epsonscan2-non-free-plugin
+      register: epsonscan_installed
+      failed_when: epsonscan_installed.rc > 1
+      changed_when: epsonscan_installed.rc == 1
 
-    - name: Download and extract Image Scan package
-      unarchive:
-        remote_src: yes
-        src: "{{ imagescan_download_base }}/{{ imagescan_download_path }}"
-        dest: /tmp/
-      when: imagescan_installed.rc == 1 or state == 'latest'
-
-    - name: Ensure prerequisites for Image Scan v3
+    - name: Uninstall EPSON Scan 2 plugin
       package:
-        name: graphicsmagick
-        state: present
+        name: epsonscan2-non-free-plugin
+        state: "{{ state }}"
+        purge: yes
+      when: state == 'absent'
 
-    - name: Install EPSON Image Scan v3
-      apt:
-        deb: '{{ item }}'
-      with_items:
-        - "/tmp/{{ imagescan_archive }}/core/imagescan_{{ imagescan_version }}-{{ imagescan_deb_tail }}"
-        - "/tmp/{{ imagescan_archive }}/plugins/imagescan-plugin-gt-s650_{{ imagescan_plugin_gt_version }}-{{ imagescan_deb_tail }}"
-        - "/tmp/{{ imagescan_archive }}/plugins/imagescan-plugin-ocr-engine_{{ imagescan_plugin_ocr_version }}-{{ imagescan_deb_tail }}"
-        - "/tmp/{{ imagescan_archive }}/plugins/imagescan-plugin-networkscan_{{ imagescan_plugin_networkscan_version }}-{{ imagescan_deb_tail }}"
-      when: imagescan_installed.rc == 1 or state == 'latest'
+    - name: Download and install EPSON Scan 2 plugin
+      block:
 
-    - name: Configure EPSON scanner via Image Scan v3
-      lineinfile:
-        path: /etc/imagescan/imagescan.conf
-        line: "{{ item }}"
-      with_items:
-        - "myscanner.udi    = esci:networkscan://{{ epson_printer_hostname }}:1865"
-        - 'myscanner.vendor = Epson'
-        - "myscanner.model  = {{ epson_printer_model }}"
+        - name: Download and extract EPSON Scan 2 bundle
+          unarchive:
+            remote_src: yes
+            src: "{{ epsonscan_download_url }}"
+            dest: /tmp/
+
+        - name: Install EPSON Scan 2 plugin (for use by SimpleScan)
+          apt:
+            deb: "/tmp/{{ epsonscan_bundle }}/plugins/{{ epsonscan_plugin_deb }}"
+
+      when: (epsonscan_installed.rc == 1 or state == 'latest') and state != 'absent'
 
   become: true
   tags:

@@ -89,20 +89,14 @@ editors_jetbrains_ides: "{{ editors_jetbrains_ides_defaults }}"
 editors_popular_ides: "{{ editors_popular_ides_defaults }}"
 editors_vscode_plugins: "{{ editors_vscode_plugins_defaults }}"
 
-epson_printer_hostname: epson-wf-7710
-epson_printer_model: WF-7710
-
-# Download provided in eternity by: https://archive.org/download/epson-iscan-linux
-imagescan_version: '3.63.0'
-imagescan_plugin_gt_version: '1.0.2'
-imagescan_plugin_ocr_version: '1.0.2'
-imagescan_plugin_networkscan_version: '1.1.3'
-imagescan_distro_name: 'ubuntu'
-imagescan_distro_version: '20.04'
-imagescan_archive: "imagescan-bundle-{{ imagescan_distro_name }}-{{ imagescan_distro_version }}-{{ imagescan_version }}.x64.deb"
-imagescan_deb_tail: "1epson4{{ imagescan_distro_name }}{{ imagescan_distro_version }}_amd64.deb"
-imagescan_download_path: "imagescan-bundle-{{ imagescan_distro_name }}-{{ imagescan_distro_version }}-{{ imagescan_version }}.x64.deb.tar.gz"
-imagescan_download_base: 'https://archive.org/download/epson-iscan-linux'
+# Search for updates at EPSON Download Center website, see: https://askubuntu.com/a/1487133/14650
+epsonscan_bundle_version: '6.7.61.0'
+epsonscan_plugin_version: '1.0.0.6-1'
+epsonscan_bundle_arch: 'x86_64'
+epsonscan_plugin_arch: 'amd64'
+epsonscan_download_url: https://download.ebz.epson.net/dsc/du/02/DriverDownloadInfo.do?LG2=JA&CN2=US&CTI=171&PRN=Linux%20deb%2064bit%20package&OSC=LX&DL
+epsonscan_bundle: "epsonscan2-bundle-{{ epsonscan_bundle_version }}.{{ epsonscan_bundle_arch }}.deb"
+epsonscan_plugin_deb: "epsonscan2-non-free-plugin_{{ epsonscan_plugin_version }}_{{ epsonscan_plugin_arch }}.deb"
 
 puppet_version: '8'
 puppet_distro: "{{ ansible_distribution_release if ansible_distribution_release in ['buster','bullseye','bionic','focal','jammy'] else 'jammy' }}"

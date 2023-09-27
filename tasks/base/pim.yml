@@ -21,11 +21,8 @@
   loop:
     - org.gnome.Geary
     - org.gnome.Maps
-    - org.gnome.SimpleScan
   become: true
   tags:
     - gnome
     - email
     - maps
-    - epson-scanner
-    - samsung-printer
