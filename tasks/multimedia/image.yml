@@ -10,7 +10,7 @@
 
     - name: GREYC's Magic for Image Computing
       flatpak:
-        name: org.gimp.GIMP.Plugin.GMic//{{ gimp_gmic_version }}
+        name: org.gimp.GIMP.Plugin.GMic//{{ gimp_gmic_branch }}
         state: '{{ bool_state }}'
 
     - name: Image and video conversion tools
