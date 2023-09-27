@@ -25,7 +25,6 @@
     - '} # ---'
   tags:
     - ruby
-    - bash
 
 - name: Install Ruby development dependencies
   package:
@@ -61,5 +60,4 @@
     - 'export PATH="$RBENV_ROOT/bin:$PATH"'
     - 'source <(rbenv init - bash)'
   tags:
-    - bash
     - ruby
