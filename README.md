@@ -1,10 +1,6 @@
 Ansible Role: Software
 ======================
 
-[![Build Status](
-https://img.shields.io/travis/painless-software/ansible-role-software/main.svg
-)](https://travis-ci.org/painless-software/ansible-role-software)
-
 > Painless software provisioning for your developer machine.
 
 Ansible role for installing and configuring software on desktop computers,
@@ -18,6 +14,7 @@ Requirements
 
 Supported operating systems and GNU/Linux distributions:
 
+- Ubuntu 22.04 LTS Jammy
 - Ubuntu 21.10 Impish
 - Ubuntu 21.04 Hirsute
 - Ubuntu 20.04 LTS Focal
