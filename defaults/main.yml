@@ -7,9 +7,9 @@ userdefaults_organization: painless
 desktop_gnomeshell_extensions_defaults:
   - 744  # https://extensions.gnome.org/extension/744/hide-activities-button/
   - 1108  # https://extensions.gnome.org/extension/1108/add-username-to-top-panel/
+  - 2224  # https://extensions.gnome.org/extension/2224/easy-docker-containers/
   - 3010  # https://extensions.gnome.org/extension/3010/system-monitor-next/
   - 4958  # https://extensions.gnome.org/extension/4958/clipman/
-  - 5103  # https://extensions.gnome.org/extension/5103/docker/
 
 desktop_gnomeshell_extensions: "{{ desktop_gnomeshell_extensions_defaults }}"
 

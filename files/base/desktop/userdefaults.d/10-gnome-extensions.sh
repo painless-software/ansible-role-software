@@ -2,15 +2,15 @@
 
 # - https://extensions.gnome.org/extension/744/hide-activities-button/
 # - https://extensions.gnome.org/extension/1108/add-username-to-top-panel/
+# - https://extensions.gnome.org/extension/2224/easy-docker-containers/
 # - https://extensions.gnome.org/extension/3010/system-monitor-next/
 # - https://extensions.gnome.org/extension/4958/clipman/
-# - https://extensions.gnome.org/extension/5103/docker/
 
 # NOTE: extension names = folder names from `/usr/local/share/gnome-shell/extensions/`
 # SEE ALSO: `gsettings get org.gnome.shell enabled-extensions`
 
 DISABLE_EXTENSIONS="\
-    docker@stickman_0x00.com \
+    easy_docker_containers@red.software.systems \
     "
 ENABLE_EXTENSIONS="\
     Hide_Activities@shay.shayel.org \
