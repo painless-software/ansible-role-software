@@ -1,14 +1,25 @@
 ---
 # Software and configuration to tweak your desktop environment
 
-- name: Desktop customization tools
-  package:
-    name:
-      - gnome-tweaks
-      - dconf-editor
-      # NOTE, in 23.04 renamed to: - gnome-browser-connector
-      - chrome-gnome-shell
-    state: '{{ state }}'
+- name: The GNOME Desktop
+  block:
+
+    - name: Ensure GNOME desktop functionality (from ubuntu-desktop-minial)
+      package:
+        name:
+          - gnome-shell-extension-appindicator
+          - gnome-shell-extension-desktop-icons-ng
+        state: '{{ state }}'
+
+    - name: Desktop customization tools
+      package:
+        name:
+          - gnome-tweaks
+          - dconf-editor
+          # NOTE, renamed in 23.04 to: - gnome-browser-connector
+          - chrome-gnome-shell
+        state: '{{ state }}'
+
   become: true
   tags:
     - gnome
