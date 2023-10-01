@@ -4,60 +4,93 @@
 - name: Python developer tooling
   block:
 
-    - name: Remove Python 2 Package Installer (pip)
-      package:
-        name: python-pip
-        state: absent
-        purge: yes
-      become: true
+    - name: Pip (package installer for Python)
+      block:
 
-    - name: Install Python 3 Package Installer (pip)
-      package:
-        name:
-          - python3-pip
-        state: present
-      become: true
+        - name: Ensure Python 2 Package Installer (pip) is gone
+          package:
+            name: python-pip
+            state: absent
+            purge: yes
+          become: true
 
-    - name: Activate Bash autocompletion for pip
-      lineinfile:
-        dest: '{{ ansible_env.HOME }}/.bash_aliases'
-        create: true
-        line: 'source <(pip3 completion --bash)'
+        - name: Python 3 Package Installer (pip)
+          package:
+            name:
+              - python3-pip
+              - python-is-python3
+            state: '{{ state }}'
+          become: true
 
-    - name: Install Pipenv (Pip + Virtualenv)
+        - name: Activate Bash autocompletion for pip
+          lineinfile:
+            dest: '{{ ansible_env.HOME }}/.bash_aliases'
+            create: true
+            line: 'source <(pip3 completion --bash)'
+            state: '{{ bool_state }}'
+
+    - name: Pipenv (Pip + Virtualenv)
       pip:
         name: pipenv
-        state: present
+        state: '{{ state }}'
       become: true
 
-    - name: Clone pyenv (Python version management)
-      git:
-        repo: https://github.com/pyenv/pyenv.git
-        dest: '{{ ansible_env.HOME }}/.pyenv'
-        depth: 1
+    - name: Poetry (Python dependency management and packaging)
+      block:
 
-    - name: Activate pyenv for Bash
-      lineinfile:
-        dest: '{{ ansible_env.HOME }}/.bash_aliases'
-        create: true
-        line: '{{ item }}'
-      with_items:
-        - 'export PYENV_ROOT={{ ansible_env.HOME }}/.pyenv'
-        - 'export PATH="$PYENV_ROOT/bin:$PATH"'
-        - 'source <(pyenv init --path)'
+        - name: Poetry (environment and packaging tool for Python)
+          pip:
+            name: poetry
+            state: '{{ state }}'
+          become: true
 
-    # See: https://github.com/pyenv/pyenv/wiki/Common-build-problems
-    - name: Ensure dependencies for installing other Pythons (pyenv)
-      package:
-        name:
-          - libbz2-dev
-          - libffi-dev
-          - libreadline-dev
-          - libsqlite3-dev
-          - libssl-dev
-          - zlib1g-dev
-        state: present
-      become: true
+        - name: Poetry command completion configuration for Bash
+          block:
+
+            - name: Remove Poetry command completion (Bash)
+              file:
+                path: "{{ ansible_env.HOME }}/.bash_completion"
+                state: absent
+              when: state in ['absent', 'latest']
+
+            - name: Generate Poetry command completion (Bash)
+              shell: "poetry completions bash > {{ ansible_env.HOME }}/.bash_completion"
+              args:
+                creates: "{{ ansible_env.HOME }}/.bash_completion"
+              when: bool_state in ['present', 'latest']
+
+    - name: pyenv (Python version management)
+      block:
+
+        - name: Clone pyenv (Python version management)
+          git:
+            repo: https://github.com/pyenv/pyenv.git
+            dest: '{{ ansible_env.HOME }}/.pyenv'
+            depth: 1
+
+        - name: Activate pyenv for Bash
+          lineinfile:
+            dest: '{{ ansible_env.HOME }}/.bash_aliases'
+            create: true
+            line: '{{ item }}'
+            state: '{{ bool_state }}'
+          with_items:
+            - 'export PYENV_ROOT={{ ansible_env.HOME }}/.pyenv'
+            - 'export PATH="$PYENV_ROOT/bin:$PATH"'
+            - 'source <(pyenv init --path)'
+
+        # See: https://github.com/pyenv/pyenv/wiki/Common-build-problems
+        - name: Ensure dependencies for installing other Pythons (pyenv)
+          package:
+            name:
+              - libbz2-dev
+              - libffi-dev
+              - libreadline-dev
+              - libsqlite3-dev
+              - libssl-dev
+              - zlib1g-dev
+            state: '{{ state }}'
+          become: true
 
   tags:
     - python
