@@ -16,6 +16,11 @@ galaxy_info:
         - bionic
         - focal
         - hirsute
+        - impish
+        - jammy
+    - name: Kali
+      versions:
+        - rolling
 
   galaxy_tags:
     - desktop
