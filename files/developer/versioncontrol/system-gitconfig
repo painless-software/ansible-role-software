@@ -1,1 +1,7 @@
 # System-global Git configuration. https://git-scm.com/docs/git-config#FILES
+# Verify with `git config --list --show-origin --show-scope`
+
+[core]
+	editor = vim
+[init]
+	defaultBranch = main

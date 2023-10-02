@@ -1,1 +1,2 @@
 # User-global Git configuration. See /etc/gitconfig for system-global settings.
+# Verify with `git config --list --show-origin --show-scope`
