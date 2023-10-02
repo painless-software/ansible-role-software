@@ -19,9 +19,9 @@
     dest: '{{ item.dest }}'
     force: no
   with_items:
-    - src: files/developer/versioncontrol/system-gitconfig
+    - src: files/developer/versioncontrol/etc/gitconfig
       dest: /etc/gitconfig
-    - src: files/developer/versioncontrol/userconfig/
+    - src: files/developer/versioncontrol/home/.config/
       dest: /etc/skel/.config/
   become: true
   tags:
