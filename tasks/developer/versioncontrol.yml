@@ -17,7 +17,7 @@
   copy:
     src: '{{ item.src }}'
     dest: '{{ item.dest }}'
-    force: no
+    force: "{{ 'true' if state == 'latest' else 'false' }}"
   with_items:
     - src: files/developer/versioncontrol/etc/gitconfig
       dest: /etc/gitconfig
