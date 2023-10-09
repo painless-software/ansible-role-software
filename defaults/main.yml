@@ -9,7 +9,7 @@ desktop_gnomeshell_extensions_defaults:
   - 1108  # https://extensions.gnome.org/extension/1108/add-username-to-top-panel/
   - 2224  # https://extensions.gnome.org/extension/2224/easy-docker-containers/
   - 3010  # https://extensions.gnome.org/extension/3010/system-monitor-next/
-  - 4958  # https://extensions.gnome.org/extension/4958/clipman/
+  - 4839  # https://extensions.gnome.org/extension/4839/clipboard-history/
 
 desktop_gnomeshell_extensions: "{{ desktop_gnomeshell_extensions_defaults }}"
 

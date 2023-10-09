@@ -4,7 +4,7 @@
 # - https://extensions.gnome.org/extension/1108/add-username-to-top-panel/
 # - https://extensions.gnome.org/extension/2224/easy-docker-containers/
 # - https://extensions.gnome.org/extension/3010/system-monitor-next/
-# - https://extensions.gnome.org/extension/4958/clipman/
+# - https://extensions.gnome.org/extension/4839/clipboard-history/
 
 # NOTE: extension names = folder names from `/usr/local/share/gnome-shell/extensions/`
 # SEE ALSO: `gsettings get org.gnome.shell enabled-extensions`
@@ -16,7 +16,7 @@ ENABLE_EXTENSIONS="\
     Hide_Activities@shay.shayel.org \
     add-username-toppanel@brendaw.com \
     system-monitor-next@paradoxxx.zero.gmail.com
-    clipman@popov895.ukr.net \
+    clipboard-history@alexsaveau.dev \
     "
 
 echo 'Ensure unwanted GNOME Shell extensions are disabled ...'
