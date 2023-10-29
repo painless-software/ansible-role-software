@@ -7,6 +7,11 @@
     upgrade: no
   become: true
 
+- name: Debian utilities
+  package:
+    name: apt-file
+    state: '{{ state }}'
+
 - name: Flatpak package manager
   block:
 
