@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
 
 # - https://extensions.gnome.org/extension/744/hide-activities-button/
+# - https://extensions.gnome.org/extension/779/clipboard-indicator/
 # - https://extensions.gnome.org/extension/1108/add-username-to-top-panel/
 # - https://extensions.gnome.org/extension/2224/easy-docker-containers/
 # - https://extensions.gnome.org/extension/3010/system-monitor-next/
-# - https://extensions.gnome.org/extension/4839/clipboard-history/
 
 # NOTE: extension names = folder names from `/usr/local/share/gnome-shell/extensions/`
 # SEE ALSO: `gsettings get org.gnome.shell enabled-extensions`
@@ -14,9 +14,9 @@ DISABLE_EXTENSIONS="\
     "
 ENABLE_EXTENSIONS="\
     Hide_Activities@shay.shayel.org \
+    clipboard-indicator@tudmotu.com \
     add-username-toppanel@brendaw.com \
-    system-monitor-next@paradoxxx.zero.gmail.com
-    clipboard-history@alexsaveau.dev \
+    system-monitor-next@paradoxxx.zero.gmail.com \
     "
 
 echo 'Ensure unwanted GNOME Shell extensions are disabled ...'
