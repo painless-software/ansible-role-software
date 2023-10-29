@@ -12,6 +12,15 @@
       tags:
         - video-editing
 
+    - name: GNOME Video player (flatpak)
+      flatpak:
+        name: org.gnome.Totem
+        state: '{{ bool_state }}'
+      become: true
+      tags:
+        - gnome
+        - video-watching
+
     - name: Video conversion tools and codecs
       package:
         name:
