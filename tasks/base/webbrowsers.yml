@@ -13,10 +13,28 @@
             state: absent
           when: bool_state == 'present'
 
-        - name: Firefox Web browser (snap)
+        - name: Avoid duplicate installs (Firefox snap)
           snap:
             name: firefox
+            state: absent
+
+        - name: Firefox Web browser (flatpak)
+          flatpak:
+            name: org.mozilla.firefox
             state: '{{ bool_state }}'
+
+        - name: Create or remove Firefox launcher
+          file:
+            path: /usr/bin/firefox
+            mode: '755'
+            state: '{{ bool_state }}'
+
+        - name: Configure Firefox launcher
+          copy:
+            dest: /usr/bin/firefox
+            content: |
+              flatpak run org.mozilla.firefox "$@"
+          when: bool_state == 'present'
 
       tags:
         - firefox
