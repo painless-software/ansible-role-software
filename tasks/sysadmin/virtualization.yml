@@ -44,7 +44,7 @@
     - name: APT source for Vagrant
       apt_repository:
         repo: 'deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_lsb.codename }} main'
-        filename: hashicorp-vagrant
+        filename: hashicorp
         state: '{{ bool_state }}'
 
     - name: Vagrant package from Hashicorp
