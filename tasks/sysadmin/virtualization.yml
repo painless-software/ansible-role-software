@@ -38,7 +38,7 @@
     - name: Signing key for Hashicorp packages
       apt_key:
         url: https://apt.releases.hashicorp.com/gpg
-        keyring: /etc/apt/trusted.gpg.d/hashicorp.asc
+        keyring: /etc/apt/trusted.gpg.d/hashicorp.gpg
         state: '{{ bool_state }}'
 
     - name: APT source for Vagrant
