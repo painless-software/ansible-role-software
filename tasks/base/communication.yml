@@ -17,13 +17,13 @@
     - name: Get signing key for Element packages
       get_url:
         url: https://packages.element.io/debian/element-io-archive-keyring.gpg
-        dest: /etc/apt/trusted.gpg.d/element-io.asc
+        dest: /etc/apt/trusted.gpg.d/element-io.gpg
         mode: '644'
       when: bool_state == 'present'
 
     - name: Remove signing key for Element packages
       file:
-        dest: /etc/apt/trusted.gpg.d/element-io.asc
+        dest: /etc/apt/trusted.gpg.d/element-io.gpg
         state: absent
       when: bool_state == 'absent'
 
