@@ -27,7 +27,7 @@
           file:
             path: /usr/bin/firefox
             mode: '755'
-            state: '{{ bool_state }}'
+            state: "{{ 'file' if bool_state == 'present' else 'absent' }}"
 
         - name: Configure Firefox launcher
           copy:
