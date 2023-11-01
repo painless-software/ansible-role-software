@@ -90,7 +90,7 @@ editors_popular_ides: "{{ editors_popular_ides_defaults }}"
 editors_vscode_plugins: "{{ editors_vscode_plugins_defaults }}"
 
 # Search for updates at EPSON Download Center website, see: https://askubuntu.com/a/1487133/14650
-epsonscan_bundle_version: '6.7.61.0'
+epsonscan_bundle_version: '6.7.63.0'
 epsonscan_plugin_version: '1.0.0.6-1'
 epsonscan_bundle_arch: 'x86_64'
 epsonscan_plugin_arch: 'amd64'
