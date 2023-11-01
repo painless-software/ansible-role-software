@@ -3,7 +3,7 @@
 # HINT: run `gsettings get org.gnome.shell favorite-apps` for current config
 dock_apps="[
     'org.gnome.Nautilus.desktop',
-    'firefox_firefox.desktop',
+    'org.mozilla.firefox.desktop',
     'google-chrome.desktop',
     'org.gnome.Geary.desktop',
     'org.gnome.Terminal.desktop',
