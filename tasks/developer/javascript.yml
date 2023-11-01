@@ -12,10 +12,11 @@
       become: true
 
     - name: Activate Bash autocompletion for npm
-      lineinfile:
-        dest: '{{ ansible_env.HOME }}/.bash_aliases'
+      blockinfile:
+        path: '{{ ansible_env.HOME }}/.bash_aliases'
+        block: |
+          source <(npm completion)
         create: true
-        line: 'source <(npm completion)'
         state: '{{ bool_state }}'
 
   tags:

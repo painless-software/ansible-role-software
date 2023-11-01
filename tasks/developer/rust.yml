@@ -11,12 +11,11 @@
     - rust
 
 - name: Adjust PATH for Rust binaries built by Cargo
-  lineinfile:
-    dest: '{{ ansible_env.HOME }}/.bash_aliases'
+  blockinfile:
+    path: '{{ ansible_env.HOME }}/.bash_aliases'
+    block: |
+      export PATH="{{ ansible_env.HOME }}/.cargo/bin:$PATH"
     create: true
-    line: '{{ item }}'
-  with_items:
-    - 'export PATH="{{ ansible_env.HOME }}/.cargo/bin:$PATH"'
   tags:
     - bash
     - rust

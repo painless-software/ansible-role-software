@@ -14,13 +14,12 @@
       become: true
 
     - name: Configure PATH to local Go binaries (Bash)
-      lineinfile:
-        dest: '{{ ansible_env.HOME }}/.bash_aliases'
+      blockinfile:
+        path: '{{ ansible_env.HOME }}/.bash_aliases'
+        block: |
+          export PATH="{{ ansible_env.HOME }}/go/bin:$PATH"
         create: true
-        line: '{{ item }}'
         state: '{{ bool_state }}'
-      with_items:
-        - 'export PATH="{{ ansible_env.HOME }}/go/bin:$PATH"'
 
   tags:
     - golang

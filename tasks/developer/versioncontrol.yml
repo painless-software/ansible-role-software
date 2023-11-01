@@ -38,15 +38,14 @@
     - git
 
 - name: Activate Git prompt for Bash
-  lineinfile:
-    dest: /etc/bash_completion.d/bash-git-prompt
+  blockinfile:
+    path: /etc/bash_completion.d/bash-git-prompt
+    block: |
+      # Show an informative bash prompt when working with Git repositories
+      GIT_PROMPT_ONLY_IN_REPO=1
+      . /opt/bash-git-prompt/gitprompt.sh
     create: true
-    line: '{{ item }}'
     state: '{{ bool_state }}'
-  with_items:
-    - '# Show an informative bash prompt when working with Git repositories'
-    - GIT_PROMPT_ONLY_IN_REPO=1
-    - . /opt/bash-git-prompt/gitprompt.sh
   become: true
   tags:
     - bash
@@ -65,28 +64,27 @@
     - git
 
 - name: Activate Bash-it
-  lineinfile:
-    dest: '{{ ansible_env.HOME }}/.bash_aliases'
+  blockinfile:
+    path: '{{ ansible_env.HOME }}/.bash_aliases'
+    block: |
+      # -- Bash-it ------
+      export BASH_IT='/opt/bash-it'
+      # export BASH_IT_THEME='bobby'
+      # export BASH_IT_REMOTE='bash-it'
+      # export GIT_HOSTING='git@git.domain.com'
+      # unset MAILCHECK
+      # export IRC_CLIENT='irssi'
+      # export TODO='t'
+      # export SCM_CHECK=true
+      # export SHORT_HOSTNAME=$(hostname -s)
+      # export SHORT_USER=${USER:0:8}
+      # export SHORT_TERM_LINE=true
+      # export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
+      # export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
+      # export BASH_IT_RELOAD_LEGACY=1
+      source "$BASH_IT"/bash_it.sh
     create: true
-    line: '{{ item }}'
     state: '{{ bool_state }}'
-  with_items:
-    - '# -- Bash-it ------'
-    - "export BASH_IT='/opt/bash-it'"
-    - "# export BASH_IT_THEME='bobby'"
-    - "# export BASH_IT_REMOTE='bash-it'"
-    - "# export GIT_HOSTING='git@git.domain.com'"
-    - "# unset MAILCHECK"
-    - "# export IRC_CLIENT='irssi'"
-    - "# export TODO='t'"
-    - "# export SCM_CHECK=true"
-    - "# export SHORT_HOSTNAME=$(hostname -s)"
-    - "# export SHORT_USER=${USER:0:8}"
-    - "# export SHORT_TERM_LINE=true"
-    - "# export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt"
-    - "# export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1"
-    - "# export BASH_IT_RELOAD_LEGACY=1"
-    - 'source "$BASH_IT"/bash_it.sh'
   tags:
     - bash
     - git

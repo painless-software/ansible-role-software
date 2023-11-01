@@ -60,22 +60,20 @@
   block:
 
     - name: ip, ipb, open, pbcopy, pbpaste
-      lineinfile:
+      blockinfile:
         path: '{{ ansible_env.HOME }}/.bash_aliases'
+        block: |
+          alias ip='ip --color'
+          alias ipb='ip --brief --color'
+          alias open='xdg-open'
+          alias pbcopy='xclip -selection clipboard'
+          alias pbpaste='xclip -selection clipboard -o'
         create: true
-        line: '{{ item }}'
         state: '{{ bool_state }}'
-      with_items:
-        - "alias ip='ip --color'"
-        - "alias ipb='ip --brief --color'"
-        - "alias open='xdg-open'"
-        - "alias pbcopy='xclip -selection clipboard'"
-        - "alias pbpaste='xclip -selection clipboard -o'"
 
     - name: auto-tmux ssh
       blockinfile:
         path: '{{ ansible_env.HOME }}/.bash_aliases'
-        create: true
         block: |
           # Auto open tmux in ssh sessions. Use `/usr/bin/ssh` for plain SSH.
           function ssh () {
@@ -83,6 +81,7 @@
             TERM=${TERM//screen\./}
             /usr/bin/ssh -t $@ "tmux attach || tmux new || bash"
           }
+        create: true
         state: '{{ bool_state }}'
 
   tags:

@@ -12,18 +12,16 @@
         state: '{{ bool_state }}'
 
     - name: Ensure user-installed Ruby Gems executables are found
-      # TODO: implement this properly (separate lines are super-fragile!)
-      lineinfile:
-        dest: '{{ ansible_env.HOME }}/.bash_aliases'
+      blockinfile:
+        path: '{{ ansible_env.HOME }}/.bash_aliases'
+        block: |
+          # Ensure Ruby Gems installed via `--user-install` are found
+          which gem > /dev/null && {
+            RUBY_USER_DIR=$(gem environment | grep 'USER INSTALLATION' | sed 's/^.* DIRECTORY: //')
+            export PATH="$PATH:${RUBY_USER_DIR}/bin"
+          } # ---
         create: true
-        line: '{{ item }}'
         state: '{{ bool_state }}'
-      with_items:
-        - '# Ensure Ruby Gems installed via `--user-install` are found'
-        - 'which gem > /dev/null && {'
-        - "  RUBY_USER_DIR=$(gem environment | grep 'USER INSTALLATION' | sed 's/^.* DIRECTORY: //')"
-        - '  export PATH="$PATH:${RUBY_USER_DIR}/bin"'
-        - '} # ---'
 
     - name: Install Ruby development dependencies
       package:
@@ -44,14 +42,13 @@
         depth: 1
 
     - name: Activate rbenv for Bash
-      lineinfile:
-        dest: '{{ ansible_env.HOME }}/.bash_aliases'
+      blockinfile:
+        path: '{{ ansible_env.HOME }}/.bash_aliases'
+        block: |
+          export RBENV_ROOT={{ ansible_env.HOME }}/.rbenv
+          export PATH="$RBENV_ROOT/bin:$PATH"
+          source <(rbenv init - bash)
         create: true
-        line: '{{ item }}'
-      with_items:
-        - 'export RBENV_ROOT={{ ansible_env.HOME }}/.rbenv'
-        - 'export PATH="$RBENV_ROOT/bin:$PATH"'
-        - 'source <(rbenv init - bash)'
 
   tags:
     - ruby
