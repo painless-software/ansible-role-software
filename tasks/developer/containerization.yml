@@ -4,18 +4,11 @@
 - name: Docker (Community Edition)
   block:
 
-    - name: Get signing keys for Docker packages
-      get_url:
+    - name: Signing key for Docker packages
+      apt_key:
         url: "https://download.docker.com/linux/{{ ansible_distribution|replace('Kali','Debian')|lower }}/gpg"
-        dest: /etc/apt/trusted.gpg.d/docker.asc
-        mode: '644'
-      when: bool_state == 'present'
-
-    - name: Remove signing key for Docker packages
-      file:
-        dest: /etc/apt/trusted.gpg.d/docker.asc
-        state: absent
-      when: bool_state == 'absent'
+        keyring: /etc/apt/trusted.gpg.d/docker.asc
+        state: '{{ bool_state }}'
 
     - name: Add APT source for Docker CE
       apt_repository:
