@@ -14,10 +14,18 @@
 - name: Element (official Matrix client)
   block:
 
-    - name: APT keys for Element
-      apt_key:
+    - name: Get signing key for Element packages
+      get_url:
         url: https://packages.element.io/debian/element-io-archive-keyring.gpg
-        state: '{{ bool_state }}'
+        dest: /etc/apt/trusted.gpg.d/element-io.asc
+        mode: '644'
+      when: bool_state == 'present'
+
+    - name: Remove signing key for Element packages
+      file:
+        dest: /etc/apt/trusted.gpg.d/element-io.asc
+        state: absent
+      when: bool_state == 'absent'
 
     - name: APT source for Element
       apt_repository:

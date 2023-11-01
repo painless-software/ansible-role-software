@@ -35,10 +35,18 @@
 - name: Vagrant (instead of outdated package from system)
   block:
 
-    - name: Signing key of Hashicorp packaging
-      apt_key:
+    - name: Get signing key for Hashicorp packages
+      get_url:
         url: https://apt.releases.hashicorp.com/gpg
-        state: '{{ bool_state }}'
+        dest: /etc/apt/trusted.gpg.d/hashicorp.asc
+        mode: '644'
+      when: bool_state == 'present'
+
+    - name: Remove signing key for Hashicorp packages
+      file:
+        path: /etc/apt/trusted.gpg.d/hashicorp.asc
+        state: absent
+      when: bool_state == 'absent'
 
     - name: APT source for Vagrant
       apt_repository:
