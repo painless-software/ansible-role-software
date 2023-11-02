@@ -45,7 +45,7 @@
         Exec=/usr/local/bin/Write
         Name=Write
         Comment=Write handwriting
-        Icon=
+        Icon=org.gnome.Software.Create
 
   become: true
   tags:
