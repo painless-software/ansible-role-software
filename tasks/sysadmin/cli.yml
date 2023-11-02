@@ -62,6 +62,7 @@
     - name: ip, ipb, open, pbcopy, pbpaste
       blockinfile:
         path: '{{ ansible_env.HOME }}/.bash_aliases'
+        marker: "# {mark} CLI ALIASES"
         block: |
           alias ip='ip --color'
           alias ipb='ip --brief --color'
@@ -74,6 +75,7 @@
     - name: auto-tmux ssh
       blockinfile:
         path: '{{ ansible_env.HOME }}/.bash_aliases'
+        marker: "# {mark} TMUX-SSH"
         block: |
           # Auto open tmux in ssh sessions. Use `/usr/bin/ssh` for plain SSH.
           function ssh () {

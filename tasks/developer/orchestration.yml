@@ -14,6 +14,7 @@
     - name: Activate Bash autocompletion for kubectl
       blockinfile:
         path: '{{ ansible_env.HOME }}/.bash_aliases'
+        marker: "# {mark} KUBECTL"
         block: |
           which kubectl > /dev/null && {
             source <(kubectl completion bash)
@@ -141,6 +142,7 @@
     - name: Activate Bash autocompletion for OpenShift CLI
       blockinfile:
         path: '{{ ansible_env.HOME }}/.bash_aliases'
+        marker: "# {mark} OPENSHIFT"
         block: |
           which oc > /dev/null && {
             source <(oc completion bash)
@@ -174,6 +176,7 @@
     - name: Activate Bash autocompletion for Minishift
       blockinfile:
         path: '{{ ansible_env.HOME }}/.bash_aliases'
+        marker: "# {mark} MINISHIFT"
         block: |
           which minishift > /dev/null && {
             source <(minishift completion bash)

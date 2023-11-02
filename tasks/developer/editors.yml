@@ -42,6 +42,7 @@
 - name: Ensure reasonably high file watch limit for JetBrains IDEs
   blockinfile:
     path: /etc/sysctl.d/60-jetbrains.conf
+    marker: "# {mark} JETBRAINS"
     block: |
       # Set inotify watch limit high enough for IntelliJ IDEA (PhpStorm, PyCharm, RubyMine, WebStorm).
       # Source: https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit

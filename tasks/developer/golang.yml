@@ -16,6 +16,7 @@
     - name: Configure PATH to local Go binaries (Bash)
       blockinfile:
         path: '{{ ansible_env.HOME }}/.bash_aliases'
+        marker: "# {mark} GOLANG"
         block: |
           export PATH="{{ ansible_env.HOME }}/go/bin:$PATH"
         create: true

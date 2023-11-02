@@ -24,10 +24,9 @@
         depth: 1
 
     - name: Desktop shortcut for PythonTurtle
-      blockinfile:
+      copy:
         dest: /usr/share/applications/PythonTurtle.desktop
-        create: true
-        block: |
+        content: |
           [Desktop Entry]
           Version=1.0
           Type=Application

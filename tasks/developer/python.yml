@@ -25,6 +25,7 @@
         - name: Activate Bash autocompletion for pip
           blockinfile:
             path: '{{ ansible_env.HOME }}/.bash_aliases'
+            marker: "# {mark} PYTHON-PIP"
             block: |
               which pip3 > /dev/null && {
                 source <(pip3 completion --bash)
@@ -74,6 +75,7 @@
         - name: Activate pyenv for Bash
           blockinfile:
             path: '{{ ansible_env.HOME }}/.bash_aliases'
+            marker: "# {mark} PYTHON-PYENV"
             block: |
               which pyenv > /dev/null && {
                 export PYENV_ROOT={{ ansible_env.HOME }}/.pyenv

@@ -14,6 +14,7 @@
     - name: Ensure user-installed Ruby Gems executables are found
       blockinfile:
         path: '{{ ansible_env.HOME }}/.bash_aliases'
+        marker: "# {mark} RUBY-GEM"
         block: |
           # Ensure Ruby Gems installed via `--user-install` are found
           which gem > /dev/null && {
@@ -44,6 +45,7 @@
     - name: Activate rbenv for Bash
       blockinfile:
         path: '{{ ansible_env.HOME }}/.bash_aliases'
+        marker: "# {mark} RUBY-RBENV"
         block: |
           which rbenv > /dev/null && {
             export RBENV_ROOT={{ ansible_env.HOME }}/.rbenv

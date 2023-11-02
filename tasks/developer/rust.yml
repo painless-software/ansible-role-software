@@ -13,6 +13,7 @@
 - name: Adjust PATH for Rust binaries built by Cargo
   blockinfile:
     path: '{{ ansible_env.HOME }}/.bash_aliases'
+    marker: "# {mark} RUST"
     block: |
       export PATH="{{ ansible_env.HOME }}/.cargo/bin:$PATH"
     create: true

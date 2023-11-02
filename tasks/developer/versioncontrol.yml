@@ -38,20 +38,16 @@
     - git
 
 - name: Activate Git prompt for Bash
-  blockinfile:
-    path: /etc/bash_completion.d/bash-git-prompt
-    block: |
+  copy:
+    dest: /etc/bash_completion.d/bash-git-prompt
+    content: |
       # Show an informative bash prompt when working with Git repositories
       GIT_PROMPT_ONLY_IN_REPO=1
       . /opt/bash-git-prompt/gitprompt.sh
-    create: true
-    state: '{{ bool_state }}'
   become: true
   tags:
     - bash
     - git
-
-# TODO: git_config name=... email=... (from host user details)
 
 - name: Install Bash-it prompt for Bash
   git:
@@ -66,6 +62,7 @@
 - name: Activate Bash-it
   blockinfile:
     path: '{{ ansible_env.HOME }}/.bash_aliases'
+    marker: "# {mark} BASH-IT"
     block: |
       # -- Bash-it ------
       export BASH_IT='/opt/bash-it'
