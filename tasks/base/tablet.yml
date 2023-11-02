@@ -35,9 +35,9 @@
       state: link
 
   - name: Desktop shortcut for Write handwriting
-    blockinfile:
+    copy:
       dest: /usr/share/applications/Write.desktop
-      block: |
+      content: |
         [Desktop Entry]
         Version=1.0
         Type=Application
@@ -46,7 +46,6 @@
         Name=Write
         Comment=Write handwriting
         Icon=
-      create: true
 
   become: true
   tags:
