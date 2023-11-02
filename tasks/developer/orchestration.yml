@@ -15,7 +15,9 @@
       blockinfile:
         path: '{{ ansible_env.HOME }}/.bash_aliases'
         block: |
-          source <(kubectl completion bash)
+          which kubectl > /dev/null && {
+            source <(kubectl completion bash)
+          }
         create: true
         state: '{{ bool_state }}'
 
@@ -140,7 +142,9 @@
       blockinfile:
         path: '{{ ansible_env.HOME }}/.bash_aliases'
         block: |
-          source <(oc completion bash)
+          which oc > /dev/null && {
+            source <(oc completion bash)
+          }
         create: true
         state: '{{ bool_state }}'
 
@@ -171,7 +175,9 @@
       blockinfile:
         path: '{{ ansible_env.HOME }}/.bash_aliases'
         block: |
-          source <(minishift completion bash)
+          which minishift > /dev/null && {
+            source <(minishift completion bash)
+          }
         create: true
         state: '{{ bool_state }}'
 

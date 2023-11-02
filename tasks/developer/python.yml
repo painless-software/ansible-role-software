@@ -26,7 +26,9 @@
           blockinfile:
             path: '{{ ansible_env.HOME }}/.bash_aliases'
             block: |
-              source <(pip3 completion --bash)
+              which pip3 > /dev/null && {
+                source <(pip3 completion --bash)
+              }
             create: true
             state: '{{ bool_state }}'
 
@@ -73,9 +75,11 @@
           blockinfile:
             path: '{{ ansible_env.HOME }}/.bash_aliases'
             block: |
-              export PYENV_ROOT={{ ansible_env.HOME }}/.pyenv
-              export PATH="$PYENV_ROOT/bin:$PATH"
-              source <(pyenv init --path)
+              which pyenv > /dev/null && {
+                export PYENV_ROOT={{ ansible_env.HOME }}/.pyenv
+                export PATH="$PYENV_ROOT/bin:$PATH"
+                source <(pyenv init --path)
+              }
             create: true
             state: '{{ bool_state }}'
 

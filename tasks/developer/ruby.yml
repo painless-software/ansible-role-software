@@ -45,9 +45,11 @@
       blockinfile:
         path: '{{ ansible_env.HOME }}/.bash_aliases'
         block: |
-          export RBENV_ROOT={{ ansible_env.HOME }}/.rbenv
-          export PATH="$RBENV_ROOT/bin:$PATH"
-          source <(rbenv init - bash)
+          which rbenv > /dev/null && {
+            export RBENV_ROOT={{ ansible_env.HOME }}/.rbenv
+            export PATH="$RBENV_ROOT/bin:$PATH"
+            source <(rbenv init - bash)
+          }
         create: true
 
   tags:

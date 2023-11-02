@@ -15,7 +15,9 @@
       blockinfile:
         path: '{{ ansible_env.HOME }}/.bash_aliases'
         block: |
-          source <(npm completion)
+          which npm > /dev/null && {
+            source <(npm completion)
+          }
         create: true
         state: '{{ bool_state }}'
 
