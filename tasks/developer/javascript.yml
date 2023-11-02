@@ -16,7 +16,7 @@
         path: '{{ ansible_env.HOME }}/.bash_aliases'
         marker: "# {mark} NPM"
         block: |
-          which npm > /dev/null && {
+          which npm &> /dev/null && {
             source <(npm completion)
           }
         create: true

@@ -17,7 +17,7 @@
         marker: "# {mark} RUBY-GEM"
         block: |
           # Ensure Ruby Gems installed via `--user-install` are found
-          which gem > /dev/null && {
+          which gem &> /dev/null && {
             RUBY_USER_DIR=$(gem environment | grep 'USER INSTALLATION' | sed 's/^.* DIRECTORY: //')
             export PATH="$PATH:${RUBY_USER_DIR}/bin"
           } # ---
@@ -47,7 +47,7 @@
         path: '{{ ansible_env.HOME }}/.bash_aliases'
         marker: "# {mark} RUBY-RBENV"
         block: |
-          which rbenv > /dev/null && {
+          which rbenv &> /dev/null && {
             export RBENV_ROOT={{ ansible_env.HOME }}/.rbenv
             export PATH="$RBENV_ROOT/bin:$PATH"
             source <(rbenv init - bash)

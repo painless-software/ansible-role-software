@@ -16,7 +16,7 @@
         path: '{{ ansible_env.HOME }}/.bash_aliases'
         marker: "# {mark} KUBECTL"
         block: |
-          which kubectl > /dev/null && {
+          which kubectl &> /dev/null && {
             source <(kubectl completion bash)
           }
         create: true
@@ -144,7 +144,7 @@
         path: '{{ ansible_env.HOME }}/.bash_aliases'
         marker: "# {mark} OPENSHIFT"
         block: |
-          which oc > /dev/null && {
+          which oc &> /dev/null && {
             source <(oc completion bash)
           }
         create: true
@@ -178,7 +178,7 @@
         path: '{{ ansible_env.HOME }}/.bash_aliases'
         marker: "# {mark} MINISHIFT"
         block: |
-          which minishift > /dev/null && {
+          which minishift &> /dev/null && {
             source <(minishift completion bash)
           }
         create: true
