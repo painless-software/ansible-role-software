@@ -27,3 +27,11 @@
   tags:
     - image-editing
     - multimedia
+
+- name: PlantUML & Graphviz (diagrams from source code)
+  package:
+    name: plantuml
+    state: '{{ state }}'
+  become: true
+  tags:
+    - drawing
