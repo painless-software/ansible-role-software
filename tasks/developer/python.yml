@@ -100,3 +100,11 @@
 
   tags:
     - python
+
+- name: Docutils (Python bindings)
+  package:
+    name: python3-docutils
+    state: '{{ state }}'
+  become: true
+  tags:
+    - docutils
