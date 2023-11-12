@@ -23,6 +23,7 @@
     - org.gnome.Contacts
     - org.gnome.Geary
     - org.gnome.Maps
+    - work.openpaper.Paperwork
   become: true
   tags:
     - gnome
