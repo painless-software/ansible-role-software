@@ -23,7 +23,6 @@
     - org.gnome.Contacts
     - org.gnome.Geary
     - org.gnome.Maps
-    - work.openpaper.Paperwork
   become: true
   tags:
     - gnome
@@ -31,3 +30,16 @@
     - contacts
     - email
     - maps
+
+# provides scanner integration out-of-the-box (unlike Flatpak)
+- name: GNOME Document Management
+  package:
+    name:
+      - paperwork-gtk
+      - paperwork-gtk-l10n-de
+      - paperwork-gtk-l10n-en
+      - paperwork-shell
+  become: true
+  tags:
+    - gnome
+    - documents
