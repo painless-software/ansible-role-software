@@ -109,9 +109,9 @@ vmware_installer: "/tmp/{{ vmware_package }}"
 vmware_install_cmd: "{{ vmware_installer }} --console --eulas-agreed --required"
 vmware_uninstall_cmd: "{{ vmware_installer}} --uninstall-product=vmware-player --required"
 
-citrix_version: '21.8.0.40'
+citrix_version: '23.9.0.24'
 citrix_package: "icaclient_{{ citrix_version }}_amd64.deb"
-citrix_baseurl: 'https://downloads.citrix.com/19785'
+citrix_baseurl: 'https://downloads.citrix.com/22227'
 citrix_overview_url: 'https://www.citrix.com/downloads/workspace-app/linux/workspace-app-for-linux-latest.html'
 citrix_hash_start_marker: '?__gda__='
 citrix_hash_stop_marker: '" id="'
