@@ -19,7 +19,7 @@ duf_package: "v{{ duf_version }}/duf_{{ duf_version }}_linux_amd64.deb"
 
 gimp_gmic_branch: '2-40'
 
-glab_version: '1.33.0'
+glab_version: '1.35.0'
 glab_baseurl: 'https://gitlab.com/gitlab-org/cli/-/releases'
 glab_package: "v{{ glab_version }}/downloads/glab_{{ glab_version }}_Linux_x86_64.deb"
 
