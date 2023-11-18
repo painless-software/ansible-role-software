@@ -130,3 +130,31 @@
   become: true
   tags:
     - zoom
+
+- name: Webex
+  block:
+
+    - name: Find out whether Webex is installed
+      command: dpkg-query -W webex
+      register: webex_installed
+      failed_when: webex_installed.rc > 1
+      changed_when: webex_installed.rc == 1
+
+    - block:
+
+        - name: Uninstall Webex
+          package:
+            name:
+              - webex
+            state: absent
+          when: bool_state == 'absent'
+
+        - name: Webex (download from website)
+          apt:
+            deb: https://binaries.webex.com/WebexDesktop-Ubuntu-Official-Package/Webex.deb
+          when: webex_installed.rc == 1 or state == 'latest'
+
+      become: true
+
+  tags:
+    - webex
