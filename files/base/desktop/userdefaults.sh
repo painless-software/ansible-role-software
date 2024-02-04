@@ -12,7 +12,7 @@ log() {
     echo -e "${color}$@${reset}"
 }
 
-SCRIPTS=$(dirname $0)/userdefaults.d
+SCRIPTS=$(dirname $(realpath $0))/userdefaults.d
 
 LEVELS=$(echo $@ | xargs)
 if test -z "${LEVELS}"; then
@@ -21,9 +21,9 @@ fi
 
 COUNT=0
 for level in ${LEVELS}; do
-    script=${SCRIPTS}/${level}-*.sh
+    script=$(realpath ${SCRIPTS}/${level}-*.sh)
 
-    if [ -x ${script} ]; then
+    if [ -x "${script}" ]; then
         log "Executing $(basename ${script}) ..."
         ${script}
         (( COUNT+=1 ))
