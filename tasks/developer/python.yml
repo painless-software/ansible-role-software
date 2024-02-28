@@ -91,9 +91,12 @@
             name:
               - libbz2-dev
               - libffi-dev
+              - liblzma-dev
+              - libncurses-dev
               - libreadline-dev
               - libsqlite3-dev
               - libssl-dev
+              - tk-dev
               - zlib1g-dev
             state: '{{ state }}'
           become: true
