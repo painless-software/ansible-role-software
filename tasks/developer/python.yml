@@ -77,9 +77,9 @@
             path: '{{ ansible_env.HOME }}/.bash_aliases'
             marker: "# {mark} PYTHON-PYENV"
             block: |
+              export PYENV_ROOT=$HOME/.pyenv
+              export PATH="$PYENV_ROOT/bin:$PATH"
               which pyenv &> /dev/null && {
-                export PYENV_ROOT={{ ansible_env.HOME }}/.pyenv
-                export PATH="$PYENV_ROOT/bin:$PATH"
                 source <(pyenv init --path)
               }
             create: true

@@ -47,9 +47,9 @@
         path: '{{ ansible_env.HOME }}/.bash_aliases'
         marker: "# {mark} RUBY-RBENV"
         block: |
+          export RBENV_ROOT=$HOME/.rbenv
+          export PATH="$RBENV_ROOT/bin:$PATH"
           which rbenv &> /dev/null && {
-            export RBENV_ROOT={{ ansible_env.HOME }}/.rbenv
-            export PATH="$RBENV_ROOT/bin:$PATH"
             source <(rbenv init - bash)
           }
         create: true
