@@ -7,6 +7,7 @@
       - git
       - git-extras
       - git-gui
+      - git-lfs
       - gitk
     state: '{{ state }}'
   become: true
