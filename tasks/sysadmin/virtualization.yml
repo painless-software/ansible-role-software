@@ -1,6 +1,20 @@
 ---
 # Software and configuration for virtualization
 
+- name: Distrobox
+  block:
+
+    - name: Remove Distrobox
+      shell: curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/uninstall | sh
+      when: bool_state == 'absent'
+
+    - name: Install/Update Distrobox
+      shell: curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sh
+      when: bool_state == 'present'
+
+  tags:
+    - distrobox
+
 - name: libvirt (incl. virt-manager)
   package:
     name:
