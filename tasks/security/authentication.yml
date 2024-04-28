@@ -1,0 +1,33 @@
+---
+# Password managers, OTP and authentication tools
+
+- name: KeePassXC offline password manager
+  snap:
+    name: keepassxc
+    state: '{{ bool_state }}'
+  become: true
+  tags:
+    - keepass
+
+- name: Bitwarden password manager
+  snap:
+    name: bitwarden
+    state: '{{ bool_state }}'
+  become: true
+  tags:
+    - bitwarden
+
+- name: GNOME Authenticator
+  flatpak:
+    name: com.belmoussaoui.Authenticator
+    state: '{{ bool_state }}'
+  tags:
+    - otp
+
+- name: OAuthTool
+  package:
+    name: oathtool
+    state: '{{ state }}'
+  become: true
+  tags:
+    - cli
