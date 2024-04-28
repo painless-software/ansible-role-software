@@ -6,33 +6,21 @@
 
     - name: Signing key for NordVPN
       apt_key:
-        url: https://repo.nordvpn.com/gpg/nordvpn_public.asc
-        keyring: /etc/apt/trusted.gpg.d/nordvpn_public.asc
+        keyserver: keyserver.ubuntu.com
+        id: BC5480EFEC5C081CE5BCFBE26B219E535C964CA1
         state: '{{ bool_state }}'
-
-    - name: Remove signing key for NordVPN
-      file:
-        dest: /etc/apt/trusted.gpg.d/nordvpn_public.asc
-        state: absent
-      when: bool_state == 'absent'
 
     - name: APT source for NordVPN
       apt_repository:
         repo: 'deb https://repo.nordvpn.com/deb/nordvpn/debian stable main'
         filename: nordvpn
         state: '{{ bool_state }}'
+        update_cache: "{{ bool_state == 'present' }}"
 
     - name: NordVPN client
       package:
         name: nordvpn
         state: '{{ state }}'
-
-    - name: Ensure user `{{ ansible_user }}` in group `nordvpn`
-      user:
-        name: '{{ ansible_user }}'
-        groups: nordvpn
-        append: yes
-      when: bool_state == 'present'
 
   become: true
   tags:
