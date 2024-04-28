@@ -1,5 +1,22 @@
 ---
-# Vulnerability scanners and penetration testing tools
+# Penetration testing tools and vulnerability scanners
+
+- name: Wireshark
+  block:
+
+    - name: Enable PPA for latest stable Wireshark
+      apt_repository:
+        repo: ppa:wireshark-dev/stable
+        state: '{{ bool_state }}'
+
+    - name: Install Wireshark
+      package:
+        name: wireshark
+        state: '{{ state }}'
+
+  become: true
+  tags:
+    - wireshark
 
 - name: Grype
   block:

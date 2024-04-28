@@ -31,18 +31,3 @@
   become: true
   tags:
     - cli
-
-- block:
-    - name: Enable PPA for latest stable Wireshark
-      apt_repository:
-        repo: ppa:wireshark-dev/stable
-        state: '{{ bool_state }}'
-
-    - name: Install Wireshark
-      package:
-        name: wireshark
-        state: '{{ state }}'
-
-  become: true
-  tags:
-    - wireshark
