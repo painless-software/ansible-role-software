@@ -5,7 +5,6 @@
   package:
     name:
       - dos2unix
-      - httpie
       - iftop
       - lolcat
       - moreutils

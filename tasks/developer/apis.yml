@@ -1,14 +1,29 @@
 ---
 # API browsers and debugging tools
 
-- name: Insomnia REST client and command line tools
-  snap:
-    name: '{{ item }}'
-    state: '{{ bool_state }}'
-  loop:
-    - insomnia
-    - jq
-    - yq
+- name: HTTPie REST client and command line tools
+  block:
+
+    - name: HTTPie Desktop client
+      flatpak:
+        name: io.httpie.Httpie
+        state: '{{ bool_state }}'
+
+    - name: HTTPie CLI client
+      pip:
+        name: httpie
+        state: '{{ state }}'
+
+    - name: jq JSON processor CLI
+      package:
+        name: jq
+        state: '{{ state }}'
+
+    - name: yq YAML processor CLI
+      snap:
+        name: yq
+        state: '{{ bool_state }}'
+
   become: true
   tags:
     - restapi
