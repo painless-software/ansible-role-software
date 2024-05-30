@@ -67,6 +67,7 @@ editors_jetbrains_ides_defaults:
   - pycharm-community
 
 editors_vscode_plugins_defaults:
+  - alexcvzz.vscode-sqlite
   - asciidoctor.asciidoctor-vscode
   - bajdzis.vscode-database
   - bbenoist.vagrant
@@ -76,6 +77,7 @@ editors_vscode_plugins_defaults:
   - ev3dev.ev3dev-browser
   - hashicorp.terraform
   - james-yu.latex-workshop
+  - janisdd.vscode-edit-csv
   - k--kato.intellij-idea-keybindings
   - lextudio.restructuredtext
   - ms-azuretools.vscode-docker
