@@ -1,0 +1,11 @@
+---
+# Database clients and tools
+
+- name: SQLite3
+  package:
+    name: sqlite3
+    state: '{{ state }}'
+  become: true
+  tags:
+    - database
+    - sqlite
