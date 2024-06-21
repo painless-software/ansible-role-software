@@ -10,6 +10,12 @@
         keyring: /etc/apt/trusted.gpg.d/docker.gpg
         state: '{{ bool_state }}'
 
+    - name: Remove signing key for Docker
+      file:
+        dest: /etc/apt/trusted.gpg.d/docker.gpg
+        state: absent
+      when: bool_state == 'absent'
+
     - name: Add APT source for Docker CE
       apt_repository:
         repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|replace('Kali','Debian')|lower }} {{ ansible_lsb.codename|replace('kali-rolling','bullseye') }} {{ item }}"
@@ -19,7 +25,7 @@
         - stable
         - edge
 
-    - name: Install system packages for working with Docker
+    - name: System packages for working with Docker
       package:
         name:
           - containerd.io

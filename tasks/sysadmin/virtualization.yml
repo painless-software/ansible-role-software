@@ -55,6 +55,12 @@
         keyring: /etc/apt/trusted.gpg.d/hashicorp.gpg
         state: '{{ bool_state }}'
 
+    - name: Remove signing key for Hashicorp
+      file:
+        dest: /etc/apt/trusted.gpg.d/hashicorp.gpg
+        state: absent
+      when: bool_state == 'absent'
+
     - name: APT source for Vagrant
       apt_repository:
         repo: 'deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_lsb.codename }} main'
