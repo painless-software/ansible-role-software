@@ -8,7 +8,14 @@
       apt_key:
         keyserver: keyserver.ubuntu.com
         id: BC5480EFEC5C081CE5BCFBE26B219E535C964CA1
+        keyring: /etc/apt/trusted.gpg.d/nordvpn.gpg
         state: '{{ bool_state }}'
+
+    - name: Remove signing key for NordVPN
+      file:
+        dest: /etc/apt/trusted.gpg.d/nordvpn.gpg
+        state: absent
+      when: bool_state == 'absent'
 
     - name: APT source for NordVPN
       apt_repository:
