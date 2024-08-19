@@ -43,3 +43,12 @@
   tags:
     - gnome
     - documents
+
+- name: PDF Arranger
+  flatpak:
+    name: 'com.github.jeromerobert.pdfarranger'
+    state: '{{ bool_state }}'
+  become: true
+  tags:
+    - gnome
+    - documents
