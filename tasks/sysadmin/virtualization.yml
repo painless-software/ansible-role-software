@@ -50,10 +50,11 @@
   block:
 
     - name: Signing key for Hashicorp packages
-      apt_key:
+      get_url:
         url: https://apt.releases.hashicorp.com/gpg
         keyring: /etc/apt/trusted.gpg.d/hashicorp.gpg
-        state: '{{ bool_state }}'
+        mode: 0644
+        force: "{{ 'yes' if state == 'latest' else 'no' }}"
 
     - name: Remove signing key for Hashicorp
       file:

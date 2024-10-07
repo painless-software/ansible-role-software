@@ -5,10 +5,11 @@
   block:
 
     - name: Signing key for NordVPN
-      apt_key:
+      get_url:
         url: https://repo.nordvpn.com/gpg/nordvpn_public.asc
         keyring: /etc/apt/trusted.gpg.d/nordvpn.gpg
-        state: '{{ bool_state }}'
+        mode: 0644
+        force: "{{ 'yes' if state == 'latest' else 'no' }}"
 
     - name: Remove signing key for NordVPN
       file:

@@ -5,10 +5,11 @@
   block:
 
     - name: Signing key for Docker packages
-      apt_key:
+      get_url:
         url: "https://download.docker.com/linux/{{ ansible_distribution|replace('Kali','Debian')|lower }}/gpg"
         keyring: /etc/apt/trusted.gpg.d/docker.gpg
-        state: '{{ bool_state }}'
+        mode: 0644
+        force: "{{ 'yes' if state == 'latest' else 'no' }}"
 
     - name: Remove signing key for Docker
       file:
@@ -16,7 +17,7 @@
         state: absent
       when: bool_state == 'absent'
 
-    - name: Add APT source for Docker CE
+    - name: APT source for Docker CE
       apt_repository:
         repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|replace('Kali','Debian')|lower }} {{ ansible_lsb.codename|replace('kali-rolling','bullseye') }} {{ item }}"
         filename: docker
