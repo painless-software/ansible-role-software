@@ -4,3 +4,4 @@
 - import_tasks: programming.yml
 - import_tasks: languages.yml
 - import_tasks: maths.yml
+- import_tasks: science.yml

@@ -1,0 +1,36 @@
+---
+# Software for various areas of science
+
+- name: QGIS
+  block:
+
+    - name: Signing key for QGIS packages
+      get_url:
+        url: https://download.qgis.org/downloads/qgis-archive-keyring.gpg
+        dest: /etc/apt/trusted.gpg.d/qgis-archive-keyring.gpg
+        mode: 0644
+        force: "{{ 'yes' if state == 'latest' else 'no' }}"
+
+    - name: Remove signing key for QGIS packages
+      file:
+        dest: /etc/apt/trusted.gpg.d/qgis-archive-keyring.gpg
+        state: absent
+      when: bool_state == 'absent'
+
+    - name: APT source for QGIS
+      apt_repository:
+        repo: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/qgis-archive-keyring.gpg] https://qgis.org/debian/ {{ ansible_distribution_release }} main'
+        filename: qgis
+        state: '{{ bool_state }}'
+        update_cache: "{{ bool_state == 'present' }}"
+
+    - name: QGIS Desktop client
+      package:
+        name:
+          - qgis
+          - qgis-plugin-grass
+        state: '{{ state }}'
+
+  become: true
+  tags:
+    - geography
