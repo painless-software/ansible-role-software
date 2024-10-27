@@ -38,6 +38,8 @@
         name: pipenv
         state: '{{ state }}'
       become: true
+      tags:
+        - pipenv
 
     - name: Poetry (Python dependency management and packaging)
       block:
@@ -62,6 +64,9 @@
               args:
                 creates: "{{ ansible_env.HOME }}/.bash_completion"
               when: bool_state in ['present', 'latest']
+
+      tags:
+        - poetry
 
     - name: pyenv (Python version management)
       block:
@@ -100,6 +105,17 @@
               - zlib1g-dev
             state: '{{ state }}'
           become: true
+
+      tags:
+        - pyenv
+
+    - name: uv (the universal Python project and package manager)
+      pip:
+        name: uv
+        state: '{{ state }}'
+      become: true
+      tags:
+        - uv
 
   tags:
     - python
