@@ -4,7 +4,7 @@
 - name: The GNOME Desktop
   block:
 
-    - name: Ensure GNOME desktop functionality (from ubuntu-desktop-minial)
+    - name: Ensure GNOME desktop functionality (from ubuntu-desktop-minimal)
       package:
         name:
           - gnome-shell-extension-appindicator
