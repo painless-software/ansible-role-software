@@ -41,11 +41,12 @@
   tags:
     - puppet
 
-- name: Terraform
+- name: OpenTofu (fork of Terraform)
   snap:
-    name: terraform
+    name: opentofu
     classic: yes
     state: '{{ bool_state }}'
   become: true
   tags:
+    - opentofu
     - terraform
