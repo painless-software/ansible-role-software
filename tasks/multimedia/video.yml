@@ -31,6 +31,14 @@
       tags:
         - video-watching
 
+    - name: FreeTube (flatpak)
+      flatpak:
+        name: io.freetubeapp.FreeTube
+        state: '{{ bool_state }}'
+      become: true
+      tags:
+        - video-watching
+
     - name: yt-dlp (YouTube downloader)
       pip:
         name: yt-dlp
